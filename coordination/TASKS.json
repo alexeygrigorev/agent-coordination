@@ -1,46 +1,69 @@
 {
   "schema_version": 1,
   "project_id": "agent-coordination",
-  "updated_at": "2026-10-04T11:46:00Z",
+  "updated_at": "2026-10-04T12:04:00Z",
+  "head": {
+    "tag": "agent-coordination-head",
+    "session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+    "first_action": "aplexer whoami --json",
+    "first_action_at": "2026-10-04T11:41:38Z"
+  },
+  "pins": {
+    "agent-coordination": "8e9e3727f9bfcb2aaf4c8970b66cbb26affcafa0",
+    "agent-bus": "06addf9ec875532feae40479c8e64ea11cb600db"
+  },
   "tasks": [
     {
       "id": "ac-stdlib-ssh-relay",
       "project_id": "agent-coordination",
-      "owner_tag": "ac-relay-exec",
-      "parent_tag": "agent-coordination-head",
-      "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "running",
-      "owned_paths": ["coordination/", "tests/"],
-      "acceptance": "stdlib SSH relay with device allowlist, send-time catalog, namespaced IDs, separated receipt/read-ACK/outcome, idempotent retry, draft/busy guards; pytest green; localhost is not cross-computer proof",
-      "next_action": "extend first-code tests for reconnect/offline cursor; keep FakeTransport separate from live SSH",
-      "expected_checkpoint": "2026-10-04T12:10:00Z",
-      "first_action": "pending executor whoami"
-    },
-    {
-      "id": "ac-cli-adapter-docs",
-      "project_id": "agent-coordination",
       "owner_tag": "ac-adapter-exec",
+      "owner_session_id": "cd07e46a-b698-4e3c-a98c-9d91b913594b",
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
       "status": "running",
       "owned_paths": ["adapters/", "docs/"],
-      "acceptance": "CLI adapter + Windows client + topology/Cloudflare/host-admission/desktop-test docs; no native CLI source edits",
-      "next_action": "deepen adapter against installed aplexer --help; keep Cloudflare comparison sourced",
-      "expected_checkpoint": "2026-10-04T12:10:00Z",
-      "first_action": "pending executor whoami"
+      "acceptance": "typed SSH stdin RPC, fail-closed missing native receipt, Windows origin is ssh-client not forged aplexer session; pytest plus desktop two-host when requested",
+      "next_action": "typed RPC + quoting; fail-closed receipt; desktop contract remains nomination",
+      "expected_checkpoint": "2026-10-04T12:40:00Z",
+      "first_action": {
+        "tool": "aplexer whoami --json",
+        "at": "2026-10-04T12:02:40Z",
+        "path": ".local/ac-adapter-exec-first-action.json"
+      }
     },
     {
-      "id": "ac-independent-review",
-      "project_id": "agent-coordination",
-      "owner_tag": "ac-reviewer",
+      "id": "ac-bus-core",
+      "project_id": "agent-bus",
+      "owner_tag": "ac-bus-core",
+      "owner_session_id": "6168aae7-0f3d-44b1-a749-6e195235b079",
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "ready",
+      "status": "running",
+      "owned_paths": ["coordination/", "tests/"],
+      "workspace": "/home/alexey/git/agent-bus",
+      "acceptance": "REQUEST_CHANGES: shortwrite/dir-fsync, transactional register, project-scope inbox, reply recipient check, real consumer dogfood; FileBus seed is harness not uptake",
+      "next_action": "implement recoverable writes and actual headless consumer task",
+      "expected_checkpoint": "2026-10-04T12:40:00Z",
+      "first_action": {
+        "tool": "aplexer whoami --json",
+        "path": "/home/alexey/git/agent-bus/.local/ac-bus-core-first-action.json",
+        "clock_quality": "weak_midnight_timestamp"
+      }
+    },
+    {
+      "id": "ac-bus-review",
+      "project_id": "agent-bus",
+      "owner_tag": "ac-bus-reviewer",
+      "owner_session_id": "f869e27c-6cfc-483b-bb08-2ca25e09e9d3",
+      "parent_tag": "agent-coordination-head",
+      "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+      "status": "running",
       "owned_paths": ["reviews/"],
-      "acceptance": "verdict on exact pin + tests + negatives; localhost tests are not two-computer proof",
-      "next_action": "review first pin after tests and commit SHA exist",
-      "expected_checkpoint": "2026-10-04T12:20:00Z",
-      "first_action": "pending reviewer whoami"
+      "workspace": "/home/alexey/git/agent-bus",
+      "acceptance": "verdict on pin 06addf9 plus later core pin; localhost not cross-host",
+      "next_action": "first-action whoami file still pending as of 12:04Z",
+      "expected_checkpoint": "2026-10-04T12:40:00Z",
+      "first_action": "pending"
     }
   ]
 }
