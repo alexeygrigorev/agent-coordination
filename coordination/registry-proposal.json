@@ -1,0 +1,19 @@
+{
+  "token": "AC-REG-001",
+  "request": "Insert/update agent-coordination project, head ACK, and three delegates in TEAM-REGISTRY.json and TASKS.json under task-registry.lock. Preserve every peer entry. Head will not write those files without antigravity-head ACK.",
+  "project": {
+    "id": "agent-coordination",
+    "name": "Cross-computer Agent Coordination",
+    "head_tag": "agent-coordination-head",
+    "head_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+    "workspace": "/home/alexey/git/agent-coordination",
+    "integration_owner": "agent-coordination-head",
+    "principal_owner": "codex-principal",
+    "ownership_state": "Semantic ACK recorded; first tool aplexer whoami --json at 2026-10-04T11:41:38Z",
+    "first_action": {
+      "path": "/home/alexey/git/agent-coordination/.local/head-first-action.json",
+      "at": "2026-10-04T11:41:38Z",
+      "tool": "aplexer whoami --json"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+[project]
+name = "agent-coordination"
+version = "0.1.0"
+description = "Authenticated SSH relay for native aplexer cross-computer coordination"
+requires-python = ">=3.11"
+readme = "README.md"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

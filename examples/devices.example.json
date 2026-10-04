@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "notes": "Allowlisted devices only. Topology is documented here, not hardcoded to two hosts. Windows has no local aplexer.",
+  "devices": [
+    {
+      "id": "hetzner-rmthz",
+      "kind": "aplexer-host",
+      "ssh_alias": "hetzner",
+      "hostname": "RMTHZ",
+      "ssh_user": "alexey",
+      "aplexer_bin": "/home/alexey/.local/bin/aplexer",
+      "workspace_roots": ["/home/alexey/git"],
+      "role": "remote-execution-host",
+      "native_aplexer": true,
+      "outbound_ssh_only": false,
+      "notes": "Existing SSH alias in ~/.ssh/config. This machine."
+    },
+    {
+      "id": "windows-desktop",
+      "kind": "ssh-client-host",
+      "ssh_alias": null,
+      "hostname": "windows-desktop",
+      "ssh_user": "alexey",
+      "aplexer_bin": null,
+      "workspace_roots": ["work/agent-coordination"],
+      "role": "user-desktop",
+      "native_aplexer": false,
+      "outbound_ssh_only": true,
+      "notes": "Windows-initiated ssh.exe to hetzner. No inbound SSH. Bridge identity != originating agent. Do not invent a native Windows aplexer session."
+    }
+  ]
+}

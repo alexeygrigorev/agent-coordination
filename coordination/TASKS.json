@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "project_id": "agent-coordination",
+  "updated_at": "2026-10-04T11:46:00Z",
+  "tasks": [
+    {
+      "id": "ac-stdlib-ssh-relay",
+      "project_id": "agent-coordination",
+      "owner_tag": "ac-relay-exec",
+      "parent_tag": "agent-coordination-head",
+      "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+      "status": "running",
+      "owned_paths": ["coordination/", "tests/"],
+      "acceptance": "stdlib SSH relay with device allowlist, send-time catalog, namespaced IDs, separated receipt/read-ACK/outcome, idempotent retry, draft/busy guards; pytest green; localhost is not cross-computer proof",
+      "next_action": "extend first-code tests for reconnect/offline cursor; keep FakeTransport separate from live SSH",
+      "expected_checkpoint": "2026-10-04T12:10:00Z",
+      "first_action": "pending executor whoami"
+    },
+    {
+      "id": "ac-cli-adapter-docs",
+      "project_id": "agent-coordination",
+      "owner_tag": "ac-adapter-exec",
+      "parent_tag": "agent-coordination-head",
+      "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+      "status": "running",
+      "owned_paths": ["adapters/", "docs/"],
+      "acceptance": "CLI adapter + Windows client + topology/Cloudflare/host-admission/desktop-test docs; no native CLI source edits",
+      "next_action": "deepen adapter against installed aplexer --help; keep Cloudflare comparison sourced",
+      "expected_checkpoint": "2026-10-04T12:10:00Z",
+      "first_action": "pending executor whoami"
+    },
+    {
+      "id": "ac-independent-review",
+      "project_id": "agent-coordination",
+      "owner_tag": "ac-reviewer",
+      "parent_tag": "agent-coordination-head",
+      "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+      "status": "ready",
+      "owned_paths": ["reviews/"],
+      "acceptance": "verdict on exact pin + tests + negatives; localhost tests are not two-computer proof",
+      "next_action": "review first pin after tests and commit SHA exist",
+      "expected_checkpoint": "2026-10-04T12:20:00Z",
+      "first_action": "pending reviewer whoami"
+    }
+  ]
+}
