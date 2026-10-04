@@ -9,7 +9,7 @@
     "first_action_at": "2026-10-04T11:41:38Z"
   },
   "pins": {
-    "agent-coordination": "0eba05f",
+    "agent-coordination": "a412ceaad7aa3f8254c524161b8cb4b2725480f4",
     "agent-bus": "f3295f99e188719f5df9fccb22706d8a0e5bb8f8"
   },
   "budget": {
