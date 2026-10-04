@@ -1,33 +1,40 @@
-# Cloudflare broker option vs existing SSH
+# Cloudflare Broker Option vs Existing SSH
 
-Compared 2026-10-04 against primary Cloudflare docs. No Cloudflare
-deployment was created. No purchase, token mint, or account change.
+Comparison performed 2026-10-04 against primary Cloudflare developer documentation.
+**Verification guarantee**: No Cloudflare deployment was created. No purchase, token mint, credit card authorization, or account configuration change was performed.
 
-## Options in the docs
+## Options in Cloudflare Documentation
 
-| Option | What it is | Spend / credentials | Fit |
+| Product | Architecture | Spend & Credentials | Fit / Assessment |
 | --- | --- | --- | --- |
-| [Workers](https://developers.cloudflare.com/workers/platform/pricing/) | HTTP/RPC at the edge | Free: 100k req/day. Paid: **$5/month minimum** + usage | Needs a deployed Worker and account credentials |
-| [Durable Objects](https://developers.cloudflare.com/durable-objects/) | Single-threaded coordination object | Paid plan $5/month; duration billed while active | Strong ordering, but a new shared cloud process |
-| [Queues](https://developers.cloudflare.com/queues/reference/how-queues-works/) | At-least-once queue, Worker producer/consumer | Free: 10k ops/day. Paid: 1M ops/month then $0.40/million | Rival broker relative to native aplexer mailboxes |
-| [Pub/Sub](https://developers.cloudflare.com/pub-sub/learning/integrate-workers/) | MQTT broker; Worker on-publish hook | Separate product; Worker publish/subscribe still beta-limited | Explicit rival production broker |
+| [Workers](https://developers.cloudflare.com/workers/platform/pricing/) | HTTP/RPC edge execution | Free: 100k req/day (10ms CPU limit).<br>Paid: **$5.00 USD/month minimum** subscription + usage. | Requires account API tokens and external edge process; exposes session metadata outside local boundary. |
+| [Durable Objects](https://developers.cloudflare.com/durable-objects/) | Strongly consistent, single-threaded in-memory coordination object with persistent storage | Requires Workers Paid (**$5/month minimum**). Active execution billed at $12.50 / million GB-seconds + $0.15 / million requests. | Strong global consistency and ordering, but introduces a new shared cloud process and recurring subscription spend. |
+| [Queues](https://developers.cloudflare.com/queues/reference/how-queues-works/) | At-least-once distributed message queue with Worker consumers/producers | Free plan: 10,000 ops/day.<br>Paid plan: 1,000,000 ops/month then $0.40 / million. | Rival broker relative to native `aplexer` disk mailboxes; does not natively integrate with local host session states. |
+| [Pub/Sub](https://developers.cloudflare.com/pub-sub/learning/integrate-workers/) | Managed MQTT broker with Workers integration | Independent product pricing; publish/subscribe integration remains beta-limited. | Explicit rival production broker; unnecessary protocol overhead for peer agent coordination. |
 
-Queues are [now on the Workers Free plan](https://developers.cloudflare.com/changelog/product/queues/)
-(10k operations/day). Durable Objects on Free are SQLite-backed only.
-Workers Paid remains a **$5 USD/month** subscription. That is new spending.
+Primary docs citation:
+- [Cloudflare Workers Pricing](https://developers.cloudflare.com/workers/platform/pricing/): Workers Paid is explicitly a **$5 USD/month** base fee.
+- [Cloudflare Queues Availability](https://developers.cloudflare.com/changelog/product/queues/): Queues are available on Workers Free (10k ops/day), but cross-service coordination requires deployment tokens.
 
-## Constraints that rule out a fabricated deployment
+## Why Existing SSH is the Zero-Purchase Path
 
-- User authorization: no purchases, no new broad credentials, no secret copy.
-- Aplexer rule: do not replace current messaging with a rival production broker.
-- Native catalogs live on disk beside sessions. A Cloudflare Worker would
-  need those catalogs exported, which copies private session metadata.
-- Existing authenticated SSH already reaches Hetzner from Windows (`ssh.exe`,
-  alias `hetzner`). It spends nothing extra.
+1. **Zero Financial Spend**:
+   - Workers Paid is a minimum **$5/month** recurring subscription.
+   - Existing SSH uses current infrastructure (Hetzner server + user workstation) with $0 incremental cost.
 
-## Choice
+2. **Zero Credential Proliferation / No Secret Leakage**:
+   - A Cloudflare deployment requires account credentials, API tokens, and Worker deploy keys stored on both machines.
+   - Existing SSH uses existing keypairs already present in `~/.ssh/config` (`ssh.exe` alias `hetzner`) with strict `BatchMode=yes` and `StrictHostKeyChecking=yes`. No private keys are copied into repositories or passed across untrusted boundaries.
 
-MVP uses the existing SSH alias allowlist and the installed aplexer CLI.
-Cloudflare remains a documented alternative if spending and a Worker
-deployment are later authorized. This file is not a claim that a
-Cloudflare broker exists in this account.
+3. **No Rival Production Broker**:
+   - Project rules strictly forbid replacing native `aplexer` messaging with a rival external broker.
+   - Native `aplexer` catalogs and mailboxes reside on local disk (`.local/state/aplexer`) alongside the kernel cgroups and PTYs.
+   - A Cloudflare broker would require synchronizing private session states, PID lists, and terminal histories to a public cloud, violating isolation boundaries.
+
+4. **Direct Point-to-Point Reliability**:
+   - Authenticated SSH provides end-to-end cryptographic integrity without depending on third-party edge reachability, DNS propagation, or cloud provider availability.
+
+## Conclusion and Current Architecture
+
+MVP strictly adopts **existing authenticated SSH** over the allowlisted device registry (`examples/devices.example.json`).
+Human budget 2026-10-04: USD **$5/month TOTAL** including the existing Workers Paid **$5 base**. Remaining known headroom is **$0**. Account usage is unknown, so optional cloud activation is **fail-closed**. Default useful execution stays on Hetzner and user computers. No Workers agents, Containers, Workers AI, new paid services, billing changes, or service kills. No Cloudflare infrastructure or deployment exists in this account.

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project_id": "agent-coordination",
-  "updated_at": "2026-10-04T12:06:47Z",
+  "updated_at": "2026-10-04T12:19:18Z",
   "head": {
     "tag": "agent-coordination-head",
     "session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
@@ -9,8 +9,24 @@
     "first_action_at": "2026-10-04T11:41:38Z"
   },
   "pins": {
-    "agent-coordination": "8e9e3727f9bfcb2aaf4c8970b66cbb26affcafa0",
+    "agent-coordination": "0eba05f",
     "agent-bus": "f3295f99e188719f5df9fccb22706d8a0e5bb8f8"
+  },
+  "budget": {
+    "cloud_usd_per_month_total": 5,
+    "includes_existing_base_usd": 5,
+    "remaining_known_headroom_usd": 0,
+    "account_usage": "unknown",
+    "optional_cloud": "fail_closed",
+    "default_execution": "Hetzner and user computers",
+    "forbidden": [
+      "Workers agents",
+      "Containers",
+      "Workers AI",
+      "new paid services",
+      "billing change",
+      "service kill"
+    ]
   },
   "tasks": [
     {
@@ -20,25 +36,35 @@
       "owner_session_id": "cd07e46a-b698-4e3c-a98c-9d91b913594b",
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "running",
+      "status": "exited_unpinned",
       "owned_paths": [
         "adapters/",
         "docs/"
       ],
-      "acceptance": "typed SSH stdin RPC, fail-closed missing native receipt, Windows origin is ssh-client not forged aplexer session; pytest plus desktop two-host when requested",
-      "next_action": "typed RPC + quoting; fail-closed receipt; desktop contract remains nomination",
-      "expected_checkpoint": "2026-10-04T12:40:00Z",
+      "acceptance": "typed SSH stdin RPC, fail-closed missing native receipt, Windows origin is ssh-client not forged aplexer session; independent review of exact pin; desktop two-host when requested",
+      "next_action": "no relaunch; leave uncommitted adapters/docs for exact pin after core negatives; independent review of typed stdin RPC with corrected core pin before Windows test",
+      "expected_checkpoint": "2026-10-04T13:00:00Z",
       "first_action": {
         "tool": "aplexer whoami --json",
         "at": "2026-10-04T12:02:40Z",
         "path": ".local/ac-adapter-exec-first-action.json"
+      },
+      "exit_inspect": {
+        "aplexer_status": "no matching session",
+        "systemd_cpu": "1min 15.352s",
+        "systemd_memory_peak": "16.1M",
+        "cgroup_consumed_local": "2026-10-04T14:09:18",
+        "head_pytest": "31 passed",
+        "inspect_path": ".local/ac-adapter-inspect.json",
+        "relaunch": false
       }
     },
     {
       "id": "ac-bus-core",
       "project_id": "agent-bus",
       "owner_tag": "ac-bus-core",
-      "owner_session_id": "6168aae7-0f3d-44b1-a749-6e195235b079",
+      "owner_session_id": "207a93f9-83ae-4157-9272-01c384039146",
+      "predecessor_session_id": "6168aae7-0f3d-44b1-a749-6e195235b079",
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
       "status": "running",
@@ -47,13 +73,16 @@
         "tests/"
       ],
       "workspace": "/home/alexey/git/agent-bus",
-      "acceptance": "REQUEST_CHANGES: shortwrite/dir-fsync, transactional register, project-scope inbox, reply recipient check, real consumer dogfood; FileBus seed is harness not uptake",
-      "next_action": "implement REV-BUS-CORE required fixes 1-5 plus REQUEST_CHANGES",
-      "expected_checkpoint": "2026-10-04T12:40:00Z",
+      "acceptance": "REQUEST_CHANGES plus live root negatives: unrelated identity send(kind=reply) rejected; different-project reply_to rejected; changed kind/reply_to reused idempotency conflicts; then exact pin",
+      "next_action": "repair three live send() holes; add pytest; pin. AC-CORE-DONE is receipt not acceptance",
+      "expected_checkpoint": "2026-10-04T13:00:00Z",
       "first_action": {
         "tool": "aplexer whoami --json",
         "path": "/home/alexey/git/agent-bus/.local/ac-bus-core-first-action.json",
-        "clock_quality": "weak_midnight_timestamp"
+        "clock_quality": "unknown",
+        "whoami_id": "6168aae7-0f3d-44b1-a749-6e195235b079",
+        "whoami_created_at_ms": 1791115352033,
+        "first_action_at": null
       },
       "blocked_on": []
     },
@@ -69,16 +98,70 @@
         "reviews/"
       ],
       "workspace": "/home/alexey/git/agent-bus",
-      "acceptance": "verdict on pin 06addf9 plus later core pin; localhost not cross-host",
-      "next_action": "core implements required fixes; next review after new pin",
+      "acceptance": "verdict on pin 06addf9; localhost not cross-host; --auto supported; do not restart duplicate reviewer",
+      "next_action": "new independent reviewer only after exact corrected core + typed stdin RPC pins",
       "expected_checkpoint": "2026-10-04T12:40:00Z",
       "first_action": "pending",
       "acceptance_status": "ACCEPT_WITH_FIXES",
+      "milestone": false,
+      "missed_root_negatives": [
+        "unrelated identity send(kind=reply, reply_to) accepted",
+        "different-project reply_to accepted",
+        "changed kind/reply_to reused idempotency id accepted"
+      ],
       "evidence_paths": [
         "/home/alexey/git/agent-bus/reviews/REV-BUS-CORE.md"
       ],
       "pin": "f3295f99e188719f5df9fccb22706d8a0e5bb8f8",
-      "accepted_at": "2026-10-04T12:06:47Z"
+      "accepted_at": "2026-10-04T12:06:47Z",
+      "auto_exit": true
+    },
+    {
+      "id": "ac-oct5-budget-report",
+      "project_id": "agent-coordination",
+      "owner_tag": "agent-coordination-head",
+      "owner_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+      "status": "scheduled",
+      "owned_paths": [
+        "coordination/TASKS.json",
+        ".local/"
+      ],
+      "acceptance": "Oct 5 sourced execution-vs-relay calculation; account usage unknown; no implicit cloud cap from $5 base; recommendation stay on Hetzner/user computers",
+      "next_action": "include in four-project hourly analytics report 2026-10-05",
+      "due": "2026-10-05",
+      "source": [
+        "01a106d2-c62c-7b42-99d1-24f72cee0a44",
+        "/home/alexey/git/cloudflare-agent-git/experiment/human-cloudflare-budget-20261004.txt"
+      ]
+    },
+    {
+      "id": "ac-independent-review-corrected-pins",
+      "project_id": "agent-coordination",
+      "owner_tag": "agent-coordination-head",
+      "owner_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+      "status": "blocked",
+      "blocked_on": [
+        "ac-bus-core exact pin with live negatives closed",
+        "ac-stdlib-ssh-relay exact typed stdin RPC pin"
+      ],
+      "acceptance": "independent reviewer of exact corrected core + typed stdin RPC pin; localhost review is not cross-host acceptance",
+      "next_action": "launch NEW reviewer after pins exist; do not restart f869e27c",
+      "gates": [
+        "root Windows two-host test",
+        "actual two-host offline recovery"
+      ]
+    },
+    {
+      "id": "ac-no-session-bus-consumer-dogfood",
+      "project_id": "agent-bus",
+      "owner_tag": "agent-coordination-head",
+      "owner_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
+      "status": "blocked",
+      "blocked_on": [
+        "ac-bus-core minimally safe including live send() negatives"
+      ],
+      "acceptance": "PRIVATE fresh store umask 077; distinct sender/receiver bus IDs; enqueue real review; allowed model headless WITHOUT aplexer session; restart same bus credential; consumer writes own review/outcome+digest; capture real model/backend/usage",
+      "next_action": "run after core negatives repaired; core in-process worker 6671527e is not this dogfood"
     }
   ]
 }
