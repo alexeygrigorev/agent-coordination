@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project_id": "agent-coordination",
-  "updated_at": "2026-10-04T12:04:00Z",
+  "updated_at": "2026-10-04T12:06:47Z",
   "head": {
     "tag": "agent-coordination-head",
     "session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
@@ -10,7 +10,7 @@
   },
   "pins": {
     "agent-coordination": "8e9e3727f9bfcb2aaf4c8970b66cbb26affcafa0",
-    "agent-bus": "06addf9ec875532feae40479c8e64ea11cb600db"
+    "agent-bus": "f3295f99e188719f5df9fccb22706d8a0e5bb8f8"
   },
   "tasks": [
     {
@@ -21,7 +21,10 @@
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
       "status": "running",
-      "owned_paths": ["adapters/", "docs/"],
+      "owned_paths": [
+        "adapters/",
+        "docs/"
+      ],
       "acceptance": "typed SSH stdin RPC, fail-closed missing native receipt, Windows origin is ssh-client not forged aplexer session; pytest plus desktop two-host when requested",
       "next_action": "typed RPC + quoting; fail-closed receipt; desktop contract remains nomination",
       "expected_checkpoint": "2026-10-04T12:40:00Z",
@@ -39,16 +42,20 @@
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
       "status": "running",
-      "owned_paths": ["coordination/", "tests/"],
+      "owned_paths": [
+        "coordination/",
+        "tests/"
+      ],
       "workspace": "/home/alexey/git/agent-bus",
       "acceptance": "REQUEST_CHANGES: shortwrite/dir-fsync, transactional register, project-scope inbox, reply recipient check, real consumer dogfood; FileBus seed is harness not uptake",
-      "next_action": "implement recoverable writes and actual headless consumer task",
+      "next_action": "implement REV-BUS-CORE required fixes 1-5 plus REQUEST_CHANGES",
       "expected_checkpoint": "2026-10-04T12:40:00Z",
       "first_action": {
         "tool": "aplexer whoami --json",
         "path": "/home/alexey/git/agent-bus/.local/ac-bus-core-first-action.json",
         "clock_quality": "weak_midnight_timestamp"
-      }
+      },
+      "blocked_on": []
     },
     {
       "id": "ac-bus-review",
@@ -57,13 +64,21 @@
       "owner_session_id": "f869e27c-6cfc-483b-bb08-2ca25e09e9d3",
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "running",
-      "owned_paths": ["reviews/"],
+      "status": "done",
+      "owned_paths": [
+        "reviews/"
+      ],
       "workspace": "/home/alexey/git/agent-bus",
       "acceptance": "verdict on pin 06addf9 plus later core pin; localhost not cross-host",
-      "next_action": "first-action whoami file still pending as of 12:04Z",
+      "next_action": "core implements required fixes; next review after new pin",
       "expected_checkpoint": "2026-10-04T12:40:00Z",
-      "first_action": "pending"
+      "first_action": "pending",
+      "acceptance_status": "ACCEPT_WITH_FIXES",
+      "evidence_paths": [
+        "/home/alexey/git/agent-bus/reviews/REV-BUS-CORE.md"
+      ],
+      "pin": "f3295f99e188719f5df9fccb22706d8a0e5bb8f8",
+      "accepted_at": "2026-10-04T12:06:47Z"
     }
   ]
 }
