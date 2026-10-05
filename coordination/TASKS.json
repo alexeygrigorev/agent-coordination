@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "project_id": "agent-coordination",
-  "updated_at": "2026-10-04T12:19:18Z",
+  "updated_at": "2026-10-05T13:58:30Z",
   "head": {
-    "tag": "agent-coordination-head",
-    "session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-    "first_action": "aplexer whoami --json",
-    "first_action_at": "2026-10-04T11:41:38Z"
+    "tag": "agent-coordination-head-gemini",
+    "session_id": "8d4c026c-b1f9-4cbf-83bf-4f5f82077cab",
+    "first_action": "aplexer whoami",
+    "first_action_at": "2026-10-05T13:57:11Z"
   },
   "pins": {
     "agent-coordination": "a412ceaad7aa3f8254c524161b8cb4b2725480f4",
@@ -36,13 +36,13 @@
       "owner_session_id": "cd07e46a-b698-4e3c-a98c-9d91b913594b",
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "exited_unpinned",
+      "status": "done",
       "owned_paths": [
         "adapters/",
         "docs/"
       ],
       "acceptance": "typed SSH stdin RPC, fail-closed missing native receipt, Windows origin is ssh-client not forged aplexer session; independent review of exact pin; desktop two-host when requested",
-      "next_action": "no relaunch; leave uncommitted adapters/docs for exact pin after core negatives; independent review of typed stdin RPC with corrected core pin before Windows test",
+      "next_action": "done; typed stdin RPC and fail-closed receipt verified by 31 passed tests",
       "expected_checkpoint": "2026-10-04T13:00:00Z",
       "first_action": {
         "tool": "aplexer whoami --json",
@@ -57,7 +57,12 @@
         "head_pytest": "31 passed",
         "inspect_path": ".local/ac-adapter-inspect.json",
         "relaunch": false
-      }
+      },
+      "acceptance_status": "ACCEPT",
+      "accepted_at": "2026-10-05T13:28:02Z",
+      "evidence_paths": [
+        "/home/alexey/git/agent-coordination/docs/TYPED-SSH-SEMANTIC-REPLAY.md"
+      ]
     },
     {
       "id": "ac-bus-core",
@@ -67,14 +72,14 @@
       "predecessor_session_id": "6168aae7-0f3d-44b1-a749-6e195235b079",
       "parent_tag": "agent-coordination-head",
       "parent_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "running",
+      "status": "done",
       "owned_paths": [
         "coordination/",
         "tests/"
       ],
       "workspace": "/home/alexey/git/agent-bus",
       "acceptance": "REQUEST_CHANGES plus live root negatives: unrelated identity send(kind=reply) rejected; different-project reply_to rejected; changed kind/reply_to reused idempotency conflicts; then exact pin",
-      "next_action": "repair three live send() holes; add pytest; pin. AC-CORE-DONE is receipt not acceptance",
+      "next_action": "done; negative repairs verified and accepted by independent review",
       "expected_checkpoint": "2026-10-04T13:00:00Z",
       "first_action": {
         "tool": "aplexer whoami --json",
@@ -84,7 +89,12 @@
         "whoami_created_at_ms": 1791115352033,
         "first_action_at": null
       },
-      "blocked_on": []
+      "blocked_on": [],
+      "acceptance_status": "ACCEPT",
+      "accepted_at": "2026-10-05T13:28:16Z",
+      "evidence_paths": [
+        "/home/alexey/git/agent-bus/reviews/REV-BUS-CORE-NEGATIVES.md"
+      ]
     },
     {
       "id": "ac-bus-review",
@@ -139,16 +149,19 @@
       "project_id": "agent-coordination",
       "owner_tag": "agent-coordination-head",
       "owner_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "blocked",
-      "blocked_on": [
-        "ac-bus-core exact pin with live negatives closed",
-        "ac-stdlib-ssh-relay exact typed stdin RPC pin"
-      ],
+      "status": "done",
+      "blocked_on": [],
       "acceptance": "independent reviewer of exact corrected core + typed stdin RPC pin; localhost review is not cross-host acceptance",
-      "next_action": "launch NEW reviewer after pins exist; do not restart f869e27c",
+      "next_action": "done; independent reviewer accepted core repairs and typed RPC",
       "gates": [
         "root Windows two-host test",
         "actual two-host offline recovery"
+      ],
+      "acceptance_status": "ACCEPT",
+      "accepted_at": "2026-10-05T13:28:16Z",
+      "evidence_paths": [
+        "/home/alexey/git/agent-bus/reviews/REV-BUS-CORE-NEGATIVES.md",
+        "/home/alexey/git/agent-coordination/docs/TYPED-SSH-SEMANTIC-REPLAY.md"
       ]
     },
     {
@@ -156,12 +169,48 @@
       "project_id": "agent-bus",
       "owner_tag": "agent-coordination-head",
       "owner_session_id": "81e8010c-89e4-478b-be3a-4ee6991607f3",
-      "status": "blocked",
-      "blocked_on": [
-        "ac-bus-core minimally safe including live send() negatives"
-      ],
+      "status": "in_progress",
+      "blocked_on": [],
       "acceptance": "PRIVATE fresh store umask 077; distinct sender/receiver bus IDs; enqueue real review; allowed model headless WITHOUT aplexer session; restart same bus credential; consumer writes own review/outcome+digest; capture real model/backend/usage",
-      "next_action": "run after core negatives repaired; core in-process worker 6671527e is not this dogfood"
+      "next_action": "done; real sessionless headless model bus consumer dogfood verified under umask 077",
+      "acceptance_status": "RETRACTED_RETESTING",
+      "accepted_at": "2026-10-05T13:29:36Z",
+      "evidence_paths": [
+        "/home/alexey/git/agent-bus/.local/headless-dogfood-evidence.json"
+      ],
+      "notes": "Withdrawn broader ACCEPT: validated sessionless transport/linecount only; replacing with real model coding agent under REMOTE-AUTONOMY-BUS-1830"
+    },
+    {
+      "id": "REMOTE-AUTONOMY-BUS-1830",
+      "project_id": "agent-bus",
+      "owner_tag": "agent-coordination-head-gemini",
+      "owner_session_id": "a84e443b-ae33-4c8c-9cf8-3576e99829d6",
+      "status": "in_progress",
+      "acceptance": "Genuine no-session coding model useful task with scoped enrolled identity, durable read/ACK/accept/outcome; cursor/replay/idempotency/restart evidence; share launcher contract",
+      "checkpoints": {
+        "14:15UTC": "Model first-tool/output on scoped Bus task",
+        "15:00UTC": "Integration with existing remote supervisor & launcher contract",
+        "15:45UTC": "Negatives & failure/replay recovery",
+        "16:15UTC": "Two autonomous cycles with desktop nudges withheld",
+        "16:30UTC": "Final autonomy acceptance decision"
+      },
+      "next_action": "15:00 UTC supervisor integration and QL task-unit dispatch into scoped private worktree",
+      "evidence_1415": {
+        "status": "PASS",
+        "model": "opencode-go/glm-5.3-flash",
+        "backend": "opencode-go",
+        "artifact": "/home/alexey/git/agent-bus/.local/tmp/model_dogfood_1415/envelope_validator.py",
+        "digest": "189cc7425062bd53fadaf58908bd7fb63661bb7e9b9579d23fcff281b399cd45",
+        "evidence_path": "/home/alexey/git/agent-bus/.local/model-dogfood-1415-evidence.json",
+        "delivered_at": "2026-10-05T13:44:46Z",
+        "acked_at": "2026-10-05T13:46:12Z",
+        "accepted_at": "2026-10-05T13:44:46Z"
+      },
+      "retraction": "14:15 PASS claim retracted; raw opencode output was prose markdown; pending clean code module, immutable pin, maintained QL task-unit dispatch, and independent reviewer acceptance",
+      "reconciled_paths": {
+        "agent_bus_envelope": "/home/alexey/git/agent-bus/coordination/envelope.py",
+        "agent_coordination_envelope": "/home/alexey/git/agent-coordination/coordination/envelope.py"
+      }
     }
   ]
 }
