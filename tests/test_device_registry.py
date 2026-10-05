@@ -33,3 +33,28 @@ def test_existing_ssh_alias_is_allowlisted():
     device = registry.require_alias("hetzner")
     assert device.id == "hetzner-rmthz"
     assert device.can_run_aplexer() is True
+
+def test_duplicate_device_id_raises():
+    registry = DeviceRegistry.load(EXAMPLE)
+    device = registry.get("hetzner-rmthz")
+    with pytest.raises(ValueError, match="Duplicate device ID: hetzner-rmthz"):
+        DeviceRegistry([device, device])
+
+def test_duplicate_ssh_alias_raises():
+    registry = DeviceRegistry.load(EXAMPLE)
+    device1 = registry.get("hetzner-rmthz")
+    from coordination.device_registry import Device, DeviceKind
+    device2 = Device(
+        id="some-other-id",
+        kind=DeviceKind.APLEXER_HOST,
+        ssh_alias=device1.ssh_alias,
+        hostname="other",
+        ssh_user="user",
+        aplexer_bin=None,
+        workspace_roots=(),
+        role="worker",
+        native_aplexer=False,
+        outbound_ssh_only=False,
+    )
+    with pytest.raises(ValueError, match=f"Duplicate SSH alias: {device1.ssh_alias}"):
+        DeviceRegistry([device1, device2])

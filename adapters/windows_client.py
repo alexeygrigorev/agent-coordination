@@ -141,6 +141,8 @@ class TypedRpcResponse:
         return asdict(self)
 
 
+import shlex
+
 def ssh_run(
     alias: str,
     argv: list[str],
@@ -148,6 +150,7 @@ def ssh_run(
     timeout: int = 30,
 ) -> str:
     """Execute command over existing SSH alias with strict host checking."""
+    quoted_argv = [shlex.quote(arg) for arg in argv]
     cmd = [
         "ssh",
         "-o",
@@ -156,7 +159,7 @@ def ssh_run(
         "StrictHostKeyChecking=yes",
         alias,
         "--",
-        *argv,
+        *quoted_argv,
     ]
     try:
         proc = subprocess.run(
@@ -404,6 +407,7 @@ def execute_stdin_rpc(
     # Remote server dispatcher
     remote_script = (
         "import json, sys\n"
+        "sys.path.insert(0, '/home/alexey/git/agent-coordination')\n"
         "from adapters.windows_client import handle_rpc_line\n"
         "for line in sys.stdin:\n"
         "    if line.strip():\n"
@@ -457,7 +461,7 @@ def handle_rpc_line(line: str) -> str:
                 "--data",
                 json.dumps(data_payload, separators=(",", ":")),
             ]
-            proc = subprocess.run(argv, capture_output=True, text=True, check=False)
+            proc = subprocess.run(argv, capture_output=True, text=True, check=False, cwd=params["workspace"])
             if proc.returncode != 0:
                 return json.dumps(
                     {

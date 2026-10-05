@@ -40,8 +40,17 @@ class Device:
 
 class DeviceRegistry:
     def __init__(self, devices: list[Device]):
-        self._by_id = {d.id: d for d in devices}
-        self._by_alias = {d.ssh_alias: d for d in devices if d.ssh_alias}
+        self._by_id = {}
+        self._by_alias = {}
+        for d in devices:
+            if d.id in self._by_id:
+                raise ValueError(f"Duplicate device ID: {d.id}")
+            self._by_id[d.id] = d
+            
+            if d.ssh_alias:
+                if d.ssh_alias in self._by_alias:
+                    raise ValueError(f"Duplicate SSH alias: {d.ssh_alias}")
+                self._by_alias[d.ssh_alias] = d
 
     @classmethod
     def load(cls, path: str | Path) -> DeviceRegistry:

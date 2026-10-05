@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from coordination.bus import FileBus
+from coordination.worker_bus import SessionlessWorkerBus
 
 
 def _bus(args: argparse.Namespace) -> FileBus:
@@ -85,6 +86,55 @@ def cmd_reply(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_worker_register(args: argparse.Namespace) -> int:
+    worker = SessionlessWorkerBus.register(
+        store=args.store,
+        agent_name=args.agent,
+        device_id=args.device,
+        project_id=args.project,
+        task_id=args.task,
+        workspace=args.workspace,
+    )
+    worker.save_credentials(args.cred)
+    print(json.dumps({
+        "identity_id": worker.identity_id,
+        "agent_name": worker.agent_name,
+        "cred": args.cred,
+        "namespaced_id": worker.namespaced_id.to_dict()
+    }))
+    return 0
+
+
+def _worker(args: argparse.Namespace) -> SessionlessWorkerBus:
+    return SessionlessWorkerBus.from_credentials(args.store, args.cred)
+
+
+def cmd_worker_send(args: argparse.Namespace) -> int:
+    worker = _worker(args)
+    outcome = worker.send(
+        recipient_id=args.to,
+        body=args.body,
+        data=json.loads(args.data) if args.data else None,
+        idempotency_key=args.idempotency_key,
+    )
+    print(json.dumps(outcome.to_dict(), indent=2))
+    return 0
+
+
+def cmd_worker_receive(args: argparse.Namespace) -> int:
+    worker = _worker(args)
+    msgs = worker.receive(limit=args.limit, timeout=args.timeout, unread_only=not args.all)
+    print(json.dumps([m.to_public() for m in msgs], indent=2))
+    return 0
+
+
+def cmd_worker_ack(args: argparse.Namespace) -> int:
+    worker = _worker(args)
+    ack = worker.ack(args.message_id)
+    print(json.dumps(ack.to_dict(), indent=2))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Agent Bus CLI (no aplexer dependency)")
     parser.add_argument("--store", required=True)
@@ -127,6 +177,35 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--body", required=True)
     p.add_argument("--idempotency-key")
     p.set_defaults(func=cmd_reply)
+
+    p = sub.add_parser("worker-register")
+    p.add_argument("--agent", required=True)
+    p.add_argument("--device", required=True)
+    p.add_argument("--project", default="agent-coordination")
+    p.add_argument("--task")
+    p.add_argument("--workspace")
+    p.add_argument("--cred", required=True)
+    p.set_defaults(func=cmd_worker_register)
+
+    p = sub.add_parser("worker-send")
+    p.add_argument("--cred", required=True)
+    p.add_argument("--to", required=True)
+    p.add_argument("--body", required=True)
+    p.add_argument("--data")
+    p.add_argument("--idempotency-key")
+    p.set_defaults(func=cmd_worker_send)
+
+    p = sub.add_parser("worker-receive")
+    p.add_argument("--cred", required=True)
+    p.add_argument("--all", action="store_true")
+    p.add_argument("--limit", type=int)
+    p.add_argument("--timeout", type=float)
+    p.set_defaults(func=cmd_worker_receive)
+
+    p = sub.add_parser("worker-ack")
+    p.add_argument("--cred", required=True)
+    p.add_argument("--message-id", required=True)
+    p.set_defaults(func=cmd_worker_ack)
 
     args = parser.parse_args(argv)
     return args.func(args)

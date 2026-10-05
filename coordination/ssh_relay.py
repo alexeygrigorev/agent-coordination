@@ -36,12 +36,17 @@ class Transport(Protocol):
     def run(self, device: Device, argv: list[str], timeout: int = 30) -> str: ...
 
 
+import shlex
+
 class SshTransport:
     """Existing authenticated SSH only. No new keys, no secret copy."""
 
     def run(self, device: Device, argv: list[str], timeout: int = 30) -> str:
         if not device.ssh_alias:
             raise TransportUnavailable(f"no_ssh_alias:{device.id}")
+        
+        escaped_argv = [shlex.quote(a) for a in argv]
+        
         cmd = [
             "ssh",
             "-o",
@@ -52,8 +57,7 @@ class SshTransport:
             "IdentitiesOnly=yes",
             device.ssh_alias,
             "--",
-            *argv,
-        ]
+        ] + escaped_argv
         try:
             proc = subprocess.run(
                 cmd,
@@ -171,47 +175,83 @@ class SshRelay:
                 payload_sha256=digest,
             )
 
-        catalog = self.catalog(target.id, request.recipient.workspace)
-        entry = catalog.resolve_tag(request.recipient.workspace, request.recipient.agent_tag)
-        inspect_delivery_guard(entry, request.delivery)
+        try:
+            catalog = self.catalog(target.id, request.recipient.workspace)
+            entry = catalog.resolve_tag(request.recipient.workspace, request.recipient.agent_tag)
+            inspect_delivery_guard(entry, request.delivery)
 
-        argv = [
-            target.aplexer_bin or "aplexer",
-            "message",
-            "send",
-            "--workspace",
-            request.recipient.workspace,
-            "--to",
-            request.recipient.agent_tag,
-            "--json",
-            request.body,
-        ]
-        if request.data is not None:
-            argv.extend(["--data", json.dumps(request.data, separators=(",", ":"))])
-        raw = self.transport.run(target, argv)
-        payload = json.loads(raw) if raw.strip() else {}
-        message_id = payload.get("id") or new_message_id()
-        self.store.remember_send(
-            key,
-            sender=request.sender.render(),
-            recipient=request.recipient.render(),
-            digest=digest,
-            message_id=message_id,
-        )
-        self.store.mark_sent(key, message_id)
-        return SendReceipt(
-            message_id=message_id,
-            idempotency_key=key,
-            sender=request.sender,
-            recipient=request.recipient,
-            delivery=payload.get("delivery", "inbox"),
-            recorded_at=str(payload.get("created_at", "")),
-            catalog_resolved_session_id=entry.session_id,
-            catalog_observed_at=catalog.observed_at,
-            bridge_device_id=bridge,
-            originating_agent=origin,
-            payload_sha256=digest,
-        )
+            argv = [
+                target.aplexer_bin or "aplexer",
+                "message",
+                "send",
+                "--workspace",
+                request.recipient.workspace,
+                "--to",
+                request.recipient.agent_tag,
+                "--json",
+                request.body,
+            ]
+            if request.data is not None:
+                argv.extend(["--data", json.dumps(request.data, separators=(",", ":"))])
+            raw = self.transport.run(target, argv)
+            payload = json.loads(raw) if raw.strip() else {}
+            message_id = payload.get("id") or new_message_id()
+            self.store.remember_send(
+                key,
+                sender=request.sender.render(),
+                recipient=request.recipient.render(),
+                digest=digest,
+                message_id=message_id,
+            )
+            self.store.mark_sent(key, message_id)
+            return SendReceipt(
+                message_id=message_id,
+                idempotency_key=key,
+                sender=request.sender,
+                recipient=request.recipient,
+                delivery=payload.get("delivery", "inbox"),
+                recorded_at=str(payload.get("created_at", "")),
+                catalog_resolved_session_id=entry.session_id,
+                catalog_observed_at=catalog.observed_at,
+                bridge_device_id=bridge,
+                originating_agent=origin,
+                payload_sha256=digest,
+            )
+        except TransportUnavailable:
+            message_id = new_message_id()
+            self.store.queue_offline(
+                {
+                    "idempotency_key": key,
+                    "message_id": message_id,
+                    "sender": request.sender.render(),
+                    "recipient": request.recipient.render(),
+                    "body": request.body,
+                    "data": request.data,
+                    "correlation_token": request.correlation_token,
+                    "bridge_device_id": bridge,
+                    "originating_agent": origin.render(),
+                }
+            )
+            self.store.remember_send(
+                key,
+                sender=request.sender.render(),
+                recipient=request.recipient.render(),
+                digest=digest,
+                message_id=message_id,
+            )
+            return SendReceipt(
+                message_id=message_id,
+                idempotency_key=key,
+                sender=request.sender,
+                recipient=request.recipient,
+                delivery="queued_offline",
+                recorded_at="",
+                catalog_resolved_session_id=None,
+                catalog_observed_at="",
+                bridge_device_id=bridge,
+                originating_agent=origin,
+                payload_sha256=digest,
+            )
 
     def retry_offline(self) -> list[SendReceipt]:
         receipts = []
