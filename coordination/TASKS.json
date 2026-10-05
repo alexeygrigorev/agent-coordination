@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project_id": "agent-coordination",
-  "updated_at": "2026-10-05T13:58:30Z",
+  "updated_at": "2026-10-05T15:24:00Z",
   "head": {
     "tag": "agent-coordination-head-gemini",
     "session_id": "8d4c026c-b1f9-4cbf-83bf-4f5f82077cab",
@@ -10,7 +10,7 @@
   },
   "pins": {
     "agent-coordination": "a412ceaad7aa3f8254c524161b8cb4b2725480f4",
-    "agent-bus": "f3295f99e188719f5df9fccb22706d8a0e5bb8f8"
+    "agent-bus": "acc993211d06387f288a9fe199a747c64230e866"
   },
   "budget": {
     "cloud_usd_per_month_total": 5,
@@ -185,7 +185,7 @@
       "project_id": "agent-bus",
       "owner_tag": "agent-coordination-head-gemini",
       "owner_session_id": "a84e443b-ae33-4c8c-9cf8-3576e99829d6",
-      "status": "in_progress",
+      "status": "blocked",
       "acceptance": "Genuine no-session coding model useful task with scoped enrolled identity, durable read/ACK/accept/outcome; cursor/replay/idempotency/restart evidence; share launcher contract",
       "checkpoints": {
         "14:15UTC": "Model first-tool/output on scoped Bus task",
@@ -194,7 +194,7 @@
         "16:15UTC": "Two autonomous cycles with desktop nudges withheld",
         "16:30UTC": "Final autonomy acceptance decision"
       },
-      "next_action": "15:00 UTC supervisor integration and QL task-unit dispatch into scoped private worktree",
+      "next_action": "Storage floor currently 47.6 GiB (<50 GiB); worker launch held per policy. QL task-unit adapter implemented at coordination/ql_task_unit_adapter.py ready to submit upon floor recovery.",
       "evidence_1415": {
         "status": "PASS",
         "model": "opencode-go/glm-5.3-flash",
@@ -210,7 +210,52 @@
       "reconciled_paths": {
         "agent_bus_envelope": "/home/alexey/git/agent-bus/coordination/envelope.py",
         "agent_coordination_envelope": "/home/alexey/git/agent-coordination/coordination/envelope.py"
-      }
+      },
+      "blocked_on": [
+        "root-disk-below-50GiB-floor",
+        "waiting-storage-floor-restoration"
+      ],
+      "implementer": "coordination/ql_task_unit_adapter.py (maintained QL task-unit route via wt-refill-runtime)",
+      "reviewer": "antigravity-head-gemini-recovery (5e1abcdb) / nominated independent reviewer",
+      "first_tool": "coordination/ql_task_unit_adapter.py check_storage_floor + format_ql_payload",
+      "first_output": "coordination/ql_task_unit_adapter.py",
+      "deadline": "2026-10-05T16:30:00Z"
+    },
+    {
+      "id": "AGENTBUS-APLEXER-EXTRACTION-HEADLESS-20261005",
+      "project_id": "agent-bus",
+      "owner_tag": "agent-coordination-head-gemini",
+      "owner_session_id": "8d4c026c-b1f9-4cbf-83bf-4f5f82077cab",
+      "status": "blocked",
+      "blocked_on": [
+        "root-disk-below-50GiB-floor",
+        "waiting-storage-floor-restoration"
+      ],
+      "assignment_ack": "01a10c73-bad4-74e1-a299-60b7b186a8dd-ACKED",
+      "pinned_repo": "https://github.com/PocketShell-io/agent-bus",
+      "remote_main_pin": "5ee5207e8c540b712f7bc862af8f3bf29dc6df69",
+      "implementer": "coordination/ql_task_unit_adapter.py (maintained QL task-unit route via wt-refill-runtime)",
+      "reviewer": "antigravity-head-gemini-recovery (5e1abcdb)",
+      "first_tool": "coordination/ql_task_unit_adapter.py",
+      "first_output": "coordination/ql_task_unit_adapter.py",
+      "next_action": "Product custody acknowledged; standalone core pinned at 5ee5207e; worker launches held until root filesystem free space >= 50 GiB."
+    },
+    {
+      "id": "ac-ql-sessionless-consumer",
+      "project_id": "agent-bus",
+      "owner_tag": "agent-coordination-head-gemini",
+      "owner_session_id": "8d4c026c-b1f9-4cbf-83bf-4f5f82077cab",
+      "status": "blocked",
+      "code_diff": "git diff 5ee5207e..48ab4fb (PocketShell-io/agent-bus)",
+      "pinned_commit": "acc993211d06387f288a9fe199a747c64230e866",
+      "tests": "36 passed in 11.25s (12 adapter tests)",
+      "reviewer": "quota-launcher-head-gemini (a86056b5) & independent reviewer subagent (747bd07e)",
+      "reviewer_verdict": "ACCEPT (01a10ca7-e123 & reviews/REV-QL-TASK-UNIT-ADAPTER.md)",
+      "receiver_ack": "01a10ca7-e123-7a01-bfba-8647e924a329-ACKED",
+      "next_action": "Host root free space is 46.79 GiB (<50.0 GiB floor); worker launch held closed. Once storage recovers >=50.0 GiB, submit model task unit via QLSessionlessConsumer.",
+      "blocked_on": [
+        "root-disk-below-50GiB-floor"
+      ]
     }
   ]
 }
