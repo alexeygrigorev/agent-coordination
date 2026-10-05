@@ -14,6 +14,7 @@ from .envelope import (
 from .errors import CoordinationError, GuardRejected, UnknownDevice, UnregisteredAlias
 from .guards import DeliveryMode, GuardDecision, inspect_delivery_guard
 from .ssh_relay import SshRelay, SshTransport
+from .worker_bus import ReceiptStore, SessionlessWorkerBus, WorkerSendOutcome
 
 __all__ = [
     "BusIdentity",
@@ -32,12 +33,15 @@ __all__ = [
     "GuardRejected",
     "NamespacedId",
     "ReadAck",
+    "ReceiptStore",
     "SendReceipt",
+    "SessionlessWorkerBus",
     "SshRelay",
     "SshTransport",
     "TransportState",
     "UnknownDevice",
     "UnregisteredAlias",
+    "WorkerSendOutcome",
     "inspect_delivery_guard",
     "resolve_catalog",
 ]

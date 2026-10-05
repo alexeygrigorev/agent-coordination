@@ -41,6 +41,7 @@ class BusIdentity:
     project_id: str
     agent_name: str
     task_id: str | None = None
+    parent_id: str | None = None
     kind: str = "bus-agent"
     created_at: str = field(default_factory=_utc)
 
@@ -60,8 +61,10 @@ class BusMessage:
     kind: str
     reply_to: str | None
     created_at: str
+    delivered_at: str | None = None
     acked_at: str | None = None
     digest: str = ""
+    seq: int = 0
 
     def to_public(self) -> dict[str, Any]:
         return asdict(self)
@@ -150,6 +153,13 @@ class FileBus:
             raise BusError("auth_failed", identity_id)
         return identities[identity_id]
 
+    def _require_same_project(self, left: dict[str, Any], right: dict[str, Any]) -> None:
+        if left.get("project_id") != right.get("project_id"):
+            raise BusError(
+                "project_scope",
+                f"{left.get('identity_id')}->{right.get('identity_id')}",
+            )
+
     def send(
         self,
         *,
@@ -163,10 +173,11 @@ class FileBus:
         reply_to: str | None = None,
     ) -> BusMessage:
         with FileLock(self._lock):
-            self._auth(sender_id, token)
+            sender = self._auth(sender_id, token)
             identities = self._read(self._identities, {})
             if recipient_id not in identities:
                 raise BusError("unknown_recipient", recipient_id)
+            self._require_same_project(sender, identities[recipient_id])
             key = idempotency_key or _new_id()
             digest = payload_digest(body, data)
             messages: dict[str, Any] = self._read(self._messages, {})
@@ -176,9 +187,24 @@ class FileBus:
                         existing["sender_id"] == sender_id
                         and existing["recipient_id"] == recipient_id
                         and existing.get("digest") == digest
+                        and existing.get("kind") == kind
+                        and existing.get("reply_to") == reply_to
                     ):
                         return BusMessage(**{k: existing[k] for k in BusMessage.__dataclass_fields__})
                     raise IdempotencyConflict(key)
+            if kind == "reply":
+                if not reply_to:
+                    raise BusError("unknown_message", "reply_to")
+                original = messages.get(reply_to)
+                if not original:
+                    raise BusError("unknown_message", reply_to)
+                if original["recipient_id"] != sender_id:
+                    raise BusError("not_recipient", reply_to)
+                orig_sender = identities.get(original["sender_id"])
+                if orig_sender and orig_sender.get("project_id") != sender.get("project_id"):
+                    raise BusError("project_scope", reply_to)
+            next_seq = max((existing.get("seq", 0) for existing in messages.values()), default=0) + 1
+            now = _utc()
             msg = BusMessage(
                 message_id=_new_id(),
                 idempotency_key=key,
@@ -188,8 +214,10 @@ class FileBus:
                 data=data,
                 kind=kind,
                 reply_to=reply_to,
-                created_at=_utc(),
+                created_at=now,
+                delivered_at=now,
                 digest=digest,
+                seq=next_seq,
             )
             messages[msg.message_id] = msg.to_public()
             self._write(self._messages, messages)
@@ -197,16 +225,20 @@ class FileBus:
 
     def inbox(self, identity_id: str, token: str, *, unread_only: bool = True) -> list[BusMessage]:
         with FileLock(self._lock):
-            self._auth(identity_id, token)
+            ident = self._auth(identity_id, token)
+            identities = self._read(self._identities, {})
             messages = self._read(self._messages, {})
             out = []
             for raw in messages.values():
                 if raw["recipient_id"] != identity_id:
                     continue
+                sender = identities.get(raw["sender_id"])
+                if sender and sender.get("project_id") != ident.get("project_id"):
+                    continue
                 if unread_only and raw.get("acked_at"):
                     continue
                 out.append(BusMessage(**{k: raw.get(k) for k in BusMessage.__dataclass_fields__}))
-            out.sort(key=lambda m: m.created_at)
+            out.sort(key=lambda m: (m.created_at, getattr(m, "seq", 0)))
             return out
 
     def ack(self, identity_id: str, token: str, message_id: str) -> BusMessage:
@@ -240,6 +272,8 @@ class FileBus:
             original = messages.get(message_id)
             if not original:
                 raise BusError("unknown_message", message_id)
+            if original["recipient_id"] != sender_id:
+                raise BusError("not_recipient", message_id)
         return self.send(
             sender_id=sender_id,
             token=token,

@@ -26,12 +26,48 @@ class CursorStore:
     def _load(self, path: Path) -> dict[str, Any]:
         if not path.exists():
             return {}
-        return json.loads(path.read_text(encoding="utf-8"))
+        try:
+            content = path.read_text(encoding="utf-8")
+            if not content.strip():
+                return {}
+            data = json.loads(content)
+            if not isinstance(data, dict):
+                raise ValueError(f"Corrupt JSON structure in {path}: expected dict, got {type(data).__name__}")
+            return data
+        except Exception:
+            # Corrupt cursor recovery: backup corrupted file and initialize clean state
+            import time
+            corrupt_backup = path.with_name(f"{path.stem}.corrupt.{int(time.time() * 1000)}{path.suffix}")
+            try:
+                import shutil
+                shutil.copy2(path, corrupt_backup)
+            except Exception:
+                pass
+            self._save(path, {})
+            return {}
 
     def _save(self, path: Path, value: dict[str, Any]) -> None:
         tmp = path.with_suffix(".tmp")
         tmp.write_text(json.dumps(value, indent=2, sort_keys=True), encoding="utf-8")
         tmp.replace(path)
+
+    def recover_corrupt_cursor(self, mailbox: str | None = None) -> bool:
+        """Explicitly inspect and recover the cursor file if corrupted."""
+        if not self._cursors.exists():
+            return False
+        try:
+            content = self._cursors.read_text(encoding="utf-8")
+            if not content.strip():
+                return False
+            data = json.loads(content)
+            if isinstance(data, dict):
+                if mailbox is not None and mailbox not in data:
+                    return False
+                return False
+            raise ValueError("not a dict")
+        except Exception:
+            self._load(self._cursors)
+            return True
 
     def lookup_send(
         self,
