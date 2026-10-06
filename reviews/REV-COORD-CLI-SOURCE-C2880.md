@@ -7,16 +7,24 @@ Verdict: **ACCEPT**
 - **Caller / Parent**: `764358a8-1b4e-49c6-845a-9b79bf3ba536`
 - **Project**: Cross-computer Agent Coordination (`agent-coordination`)
 - **Target Workspace**: `/home/alexey/git/agent-coordination`
-- **Git Commit Baseline**: `c391a739b09ca8d1fff0fc970450cc8bc9be0fe9`
+- **Parent Baseline Commit**: `c391a739b09ca8d1fff0fc970450cc8bc9be0fe9`
+- **Pinned Implementation Commit**: `30df32ae2bbcc47558556e03701e28bae4a10022`
+- **Tree Hash**: `379fc3e58735b5b535930231175bf4f5d7ceddea`
+- **Diff SHA-256**: `f5c5920ce4193c00135f9a479534f2c63246568b08c5b49655573a5d02b07b97` (against parent `c391a739b09ca8d1fff0fc970450cc8bc9be0fe9`)
 - **Review Date**: 2026-10-06 (Europe/Berlin / CEST)
 
 ---
 
-## 1. Evaluated Files & Scope of Changes
+## 1. Explicit Attestation & Scope of Changes
 
-This independent review evaluated the implementation for task `coord-native-cli-source` across two target files in `/home/alexey/git/agent-coordination`:
+### 1.1. Reviewer Attestation
+The independent reviewer explicitly attests that the pinned commit `30df32ae2bbcc47558556e03701e28bae4a10022` (tree `379fc3e58735b5b535930231175bf4f5d7ceddea`, diff SHA-256 `f5c5920ce4193c00135f9a479534f2c63246568b08c5b49655573a5d02b07b97` against parent commit `c391a739b09ca8d1fff0fc970450cc8bc9be0fe9`) is the exact output independently evaluated, executed, verified, and accepted for task `coord-native-cli-source`.
 
-1. **Modified**: `coordination/bus_cli.py` (+297 lines / -30 lines)
+### 1.2. Evaluated Files & Normalized Diff Counts
+The changes comprise the following implementation and test additions:
+
+1. **`coordination/bus_cli.py`**:
+   - **Normalized Diff**: **273 insertions(+)**, **24 deletions(-)** (total **297 lines touched/modified**).
    - **Cross-command Addressing Support**: Added `--device`, `--target-device`, and `--registry` arguments across bus CLI subcommands (`register`, `send`, `inbox`, `wait`, `worker-register`, `worker-send`, `worker-receive`), and made `--registry` and `--json` available uniformly via common parent parser.
    - **DeviceRegistry Validation**: Implemented `_load_registry(args)` supporting explicit `--registry <path>`, environment variable `AGENT_DEVICE_REGISTRY`, and fallback to `examples/devices.example.json`.
    - **Fail-Closed Unknown Device Gate**: Validates targets against `DeviceRegistry.get(target_device)`, failing closed by raising `UnknownDevice(target_device)` (with error code `unknown_device`).
@@ -24,7 +32,8 @@ This independent review evaluated the implementation for task `coord-native-cli-
    - **Strict Sessionless Identity Formatting**: Enforces `session_id=None` when creating `NamespacedId` for remote host destinations and originating agents, completely avoiding synthetic aplexer session invention.
    - **Consistent JSON Error Formatting**: Top-level exception handling catches `UnknownDevice`, `CoordinationError`, and general exceptions, printing valid parseable JSON to stdout when `--json` is supplied, and clean error messages to stderr otherwise.
 
-2. **Created**: `tests/test_bus_cli_host_addressing.py` (393 lines, 6 tests)
+2. **`tests/test_bus_cli_host_addressing.py`**:
+   - **Normalized Diff**: **392 insertions(+)**, **0 deletions(-)** (total **392 lines**, 6 comprehensive tests).
    - `test_registration_with_device_identity`: Tests `--device`, `--target-device`, and `worker-register` device identity persistence.
    - `test_sending_message_with_explicit_remote_host_device_target`: Tests sending with remote target, destination envelope verification, and recipient inbox query/filtering.
    - `test_unknown_device_fails_closed_with_clear_error`: Verifies fail-closed behavior on unregistered host targets with and without `--json`.
@@ -184,10 +193,13 @@ Per the reviewer constraints, the pre-existing uncommitted modifications in `/ho
 
 **ACCEPT**
 
-The changes in `coordination/bus_cli.py` and test coverage in `tests/test_bus_cli_host_addressing.py` fully satisfy the cross-computer host addressing requirements:
-1. Native CLI commands support `--device`, `--target-device`, and `--registry`.
-2. Allowlist validation fails closed with code `unknown_device` when invalid devices are supplied.
-3. Target device mismatches fail closed cleanly without crashing.
-4. Remote host destinations maintain `session_id=None` without synthetic session fabrication.
-5. All `--json` outputs produce parseable JSON on both success and error.
-6. The entire 66-test suite passes with zero regressions.
+The independent reviewer confirms that pinned commit `30df32ae2bbcc47558556e03701e28bae4a10022` (tree `379fc3e58735b5b535930231175bf4f5d7ceddea`, diff SHA-256 `f5c5920ce4193c00135f9a479534f2c63246568b08c5b49655573a5d02b07b97` against parent `c391a739b09ca8d1fff0fc970450cc8bc9be0fe9`) fully satisfies the cross-computer host addressing requirements:
+1. Explicit attestation confirms the reviewed commit and tree match the exact evaluated output.
+2. Normalized diff counts (`coordination/bus_cli.py` +273/-24 lines touched: 297; `tests/test_bus_cli_host_addressing.py` +392 lines) are verified accurate.
+3. Native CLI commands support `--device`, `--target-device`, and `--registry`.
+4. Allowlist validation fails closed with code `unknown_device` when invalid devices are supplied.
+5. Target device mismatches fail closed cleanly without crashing.
+6. Remote host destinations maintain `session_id=None` without synthetic session fabrication.
+7. All `--json` outputs produce parseable JSON on both success and error.
+8. The entire 66-test suite passes with zero regressions.
+9. All 5 dirty pre-existing peer files remain 100% untouched.

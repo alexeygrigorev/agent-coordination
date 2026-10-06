@@ -1,0 +1,19 @@
+{
+  "task_id": "t-coord-dashboard-launcher-hosts-c2880",
+  "review_task_id": "t-coord-dashboard-launcher-hosts-review-c2880",
+  "head_session_id": "3138b062-a27a-4897-b68e-24f86320ef7c",
+  "reviewer": {
+    "session_id": "6d2b4ac2-4159-4659-8f94-63ed86b01001",
+    "model": "gemini-3.1-pro",
+    "first_tool": "git status",
+    "started_at": "2026-10-06T14:17:10Z",
+    "first_tool_timestamp": "2026-10-06T14:17:10Z",
+    "completed_at": "2026-10-06T14:20:17Z"
+  },
+  "review_prompt": "You are an independent peer reviewer for Product 4 (Cross-computer Agent Coordination) under the project head. Your role: Distinct Independent Reviewer for task coord-dashboard-launcher-hosts (launcher task t-coord-dashboard-launcher-hosts-c2880 / review task t-coord-dashboard-launcher-hosts-review-c2880). Independent Verdict: ACCEPT or CHANGES_REQUESTED.",
+  "verdict": "ACCEPT",
+  "report_path": "/home/alexey/git/agent-coordination/reviews/REV-COORD-HOST-INTERFACE-C2880.md",
+  "report_sha256": "daf3bcacb30f060a88433fddd1fce0336e569886aad8cd583daae1464db33291",
+  "source_commit": "30df32ae2bbcc47558556e03701e28bae4a10022",
+  "source_repo": "/home/alexey/git/agent-coordination"
+}
