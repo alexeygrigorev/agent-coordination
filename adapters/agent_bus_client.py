@@ -11,10 +11,13 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import logging
 import os
+import sqlite3
 import sys
 import uuid
 from dataclasses import asdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -313,6 +316,282 @@ def ack_message(
     return bool(msg and msg.acked_at is not None)
 
 
+class OfflineSpool:
+    """SQLite-backed message spool for offline queueing, durable retry, and FIFO dispatch."""
+
+    def __init__(self, db_path: str | Path | None = None) -> None:
+        if db_path is None:
+            self.db_path = Path(".local/spool.db").resolve()
+        else:
+            self.db_path = Path(db_path).resolve()
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self._init_db()
+
+    def _connect(self) -> sqlite3.Connection:
+        conn = sqlite3.connect(str(self.db_path), timeout=30.0)
+        conn.row_factory = sqlite3.Row
+        return conn
+
+    def _init_db(self) -> None:
+        conn = self._connect()
+        try:
+            with conn:
+                conn.execute("""
+                    CREATE TABLE IF NOT EXISTS spooled_messages (
+                        spool_id TEXT PRIMARY KEY,
+                        recipient_id TEXT NOT NULL,
+                        body TEXT NOT NULL,
+                        data TEXT,
+                        idempotency_key TEXT,
+                        kind TEXT NOT NULL DEFAULT 'note',
+                        status TEXT NOT NULL DEFAULT 'pending',
+                        created_at TEXT NOT NULL,
+                        delivered_at TEXT,
+                        message_id TEXT
+                    )
+                """)
+                conn.execute(
+                    "CREATE INDEX IF NOT EXISTS idx_spool_status_created ON spooled_messages(status, created_at)"
+                )
+                conn.execute(
+                    "CREATE INDEX IF NOT EXISTS idx_spool_idempotency ON spooled_messages(idempotency_key)"
+                )
+        finally:
+            conn.close()
+
+    def spool_message(
+        self,
+        recipient_id: str,
+        body: str,
+        data: dict[str, Any] | None = None,
+        idempotency_key: str | None = None,
+        kind: str = "note",
+    ) -> dict[str, Any]:
+        """Spool a message locally for offline queueing with fail-closed credential protection."""
+        if data is not None:
+            data = reject_head_cred_inheritance(data, reject=True)
+        if body:
+            reject_head_cred_inheritance({"body": body}, reject=True)
+
+        conn = self._connect()
+        try:
+            with conn:
+                if idempotency_key is not None:
+                    cur = conn.execute(
+                        """
+                        SELECT spool_id, recipient_id, body, data, idempotency_key, kind, status, created_at, delivered_at, message_id
+                        FROM spooled_messages
+                        WHERE idempotency_key = ?
+                        """,
+                        (idempotency_key,),
+                    )
+                    row = cur.fetchone()
+                    if row is not None:
+                        existing_data = json.loads(row["data"]) if row["data"] is not None else None
+                        if (
+                            row["recipient_id"] == recipient_id
+                            and row["body"] == body
+                            and existing_data == data
+                            and row["kind"] == kind
+                        ):
+                            return {
+                                "spool_id": row["spool_id"],
+                                "recipient_id": row["recipient_id"],
+                                "body": row["body"],
+                                "data": existing_data,
+                                "idempotency_key": row["idempotency_key"],
+                                "kind": row["kind"],
+                                "status": row["status"],
+                                "created_at": row["created_at"],
+                                "delivered_at": row["delivered_at"],
+                                "message_id": row["message_id"],
+                            }
+                        raise IdempotencyConflict(idempotency_key)
+
+                spool_id = str(uuid.uuid4())
+                created_at = datetime.now(timezone.utc).isoformat()
+                data_json = json.dumps(data) if data is not None else None
+                conn.execute(
+                    """
+                    INSERT INTO spooled_messages (
+                        spool_id, recipient_id, body, data, idempotency_key, kind, status, created_at, delivered_at, message_id
+                    ) VALUES (?, ?, ?, ?, ?, ?, 'pending', ?, NULL, NULL)
+                    """,
+                    (spool_id, recipient_id, body, data_json, idempotency_key, kind, created_at),
+                )
+                return {
+                    "spool_id": spool_id,
+                    "recipient_id": recipient_id,
+                    "body": body,
+                    "data": data,
+                    "idempotency_key": idempotency_key,
+                    "kind": kind,
+                    "status": "pending",
+                    "created_at": created_at,
+                    "delivered_at": None,
+                    "message_id": None,
+                }
+        finally:
+            conn.close()
+
+    def list_pending(self) -> list[dict[str, Any]]:
+        """Return pending messages sorted chronologically (FIFO)."""
+        conn = self._connect()
+        try:
+            cur = conn.execute(
+                """
+                SELECT spool_id, recipient_id, body, data, idempotency_key, kind, status, created_at, delivered_at, message_id
+                FROM spooled_messages
+                WHERE status = 'pending'
+                ORDER BY created_at ASC, rowid ASC
+                """
+            )
+            rows = cur.fetchall()
+            messages: list[dict[str, Any]] = []
+            for r in rows:
+                row_data = json.loads(r["data"]) if r["data"] is not None else None
+                messages.append({
+                    "spool_id": r["spool_id"],
+                    "recipient_id": r["recipient_id"],
+                    "body": r["body"],
+                    "data": row_data,
+                    "idempotency_key": r["idempotency_key"],
+                    "kind": r["kind"],
+                    "status": r["status"],
+                    "created_at": r["created_at"],
+                    "delivered_at": r["delivered_at"],
+                    "message_id": r["message_id"],
+                })
+            return messages
+        finally:
+            conn.close()
+
+    def mark_delivered(self, spool_id: str, message_id: str) -> None:
+        """Mark a spooled message as delivered."""
+        now = datetime.now(timezone.utc).isoformat()
+        conn = self._connect()
+        try:
+            with conn:
+                conn.execute(
+                    """
+                    UPDATE spooled_messages
+                    SET status = 'delivered', delivered_at = ?, message_id = ?
+                    WHERE spool_id = ?
+                    """,
+                    (now, message_id, spool_id),
+                )
+        finally:
+            conn.close()
+
+    def flush(
+        self,
+        store_path: str | Path | None,
+        cred: dict[str, Any] | str | Path,
+        transport_fn: Callable[..., Any] | None = None,
+    ) -> list[dict[str, Any]]:
+        """Flush pending spooled messages in FIFO order.
+
+        Fails closed on error without dropping pending messages.
+        """
+        pending = self.list_pending()
+        delivered: list[dict[str, Any]] = []
+
+        for item in pending:
+            try:
+                if transport_fn is not None:
+                    try:
+                        receipt = transport_fn(
+                            store_path,
+                            cred,
+                            recipient_id=item["recipient_id"],
+                            body=item["body"],
+                            data=item["data"],
+                            kind=item["kind"],
+                            idempotency_key=item["idempotency_key"],
+                        )
+                    except TypeError:
+                        try:
+                            receipt = transport_fn(
+                                store_path=store_path,
+                                cred=cred,
+                                recipient_id=item["recipient_id"],
+                                body=item["body"],
+                                data=item["data"],
+                                kind=item["kind"],
+                                idempotency_key=item["idempotency_key"],
+                            )
+                        except TypeError:
+                            receipt = transport_fn(item)
+                else:
+                    receipt = send_message(
+                        store_path=store_path,
+                        cred=cred,
+                        recipient_id=item["recipient_id"],
+                        body=item["body"],
+                        data=item["data"],
+                        kind=item["kind"],
+                        idempotency_key=item["idempotency_key"],
+                    )
+
+                msg_id = ""
+                if isinstance(receipt, dict):
+                    msg_id = receipt.get("message_id") or receipt.get("id") or ""
+                elif hasattr(receipt, "message_id"):
+                    msg_id = getattr(receipt, "message_id")
+                elif isinstance(receipt, str):
+                    msg_id = receipt
+
+                self.mark_delivered(item["spool_id"], msg_id)
+                if isinstance(receipt, dict):
+                    receipt_copy = dict(receipt)
+                    receipt_copy["spool_id"] = item["spool_id"]
+                    delivered.append(receipt_copy)
+                else:
+                    delivered.append({
+                        "spool_id": item["spool_id"],
+                        "message_id": msg_id,
+                        "recipient_id": item["recipient_id"],
+                        "status": "delivered",
+                    })
+            except Exception as exc:
+                logging.getLogger(__name__).error(
+                    "OfflineSpool flush error on %s: %s", item.get("spool_id"), exc
+                )
+                break
+
+        return delivered
+
+
+def build_typed_ssh_command(
+    host: str,
+    store_path: str,
+    cred_path: str,
+    method: str = "poll",
+    params: dict[str, Any] | None = None,
+    python_bin: str = "python3",
+) -> tuple[list[str], str]:
+    """Generate typed SSH command and stdin JSON payload avoiding shell quoting issues."""
+    cmd_args = [
+        "ssh",
+        host,
+        python_bin,
+        "-m",
+        "adapters.agent_bus_client",
+        "rpc",
+        "--store",
+        str(store_path),
+        "--cred",
+        str(cred_path),
+        "--stdin",
+    ]
+    payload = {
+        "method": method,
+        "params": params if params is not None else {},
+    }
+    json_stdin_payload = json.dumps(payload)
+    return cmd_args, json_stdin_payload
+
+
 _RPC_HANDLERS: dict[str, Callable[..., Any]] = {}
 
 
@@ -414,6 +693,31 @@ def rpc_dispatch(
     elif method == "echo":
         return {"status": "ok", "method": "echo", "result": params, "params": params}
 
+    elif method == "spool":
+        db_path = params.get("spool_db") or params.get("db_path")
+        spool = OfflineSpool(db_path=db_path)
+        data = params.get("data")
+        res = spool.spool_message(
+            recipient_id=params["recipient_id"],
+            body=params["body"],
+            data=data,
+            idempotency_key=params.get("idempotency_key"),
+            kind=params.get("kind", "note"),
+        )
+        return {"status": "ok", "method": "spool", "result": res, **res}
+
+    elif method == "flush":
+        db_path = params.get("spool_db") or params.get("db_path")
+        spool = OfflineSpool(db_path=db_path)
+        delivered = spool.flush(store_path=store_path, cred=cred)
+        return {
+            "status": "ok",
+            "method": "flush",
+            "count": len(delivered),
+            "delivered": delivered,
+            "pending_remaining": len(spool.list_pending()),
+        }
+
     else:
         raise ValueError(f"Unknown RPC method: '{method}'")
 
@@ -486,8 +790,24 @@ def build_cli_parser() -> argparse.ArgumentParser:
     rpc_p = subparsers.add_parser("rpc", help="Dispatch an RPC call")
     rpc_p.add_argument("--store", "-s", default=None, help="Path to FileBus store directory (optional if in cred)")
     rpc_p.add_argument("--cred", "-c", required=True, help="Path to credentials file or JSON string")
-    rpc_p.add_argument("--method", "-m", required=True, help="RPC method name")
+    rpc_p.add_argument("--method", "-m", default=None, help="RPC method name")
     rpc_p.add_argument("--params", "-p", default="{}", help="JSON string of parameters")
+    rpc_p.add_argument("--stdin", action="store_true", default=False, help="Read JSON RPC request from stdin")
+
+    # spool
+    spool_p = subparsers.add_parser("spool", help="Enroll/spool a message locally in SQLite outbox spool")
+    spool_p.add_argument("--recipient", "-r", "--to", required=True, dest="recipient_id", help="Recipient identity ID")
+    spool_p.add_argument("--body", "-b", required=True, help="Message body")
+    spool_p.add_argument("--data", "-d", default=None, help="JSON-encoded data payload")
+    spool_p.add_argument("--kind", "-k", default="note", help="Message kind (default: note)")
+    spool_p.add_argument("--key", "--idempotency-key", default=None, dest="idempotency_key", help="Idempotency key")
+    spool_p.add_argument("--spool-db", "--db", default=None, dest="db_path", help="Path to spool SQLite database (default: .local/spool.db)")
+
+    # flush
+    flush_p = subparsers.add_parser("flush", help="Flush local spool outbox to destination AgentBus store")
+    flush_p.add_argument("--store", "-s", default=None, help="Path to FileBus store directory (optional if in cred)")
+    flush_p.add_argument("--cred", "-c", required=True, help="Path to credentials file or JSON string")
+    flush_p.add_argument("--spool-db", "--db", default=None, dest="db_path", help="Path to spool SQLite database (default: .local/spool.db)")
 
     return parser
 
@@ -585,12 +905,68 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(output, indent=2))
             return 0
 
+        elif args.subcommand == "spool":
+            data = json.loads(args.data) if args.data else None
+            spool = OfflineSpool(db_path=args.db_path)
+            spooled = spool.spool_message(
+                recipient_id=args.recipient_id,
+                body=args.body,
+                data=data,
+                idempotency_key=args.idempotency_key,
+                kind=args.kind,
+            )
+            output = {
+                "status": "ok",
+                "action": "spool",
+                "spool_id": spooled["spool_id"],
+                "recipient_id": spooled["recipient_id"],
+                "body": spooled["body"],
+                "data": spooled["data"],
+                "idempotency_key": spooled["idempotency_key"],
+                "kind": spooled["kind"],
+                "created_at": spooled["created_at"],
+                "spool_status": spooled["status"],
+                "message": spooled,
+            }
+            print(json.dumps(output, indent=2))
+            return 0
+
+        elif args.subcommand == "flush":
+            spool = OfflineSpool(db_path=args.db_path)
+            delivered = spool.flush(
+                store_path=args.store,
+                cred=args.cred,
+            )
+            output = {
+                "status": "ok",
+                "action": "flush",
+                "count": len(delivered),
+                "delivered": delivered,
+                "pending_remaining": len(spool.list_pending()),
+            }
+            print(json.dumps(output, indent=2))
+            return 0
+
         elif args.subcommand == "rpc":
-            params = json.loads(args.params) if isinstance(args.params, str) else args.params
+            if args.stdin:
+                stdin_text = sys.stdin.read().strip()
+                if not stdin_text:
+                    raise ValueError("Empty stdin provided for RPC --stdin")
+                payload = json.loads(stdin_text)
+                method = payload.get("method") or args.method
+                if not method:
+                    raise ValueError("RPC method missing from stdin JSON payload and --method argument")
+                params = payload.get("params", {})
+            else:
+                if not args.method:
+                    raise ValueError("Missing required --method argument")
+                method = args.method
+                params = json.loads(args.params) if isinstance(args.params, str) else args.params
+
             result = rpc_dispatch(
                 store_path=args.store,
                 cred=args.cred,
-                method=args.method,
+                method=method,
                 params=params,
             )
             print(json.dumps(result, indent=2))

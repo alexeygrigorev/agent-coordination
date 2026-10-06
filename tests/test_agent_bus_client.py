@@ -35,7 +35,9 @@ if AGENT_BUS_ROOT.is_dir() and str(AGENT_BUS_ROOT) not in sys.path:
 
 from coordination.errors import IdempotencyConflict
 from adapters.agent_bus_client import (
+    OfflineSpool,
     ack_message,
+    build_typed_ssh_command,
     enroll_agent,
     poll_messages,
     register_rpc_handler,
@@ -606,3 +608,335 @@ def test_cli_subcommands_headless_execution(tmp_path: Path) -> None:
     err_json = json.loads(res.stderr)
     assert err_json["status"] == "error"
     assert "error" in err_json
+
+
+def test_offline_spool_stores_and_enforces_cred_protection(tmp_path: Path) -> None:
+    """Verifies OfflineSpool stores pending messages and enforces fail-closed credential protection."""
+    spool_db = tmp_path / "test_spool.db"
+    spool = OfflineSpool(db_path=spool_db)
+
+    # 1. Normal message spooling
+    msg = spool.spool_message(
+        recipient_id="agent-recipient-1",
+        body="Execute coordination directive",
+        data={"action": "run_step", "params": {"step": 1}},
+        idempotency_key="spool-key-1",
+        kind="instruction",
+    )
+
+    assert msg["status"] == "pending"
+    assert msg["recipient_id"] == "agent-recipient-1"
+    assert msg["body"] == "Execute coordination directive"
+    assert msg["data"] == {"action": "run_step", "params": {"step": 1}}
+    assert msg["idempotency_key"] == "spool-key-1"
+    assert msg["kind"] == "instruction"
+    assert msg["spool_id"] is not None and len(msg["spool_id"]) > 0
+    assert msg["created_at"] is not None
+    assert msg["delivered_at"] is None
+    assert msg["message_id"] is None
+
+    # Check pending list
+    pending = spool.list_pending()
+    assert len(pending) == 1
+    assert pending[0]["spool_id"] == msg["spool_id"]
+    assert pending[0]["status"] == "pending"
+    assert pending[0]["data"] == {"action": "run_step", "params": {"step": 1}}
+
+    # 2. Reject head credential inheritance in data
+    forbidden_datas = [
+        {"head.cred": "secret-head-token-123"},
+        {"head_token": "bearer-head-token-456"},
+        {"head_cred": "token-789"},
+        {"head": {"token": "nested-head-token"}},
+        {"head": {"cred": "nested-head-cred"}},
+        {"token": "head-token-leak"},
+    ]
+    for bad_data in forbidden_datas:
+        with pytest.raises(ValueError, match="head_cred_inheritance_rejected"):
+            spool.spool_message(
+                recipient_id="agent-recipient-1",
+                body="Attempt to spool with head cred in data",
+                data=bad_data,
+            )
+
+    # 3. Reject head credential inheritance in body
+    forbidden_bodies = [
+        "Include head.cred in plain text",
+        "Setting head_token=secret",
+    ]
+    for bad_body in forbidden_bodies:
+        with pytest.raises(ValueError, match="head_cred_inheritance_rejected"):
+            spool.spool_message(
+                recipient_id="agent-recipient-1",
+                body=bad_body,
+                data=None,
+            )
+
+    # Ensure none of the rejected messages were inserted into SQLite
+    assert len(spool.list_pending()) == 1
+
+
+def test_offline_spool_flush_fifo_lifecycle_and_dedup(tmp_path: Path) -> None:
+    """Verifies FIFO ordering, deduplication with IdempotencyConflict, and delivery lifecycle upon flush."""
+    bus_store = tmp_path / "bus_store"
+    bus_store.mkdir(parents=True, mode=0o700)
+
+    cred_alice, _ = enroll_agent(bus_store, "alice")
+    cred_bob, _ = enroll_agent(bus_store, "bob")
+    bob_id = cred_bob["identity"]["identity_id"]
+
+    spool = OfflineSpool(db_path=tmp_path / "fifo_spool.db")
+
+    # 1. Spool 3 messages in order
+    msg1 = spool.spool_message(recipient_id=bob_id, body="First message", data={"seq": 1})
+    msg2 = spool.spool_message(recipient_id=bob_id, body="Second message", data={"seq": 2})
+    msg3 = spool.spool_message(recipient_id=bob_id, body="Third message", data={"seq": 3})
+
+    # 2. Test dedup and idempotency conflict
+    idem_key = "idemp-fifo-key-100"
+    msg4 = spool.spool_message(recipient_id=bob_id, body="Fourth message", data={"seq": 4}, idempotency_key=idem_key)
+    msg4_dup = spool.spool_message(recipient_id=bob_id, body="Fourth message", data={"seq": 4}, idempotency_key=idem_key)
+    assert msg4["spool_id"] == msg4_dup["spool_id"]
+
+    with pytest.raises(IdempotencyConflict):
+        spool.spool_message(recipient_id=bob_id, body="Fourth conflict body", data={"seq": 4}, idempotency_key=idem_key)
+
+    with pytest.raises(IdempotencyConflict):
+        spool.spool_message(recipient_id=bob_id, body="Fourth message", data={"seq": 999}, idempotency_key=idem_key)
+
+    # Verify FIFO pending list
+    pending = spool.list_pending()
+    assert len(pending) == 4
+    assert [p["body"] for p in pending] == ["First message", "Second message", "Third message", "Fourth message"]
+    assert [p["spool_id"] for p in pending] == [msg1["spool_id"], msg2["spool_id"], msg3["spool_id"], msg4["spool_id"]]
+
+    # 3. Flush pending messages
+    delivered = spool.flush(store_path=bus_store, cred=cred_alice)
+    assert len(delivered) == 4
+    assert [d["body"] for d in delivered] == ["First message", "Second message", "Third message", "Fourth message"]
+    assert [d["spool_id"] for d in delivered] == [msg1["spool_id"], msg2["spool_id"], msg3["spool_id"], msg4["spool_id"]]
+
+    # Spool queue should now be empty
+    assert len(spool.list_pending()) == 0
+
+    # 4. Bob polls inbox and receives all messages
+    bob_inbox = poll_messages(store_path=bus_store, cred=cred_bob, unread_only=True)
+    assert len(bob_inbox) == 4
+    assert {m["body"] for m in bob_inbox} == {"First message", "Second message", "Third message", "Fourth message"}
+    assert {m["data"]["seq"] for m in bob_inbox} == {1, 2, 3, 4}
+
+
+def test_offline_spool_flush_fails_closed_on_connection_error_without_dropping(tmp_path: Path) -> None:
+    """Verifies flush fails closed on transport errors, preserving all pending and unhandled messages."""
+    spool = OfflineSpool(db_path=tmp_path / "flaky_spool.db")
+
+    msg1 = spool.spool_message(recipient_id="agent-b", body="Step 1: Prep", data={"step": 1})
+    msg2 = spool.spool_message(recipient_id="agent-b", body="Step 2: Sync", data={"step": 2})
+    msg3 = spool.spool_message(recipient_id="agent-b", body="Step 3: Finish", data={"step": 3})
+
+    attempted_calls: list[dict[str, Any]] = []
+
+    def mock_flaky_transport(store_path: Any, cred: Any, **kwargs: Any) -> dict[str, Any]:
+        attempted_calls.append(kwargs)
+        if kwargs["body"] == "Step 2: Sync":
+            raise ConnectionError("Simulated SSH / network socket disconnect")
+        return {"message_id": f"mock-msg-{kwargs['body']}", "status": "ok", **kwargs}
+
+    # First flush: succeeds on msg1, fails on msg2, stops before msg3
+    delivered_first = spool.flush(store_path=None, cred={}, transport_fn=mock_flaky_transport)
+    assert len(delivered_first) == 1
+    assert delivered_first[0]["body"] == "Step 1: Prep"
+    assert delivered_first[0]["spool_id"] == msg1["spool_id"]
+
+    # Verify pending: msg2 and msg3 are NOT dropped or skipped
+    pending_after_failure = spool.list_pending()
+    assert len(pending_after_failure) == 2
+    assert [p["body"] for p in pending_after_failure] == ["Step 2: Sync", "Step 3: Finish"]
+    assert [p["spool_id"] for p in pending_after_failure] == [msg2["spool_id"], msg3["spool_id"]]
+
+    # Verify mock transport only attempted Step 1 and Step 2
+    assert len(attempted_calls) == 2
+    assert attempted_calls[0]["body"] == "Step 1: Prep"
+    assert attempted_calls[1]["body"] == "Step 2: Sync"
+
+    # Network recovery: second flush succeeds for remaining messages
+    def mock_recovered_transport(store_path: Any, cred: Any, **kwargs: Any) -> dict[str, Any]:
+        return {"message_id": f"recovered-msg-{kwargs['body']}", "status": "ok", **kwargs}
+
+    delivered_second = spool.flush(store_path=None, cred={}, transport_fn=mock_recovered_transport)
+    assert len(delivered_second) == 2
+    assert [d["body"] for d in delivered_second] == ["Step 2: Sync", "Step 3: Finish"]
+    assert [d["spool_id"] for d in delivered_second] == [msg2["spool_id"], msg3["spool_id"]]
+
+    # All messages now delivered
+    assert len(spool.list_pending()) == 0
+
+
+def test_build_typed_ssh_command_stdin_framing(tmp_path: Path) -> None:
+    """Verifies typed SSH command generation and stdin JSON framing avoiding shell quoting issues."""
+    cmd_args, json_payload = build_typed_ssh_command(
+        host="remote-box.internal",
+        store_path="/var/agent-bus/store",
+        cred_path="/etc/agent-bus/agent.cred.json",
+        method="poll",
+        params={"unread_only": True},
+    )
+
+    expected_cmd = [
+        "ssh",
+        "remote-box.internal",
+        "python3",
+        "-m",
+        "adapters.agent_bus_client",
+        "rpc",
+        "--store",
+        "/var/agent-bus/store",
+        "--cred",
+        "/etc/agent-bus/agent.cred.json",
+        "--stdin",
+    ]
+    assert cmd_args == expected_cmd
+
+    payload = json.loads(json_payload)
+    assert payload == {"method": "poll", "params": {"unread_only": True}}
+
+    # Test custom python_bin and method="send"
+    cmd_args_custom, json_payload_custom = build_typed_ssh_command(
+        host="windows-node",
+        store_path=str(tmp_path / "store"),
+        cred_path=str(tmp_path / "cred.json"),
+        method="send",
+        params={"recipient_id": "target-uuid", "body": "Quoted body with 'single' and \"double\" quotes"},
+        python_bin="/usr/bin/python3.12",
+    )
+    assert cmd_args_custom[2] == "/usr/bin/python3.12"
+    payload_custom = json.loads(json_payload_custom)
+    assert payload_custom["method"] == "send"
+    assert payload_custom["params"]["body"] == "Quoted body with 'single' and \"double\" quotes"
+
+    # Verify execution of typed RPC with --stdin framing locally
+    script_path = REPO_ROOT / "adapters" / "agent_bus_client.py"
+    bus_store = tmp_path / "rpc_store"
+    bus_store.mkdir(parents=True, mode=0o700)
+    cred_file = tmp_path / "rpc_agent.cred.json"
+    enroll_agent(bus_store, "rpc-tester", cred_path=cred_file)
+
+    cmd_exec = [
+        sys.executable,
+        str(script_path),
+        "rpc",
+        "--store",
+        str(bus_store),
+        "--cred",
+        str(cred_file),
+        "--stdin",
+    ]
+    stdin_input = json.dumps({"method": "ping", "params": {"test_typed": 42}})
+    res = subprocess.run(cmd_exec, input=stdin_input, capture_output=True, text=True, check=True)
+    out = json.loads(res.stdout)
+    assert out["status"] == "ok"
+    assert out["method"] == "ping"
+    assert out["pong"] is True
+    assert out["params"] == {"test_typed": 42}
+
+
+def test_cli_spool_and_flush(tmp_path: Path) -> None:
+    """Verifies CLI subcommands for spool and flush operations."""
+    script_path = REPO_ROOT / "adapters" / "agent_bus_client.py"
+    bus_store = tmp_path / "cli_bus_store"
+    bus_store.mkdir(parents=True, mode=0o700)
+    spool_db = tmp_path / "cli_test_spool.db"
+
+    # Enroll sender and recipient
+    cred_alice_file = tmp_path / "cli_alice.cred.json"
+    enroll_agent(bus_store, "cli-alice", cred_path=cred_alice_file)
+
+    cred_bob_file = tmp_path / "cli_bob.cred.json"
+    cred_bob, _ = enroll_agent(bus_store, "cli-bob", cred_path=cred_bob_file)
+    bob_id = cred_bob["identity"]["identity_id"]
+
+    # 1. Spool message via CLI
+    cmd_spool = [
+        sys.executable,
+        str(script_path),
+        "spool",
+        "--spool-db",
+        str(spool_db),
+        "--recipient",
+        bob_id,
+        "--body",
+        "Queued offline command",
+        "--data",
+        json.dumps({"offline_task": "t-100"}),
+        "--key",
+        "cli-spool-key-1",
+        "--kind",
+        "instruction",
+    ]
+    res_spool = subprocess.run(cmd_spool, capture_output=True, text=True, check=True)
+    spool_out = json.loads(res_spool.stdout)
+    assert spool_out["status"] == "ok"
+    assert spool_out["action"] == "spool"
+    assert spool_out["recipient_id"] == bob_id
+    assert spool_out["body"] == "Queued offline command"
+    assert spool_out["spool_status"] == "pending"
+    assert spool_out["spool_id"] is not None
+
+    # 2. Spool message with forbidden head cred fails via CLI
+    cmd_spool_forbidden = [
+        sys.executable,
+        str(script_path),
+        "spool",
+        "--spool-db",
+        str(spool_db),
+        "--recipient",
+        bob_id,
+        "--body",
+        "Should fail closed",
+        "--data",
+        json.dumps({"head.cred": "stolen-token"}),
+    ]
+    res_forbidden = subprocess.run(cmd_spool_forbidden, capture_output=True, text=True)
+    assert res_forbidden.returncode == 1
+    err_out = json.loads(res_forbidden.stderr)
+    assert err_out["status"] == "error"
+    assert err_out["error_type"] == "ValueError"
+
+    # 3. Flush spool via CLI
+    cmd_flush = [
+        sys.executable,
+        str(script_path),
+        "flush",
+        "--spool-db",
+        str(spool_db),
+        "--store",
+        str(bus_store),
+        "--cred",
+        str(cred_alice_file),
+    ]
+    res_flush = subprocess.run(cmd_flush, capture_output=True, text=True, check=True)
+    flush_out = json.loads(res_flush.stdout)
+    assert flush_out["status"] == "ok"
+    assert flush_out["action"] == "flush"
+    assert flush_out["count"] == 1
+    assert flush_out["pending_remaining"] == 0
+    assert len(flush_out["delivered"]) == 1
+    assert flush_out["delivered"][0]["body"] == "Queued offline command"
+
+    # 4. Verify recipient polls inbox and receives the spooled message
+    cmd_poll = [
+        sys.executable,
+        str(script_path),
+        "poll",
+        "--store",
+        str(bus_store),
+        "--cred",
+        str(cred_bob_file),
+        "--unread",
+    ]
+    res_poll = subprocess.run(cmd_poll, capture_output=True, text=True, check=True)
+    poll_out = json.loads(res_poll.stdout)
+    assert poll_out["status"] == "ok"
+    assert poll_out["count"] == 1
+    assert poll_out["messages"][0]["body"] == "Queued offline command"
+    assert poll_out["messages"][0]["data"] == {"offline_task": "t-100"}
