@@ -95,7 +95,7 @@ class FailoverBridge:
             if event['kind']!='head_backfill_required':
                 continue
             details=json.loads(event['payload'])
-            if details.get('promoted')!=leader['holder']:
+            if not self.authority.in_scope(project,event['project']):
                 continue
             head=self.authority.role_state(event['project'],event['role'])
             if head['epoch']!=event['epoch'] or head['holder'] is not None:
@@ -107,9 +107,9 @@ class FailoverBridge:
             plan=dict(plan);plan['id']=plan['id']+'-backfill-epoch-'+str(event['epoch'])
             plan['payload']=dict(plan['payload'])
             plan['payload']['role_context']={'project':event['project'],'role':event['role'],
-                'epoch':event['epoch'],'requested_by':leader['holder'],'preserve_task_custody':True}
+                'epoch':event['epoch'],'previous_head':details['promoted'],'preserve_task_custody':True}
             outcome=self.authority.guarded_effect(project,role,leader['holder'],leader['generation'],leader['epoch'],
-                'head-backfill:'+event['project']+':'+event['role']+':'+str(event['epoch']),plan,self.launcher_queue)
+                'head-backfill:'+event['project']+':'+event['role']+':'+str(event['epoch']),plan,self.launcher_queue,reconcile=True)
             outcomes.append({'role':event['role'],'epoch':event['epoch'],'queue':outcome,
                              'activation':'pending_enrolled_head_role_ack_and_first_action'})
         return outcomes

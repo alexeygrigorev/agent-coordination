@@ -250,7 +250,7 @@ class RoleAuthority:
             db.execute('UPDATE roles SET suspect_since=NULL WHERE project=? AND role=?',(project,role))
             self._event(db,project,role,'sync_response',epoch,{'envelope_id':envelope_id,'evidence':evidence})
 
-    def guarded_effect(self, project, role, actor, generation, epoch, key, payload, effect):
+    def guarded_effect(self, project, role, actor, generation, epoch, key, payload, effect, *, reconcile=False):
         """Serialize control-plane enqueue with election; callback MUST dedup key.
 
         A crash after callback before commit may retry it. External effects require
@@ -264,7 +264,8 @@ class RoleAuthority:
             body=json.dumps(payload,sort_keys=True)
             old=db.execute('SELECT * FROM actions WHERE key=?',(key,)).fetchone()
             if old:
-                if (old['project'],old['role'],old['epoch'],old['payload'])!=(project,role,epoch,body):
+                same_effect=(old['project'],old['role'],old['payload'])==(project,role,body)
+                if not same_effect or (not reconcile and old['epoch']!=epoch):
                     raise Fenced('conflicting intent')
                 return {'state':'already_enqueued'}
             result=effect(key,payload)
@@ -292,6 +293,17 @@ class RoleAuthority:
         with self._tx() as db:
             self._valid(db,project,role,actor,generation,epoch)
             return True
+
+    def in_scope(self, principal_project, child_project):
+        with self._tx() as db:
+            visited=set()
+            while child_project and child_project not in visited:
+                if child_project==principal_project:
+                    return True
+                visited.add(child_project)
+                row=db.execute('SELECT parent FROM projects WHERE id=?',(child_project,)).fetchone()
+                child_project=row['parent'] if row else None
+            return False
 
     def role_state(self, project, role):
         with self._tx() as db:

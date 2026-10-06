@@ -101,3 +101,36 @@ def test_promoted_head_backfill_queue_retry_and_no_duplicate(tmp_path):
     assert result['head_backfills'][0]['queue']['state']=='queued'
     assert calls==['head-backfill:p:head:bus:2']*2
     assert bridge.tick('p','principal')['head_backfills'][0]['queue']['state']=='already_enqueued'
+
+
+def test_successor_principal_reconciles_previous_pending_head_backfill(tmp_path):
+    now=[1000];a=RoleAuthority(tmp_path/'roles.db',lambda:now[0])
+    a.configure('p','principal',['old','head','backup']);a.configure('p','head:bus',['head'])
+    a.startup_plan('p','head:bus',{'id':'new-head','payload':{'goal':'head recovery'}})
+    for actor,priority in [('old',0),('head',1),('backup',2)]:
+        a.observe(actor,'hetzner','g1',ready=True,draft=False,quota_ok=True,priority=priority)
+    a.tick('p','principal');a.tick('p','head:bus')
+    bus=FileBus(tmp_path/'bus');who,token=bus.register(agent_name='standby',device_id='hetzner',project_id='p')
+    recipients={who.identity_id:who.identity_id}
+    for actor in ['old','head','backup']:
+        ident,_=bus.register(agent_name=actor,device_id='hetzner',project_id='p');recipients[actor]=ident.identity_id
+    calls=[]
+    def queue(key,task):
+        calls.append(key)
+        if len(calls)==1:raise RuntimeError('promoted principal lost before head enqueue')
+        return {'state':'queued'}
+    bridge=FailoverBridge(a,bus,sender_id=who.identity_id,token=token,recipients=recipients,launcher_queue=queue)
+    now[0]+=181;bridge.tick('p','principal');now[0]+=121
+    a.observe('head','hetzner','g1',ready=True,draft=False,quota_ok=True,priority=1)
+    with pytest.raises(RuntimeError):bridge.tick('p','principal')
+    now[0]+=181;bridge.tick('p','principal');now[0]+=121
+    a.observe('backup','hetzner','g1',ready=True,draft=False,quota_ok=True,priority=2)
+    result=bridge.tick('p','principal')
+    assert result['holder']=='backup'
+    assert result['head_backfills'][0]['queue']['state']=='queued'
+    assert calls==['head-backfill:p:head:bus:2']*2
+    # A later successor reconciles an already enqueued effect without duplicate.
+    now[0]+=181;bridge.tick('p','principal');now[0]+=121
+    a.observe('old','hetzner','g2',ready=True,draft=False,quota_ok=True,priority=0)
+    assert bridge.tick('p','principal')['head_backfills'][0]['queue']['state']=='already_enqueued'
+    assert len(calls)==2
