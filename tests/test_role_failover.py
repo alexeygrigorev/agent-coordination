@@ -53,6 +53,7 @@ def test_periodic_check_missing_even_with_renewals(authority):
     a.configure('project','coordinator',['desktop','remote'])
     enroll(a,'desktop',priority=0);enroll(a,'remote')
     elect(a,'coordinator')
+    a.activation('project','coordinator','desktop','g1',1,role_ack='ack',first_action='tool')
     for _ in range(17):
         now[0]+=100;a.renew('project','coordinator','desktop','g1',1)
     now[0]+=221
@@ -117,6 +118,7 @@ def test_fresh_quota_dispatch_and_empty_check_rejected(authority):
 def test_scheduled_completion_at_due_and_rollback(authority):
     a,now=authority
     a.configure('project','coordinator',['a']);enroll(a,'a');elect(a,'coordinator')
+    a.activation('project','coordinator','a','g1',1,role_ack='ack',first_action='tool')
     now[0]+=100;a.renew('project','coordinator','a','g1',1,ttl=2000)
     now[0]=2800
     a.complete_check('project','coordinator','a','g1',1,evidence='scheduled-receipt')
@@ -146,3 +148,15 @@ def test_old_generation_fenced_before_lease_expiry(authority):
     a.configure('project','principal',['a']);enroll(a,'a');elect(a)
     enroll(a,'a','g2')
     with pytest.raises(Fenced):a.submit_action('project','principal','a','g1',1,'oldlaunch',{})
+
+
+def test_first_action_deadline_despite_lease_renewal(authority):
+    a,now=authority
+    a.configure('project','principal',['a','b']);enroll(a,'a',priority=0);enroll(a,'b');elect(a)
+    a.renew('project','principal','a','g1',1,ttl=1000)
+    now[0]+=301
+    with pytest.raises(Fenced):a.authorize('project','principal','a','g1',1)
+    assert elect(a)['state']=='diagnosing'
+    now[0]+=121;enroll(a,'b')
+    assert elect(a)['holder']=='b'
+    assert elect(a)['epoch']==2

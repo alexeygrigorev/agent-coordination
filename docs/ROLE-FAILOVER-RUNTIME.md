@@ -33,7 +33,7 @@ Principal promotion atomically revokes the promoted agent's head-role authority
 and emits `head_backfill_required`, preserving its task/file children. The
 existing principal/launcher consumer must supply a separately owned useful head
 startup task, preserve child custody and verify genuine role ACK/first model
-action within 300 seconds. Backfill events do not establish a launched head.
+action within 300 seconds. The bridge reconciles every backfill event through an explicitly persisted head startup plan and the same guarded launcher queue, retrying its epoch key after failures. Missing templates remain pending. Queued backfill does not establish a launched head.
 
 The elected owner may enqueue an explicit startup/control task via
 `guarded_effect`: SQLite holds election exclusion while the maintained launcher
@@ -75,7 +75,7 @@ Live acceptance requires unresponsive-principal and missing-coordinator periodic
 and stand-up scenarios, two simultaneous standby contenders, partition/unknown
 quota/draft negatives, preserved in-flight children, one elected epoch and one
 launcher reservation, actual replacement model first tool, completed check,
-independent peer verdict and repeated no-desktop cycles. Source tests, recorded
+independent peer verdict and repeated no-desktop cycles. An elected role missing authenticated ACK/first-tool activation within 300 seconds triggers diagnosis and replacement even if its lease keeps renewing. Source tests, recorded
 sync envelopes and queued startup tasks do not establish live autonomy.
 
 ## Validation

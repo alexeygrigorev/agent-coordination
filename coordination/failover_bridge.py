@@ -82,6 +82,34 @@ class FailoverBridge:
                 result['generation'],result['epoch'],
                 'role-start:'+project+':'+role+':'+str(result['epoch']),plan,self.launcher_queue)
         if result['state'] in ('elected','healthy'):
+            if role=='principal':
+                result['head_backfills']=self.reconcile_head_backfills(project,role,result)
             result['activation']=self.authority.activation(project,role,result['holder'],result['generation'],result['epoch'])
         result['receipts']=receipts
         return result
+
+    def reconcile_head_backfills(self, project, role, leader):
+        """Use owner-approved head templates, preserve child writers, retry exact key."""
+        outcomes=[]
+        for event in self.authority.events():
+            if event['kind']!='head_backfill_required':
+                continue
+            details=json.loads(event['payload'])
+            if details.get('promoted')!=leader['holder']:
+                continue
+            head=self.authority.role_state(event['project'],event['role'])
+            if head['epoch']!=event['epoch'] or head['holder'] is not None:
+                continue
+            plan=self.authority.startup_plan(event['project'],event['role'])
+            if plan is None:
+                outcomes.append({'role':event['role'],'state':'pending_owned_head_startup_plan'})
+                continue
+            plan=dict(plan);plan['id']=plan['id']+'-backfill-epoch-'+str(event['epoch'])
+            plan['payload']=dict(plan['payload'])
+            plan['payload']['role_context']={'project':event['project'],'role':event['role'],
+                'epoch':event['epoch'],'requested_by':leader['holder'],'preserve_task_custody':True}
+            outcome=self.authority.guarded_effect(project,role,leader['holder'],leader['generation'],leader['epoch'],
+                'head-backfill:'+event['project']+':'+event['role']+':'+str(event['epoch']),plan,self.launcher_queue)
+            outcomes.append({'role':event['role'],'epoch':event['epoch'],'queue':outcome,
+                             'activation':'pending_enrolled_head_role_ack_and_first_action'})
+        return outcomes

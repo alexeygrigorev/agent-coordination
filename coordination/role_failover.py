@@ -31,7 +31,7 @@ class RoleAuthority:
               agent TEXT NOT NULL, PRIMARY KEY(project,role,agent));
             CREATE TABLE IF NOT EXISTS roles(project TEXT NOT NULL, role TEXT NOT NULL,
               holder TEXT, generation TEXT, epoch INTEGER NOT NULL DEFAULT 0,
-              expires REAL NOT NULL DEFAULT 0, check_due REAL NOT NULL DEFAULT 0,
+              expires REAL NOT NULL DEFAULT 0, activation_due REAL NOT NULL DEFAULT 0, check_due REAL NOT NULL DEFAULT 0,
               standup_due REAL, suspect_since REAL,
               PRIMARY KEY(project,role));
             CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,6 +44,8 @@ class RoleAuthority:
             CREATE TABLE IF NOT EXISTS actions(key TEXT PRIMARY KEY, project TEXT NOT NULL,
               role TEXT NOT NULL, epoch INTEGER NOT NULL, payload TEXT NOT NULL);
             ''')
+            if 'activation_due' not in [r[1] for r in db.execute('PRAGMA table_info(roles)')]:
+                db.execute('ALTER TABLE roles ADD COLUMN activation_due REAL NOT NULL DEFAULT 0')
             old = db.execute("SELECT value FROM authority_meta WHERE key='boot'").fetchone()
             if old and old[0] != self.boot_id:
                 db.execute('UPDATE roles SET expires=0,suspect_since=NULL')
@@ -109,6 +111,11 @@ class RoleAuthority:
         row = self._get(db, project, role)
         if (row['holder'], row['generation'], row['epoch']) != (actor, generation, epoch):
             raise Fenced('stale role identity or epoch')
+        if row['activation_due']>0 and row['activation_due']<=self.clock():
+            activated=db.execute('SELECT 1 FROM activation_receipts WHERE project=? AND role=? AND epoch=?',
+                                 (project,role,epoch)).fetchone()
+            if not activated:
+                raise Fenced('role first-action deadline missed')
         observed=db.execute('SELECT generation FROM agents WHERE id=?',(actor,)).fetchone()
         if not observed or observed['generation']!=generation:
             raise Fenced('runtime generation has changed')
@@ -147,7 +154,10 @@ class RoleAuthority:
             old = self._get(db, project, role)
             incumbent=db.execute('SELECT generation FROM agents WHERE id=?',(old['holder'],)).fetchone()
             generation_changed=incumbent and incumbent['generation']!=old['generation']
-            missed = old['holder'] and (generation_changed or (old['expires'] <= now or old['check_due']+120 <= now
+            activated=db.execute('SELECT 1 FROM activation_receipts WHERE project=? AND role=? AND epoch=?',
+                                 (project,role,old['epoch'])).fetchone()
+            first_action_missed=old['activation_due']>0 and old['activation_due']<=now and not activated
+            missed = old['holder'] and (generation_changed or first_action_missed or (old['expires'] <= now or old['check_due']+120 <= now
                        or (old['standup_due'] is not None and old['standup_due']+120 <= now)))
             if old['holder'] and not missed:
                 return {'state': 'healthy', 'holder': old['holder'], 'generation': old['generation'], 'epoch': old['epoch']}
@@ -173,10 +183,10 @@ class RoleAuthority:
             new = choices[0]
             epoch = old['epoch']+1
             db.execute('''UPDATE roles SET holder=?,generation=?,epoch=?,expires=?,check_due=?,
-                suspect_since=NULL,standup_due=? WHERE project=? AND role=?''',
+                suspect_since=NULL,standup_due=?,activation_due=? WHERE project=? AND role=?''',
                 (new['id'],new['generation'],epoch,now+ttl,now+check_interval,
                  now+diagnosis_grace if old['standup_due'] is not None and old['standup_due']<=now else old['standup_due'],
-                 project,role))
+                 now+300,project,role))
             # A promoted head relinquishes role authority, not in-flight file custody.
             if role == 'principal':
                 heads = db.execute("SELECT * FROM roles WHERE holder=? AND role LIKE 'head:%'", (new['id'],)).fetchall()
@@ -282,6 +292,10 @@ class RoleAuthority:
         with self._tx() as db:
             self._valid(db,project,role,actor,generation,epoch)
             return True
+
+    def role_state(self, project, role):
+        with self._tx() as db:
+            return dict(self._get(db,project,role))
 
     def events(self):
         with self._tx() as db:

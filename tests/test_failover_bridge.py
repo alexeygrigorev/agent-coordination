@@ -75,3 +75,29 @@ def test_startup_retry_survives_election_and_queue_failure(tmp_path):
     assert result['activation']['state']=='pending_role_ack_and_first_action'
     a.activation('p','principal','a','g1',1,role_ack='envelope-semantic-ack',first_action='model-tool-receipt')
     assert bridge.tick('p','principal')['activation']['first_action']=='model-tool-receipt'
+
+
+def test_promoted_head_backfill_queue_retry_and_no_duplicate(tmp_path):
+    now=[1000];a=RoleAuthority(tmp_path/'roles.db',lambda:now[0])
+    a.configure('p','principal',['old','head']);a.configure('p','head:bus',['head'])
+    a.startup_plan('p','head:bus',{'id':'new-head','payload':{'goal':'head recovery'}})
+    a.observe('old','hetzner','g1',ready=True,draft=False,quota_ok=True,priority=0)
+    a.observe('head','hetzner','g1',ready=True,draft=False,quota_ok=True)
+    a.tick('p','principal');a.tick('p','head:bus')
+    bus=FileBus(tmp_path/'bus');who,token=bus.register(agent_name='standby',device_id='hetzner',project_id='p')
+    old,_=bus.register(agent_name='old',device_id='hetzner',project_id='p')
+    head,_=bus.register(agent_name='head',device_id='hetzner',project_id='p')
+    calls=[]
+    def queue(key,task):
+        calls.append(key)
+        if len(calls)==1:raise RuntimeError('head backfill queue unavailable')
+        return {'state':'queued','id':task['id']}
+    bridge=FailoverBridge(a,bus,sender_id=who.identity_id,token=token,
+        recipients={'old':old.identity_id,'head':head.identity_id,who.identity_id:who.identity_id},launcher_queue=queue)
+    now[0]+=181;bridge.tick('p','principal');now[0]+=121
+    a.observe('head','hetzner','g1',ready=True,draft=False,quota_ok=True)
+    with pytest.raises(RuntimeError):bridge.tick('p','principal')
+    result=bridge.tick('p','principal')
+    assert result['head_backfills'][0]['queue']['state']=='queued'
+    assert calls==['head-backfill:p:head:bus:2']*2
+    assert bridge.tick('p','principal')['head_backfills'][0]['queue']['state']=='already_enqueued'
