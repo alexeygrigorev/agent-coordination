@@ -8,12 +8,16 @@
     "first_tool": "git status",
     "started_at": "2026-10-06T14:17:10Z",
     "first_tool_timestamp": "2026-10-06T14:17:10Z",
-    "completed_at": "2026-10-06T14:20:17Z"
+    "completed_at": "2026-10-06T14:28:25Z"
   },
   "review_prompt": "You are an independent peer reviewer for Product 4 (Cross-computer Agent Coordination) under the project head. Your role: Distinct Independent Reviewer for task coord-dashboard-launcher-hosts (launcher task t-coord-dashboard-launcher-hosts-c2880 / review task t-coord-dashboard-launcher-hosts-review-c2880). Independent Verdict: ACCEPT or CHANGES_REQUESTED.",
   "verdict": "ACCEPT",
   "report_path": "/home/alexey/git/agent-coordination/reviews/REV-COORD-HOST-INTERFACE-C2880.md",
-  "report_sha256": "daf3bcacb30f060a88433fddd1fce0336e569886aad8cd583daae1464db33291",
+  "report_sha256": "14e29d3c8adf52426bd96424ee010bb111f64c9061178aaefb8b2afbb772893f",
   "source_commit": "30df32ae2bbcc47558556e03701e28bae4a10022",
-  "source_repo": "/home/alexey/git/agent-coordination"
+  "source_repo": "/home/alexey/git/agent-coordination",
+  "pinned_commit": "29ff6cf925b5c75869e1c05ee444c427aa52e5ad",
+  "diff_sha256": "0810f83c97414dddfb04024c429fae510cd601a721dd906e12235c5e8c4b46a1",
+  "tree_sha": "757598b2f2c4ab64d497ea365553201cd0b8b126",
+  "exact_diff_stats": "coordination/host_interface.py (+381), tests/test_host_interface.py (+213)"
 }

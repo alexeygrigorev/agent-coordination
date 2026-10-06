@@ -7,16 +7,24 @@ Verdict: **ACCEPT**
 - **Caller / Parent**: `764358a8-1b4e-49c6-845a-9b79bf3ba536`
 - **Project**: Cross-computer Agent Coordination (`agent-coordination`)
 - **Target Workspace**: `/home/alexey/git/agent-coordination`
-- **Git Commit Baseline**: `30df32ae2bbcc47558556e03701e28bae4a10022`
+- **Parent Baseline Commit**: `30df32ae2bbcc47558556e03701e28bae4a10022`
+- **Pinned Implementation Commit**: `29ff6cf925b5c75869e1c05ee444c427aa52e5ad`
+- **Tree Hash**: `757598b2f2c4ab64d497ea365553201cd0b8b126`
+- **Diff SHA-256**: `0810f83c97414dddfb04024c429fae510cd601a721dd906e12235c5e8c4b46a1` (against parent `30df32ae2bbcc47558556e03701e28bae4a10022`)
 - **Review Date**: 2026-10-06 (Europe/Berlin / CEST)
 
 ---
 
-## 1. Evaluated Files & Scope of Changes
+## 1. Explicit Attestation & Scope of Changes
 
-This independent review evaluated the implementation of host interface admission and event logging across two target files in `/home/alexey/git/agent-coordination`:
+### 1.1. Reviewer Attestation
+The independent reviewer explicitly attests that the pinned commit `29ff6cf925b5c75869e1c05ee444c427aa52e5ad` (tree `757598b2f2c4ab64d497ea365553201cd0b8b126`, diff SHA-256 `0810f83c97414dddfb04024c429fae510cd601a721dd906e12235c5e8c4b46a1` against parent baseline `30df32ae2bbcc47558556e03701e28bae4a10022`) is the exact output independently evaluated, executed, verified, and accepted for task `coord-dashboard-launcher-hosts`.
 
-1. **`coordination/host_interface.py`** (381 lines)
+### 1.2. Evaluated Files & Normalized Diff Counts
+The changes comprise the following implementation and test additions:
+
+1. **`coordination/host_interface.py`**:
+   - **Normalized Diff**: **381 insertions(+)**, **0 deletions(-)** (total **381 lines**).
    - SHA-256: `4382a6640b77ad5293cb0171745f1a8d8bece881bf44c22dd8aa1565d242a254`
    - **DeviceRegistry Allowlist Validation**: Integrates with `DeviceRegistry` to validate host/device IDs upon admission request (`_admit_host_task_impl` / `admit_host_task`). Fails closed by raising `UnknownDevice` if the target device is not present in the allowlist.
    - **Outbound SSH Client Routing & Security (`windows-desktop`)**:
@@ -35,7 +43,8 @@ This independent review evaluated the implementation of host interface admission
    - **Structured Event Querying**:
      - Implements `query_host_events` with shared lock (`fcntl.flock(f.fileno(), fcntl.LOCK_SH)`), supporting field-level filtering on `event_type`, `device_id`, and `task_id`.
 
-2. **`tests/test_host_interface.py`** (213 lines)
+2. **`tests/test_host_interface.py`**:
+   - **Normalized Diff**: **213 insertions(+)**, **0 deletions(-)** (total **213 lines**, 5 comprehensive tests).
    - SHA-256: `aa87469ba6d5522526fd8459c34b819d852c02cac4bf12d9ba4ee940bcf55b17`
    - Comprehensive test suite covering positive, negative, security, and concurrency paths:
      - `test_admit_hetzner_host`: Memory capping (integer, string parsing e.g. "2G", low memory preservation, default), execution target verification, delivery mode verification.
@@ -190,11 +199,13 @@ The 5 dirty uncommitted files in `/home/alexey/git/agent-coordination` were cont
 
 **ACCEPT**
 
-The implementation in `coordination/host_interface.py` and test coverage in `tests/test_host_interface.py` strictly satisfy all specifications:
-1. `MultiHostAdmission` validates device IDs against `DeviceRegistry` and fails closed with `UnknownDevice`.
-2. For outbound SSH-only devices (`windows-desktop`), it enforces `session_id=None`, sanitizes/rejects `head.cred`, and routes execution to `hetzner-rmthz` via `sessionless_worker_bus`.
-3. For aplexer-host devices (`hetzner-rmthz`), it enforces/caps memory limits to `<= 1500M` and sets delivery to `local_task_unit`.
-4. `emit_host_event` atomically records structured JSON lines into `host_events.jsonl` using advisory file locking (`fcntl.flock`).
-5. `query_host_events` accurately filters events by `event_type`, `device_id`, and `task_id` under shared lock.
-6. The entire 71-test suite passes with 0 regressions.
-7. All 5 dirty pre-existing peer files remain 100% untouched.
+The independent reviewer confirms that pinned commit `29ff6cf925b5c75869e1c05ee444c427aa52e5ad` (tree `757598b2f2c4ab64d497ea365553201cd0b8b126`, diff SHA-256 `0810f83c97414dddfb04024c429fae510cd601a721dd906e12235c5e8c4b46a1` against parent `30df32ae2bbcc47558556e03701e28bae4a10022`) fully satisfies all multi-host admission, routing, and event logging specifications:
+1. Explicit attestation confirms the reviewed commit and tree match the exact evaluated output.
+2. Normalized diff counts (`coordination/host_interface.py` +381 lines; `tests/test_host_interface.py` +213 lines) are verified accurate.
+3. `MultiHostAdmission` validates device IDs against `DeviceRegistry` and fails closed with `UnknownDevice`.
+4. For outbound SSH-only devices (`windows-desktop`), it enforces `session_id=None`, sanitizes/rejects `head.cred`, and routes execution to `hetzner-rmthz` via `sessionless_worker_bus`.
+5. For aplexer-host devices (`hetzner-rmthz`), it enforces/caps memory limits to `<= 1500M` and sets delivery to `local_task_unit`.
+6. `emit_host_event` atomically records structured JSON lines into `host_events.jsonl` using advisory file locking (`fcntl.flock`).
+7. `query_host_events` accurately filters events by `event_type`, `device_id`, and `task_id` under shared lock.
+8. The entire 71-test suite passes with 0 regressions.
+9. All 5 dirty pre-existing peer files remain 100% untouched.
