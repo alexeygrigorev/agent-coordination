@@ -31,6 +31,45 @@ logger = logging.getLogger(__name__)
 class BusAdapterHandler(BaseHTTPRequestHandler):
     timeout = 30.0
 
+    # Rejected bodies up to this size are read and discarded before replying,
+    # so a client still uploading sees the 413 instead of a reset connection.
+    DRAIN_LIMIT = 1024 * 1024
+
+    def _drain_chunked(self) -> None:
+        # Read (and discard) a chunked body up to its terminating zero-size
+        # chunk, bounded by DRAIN_LIMIT, so the client sees our error reply.
+        try:
+            self.connection.settimeout(2.0)
+            consumed = 0
+            while consumed <= self.DRAIN_LIMIT:
+                size_line = self.rfile.readline(1024)
+                if not size_line:
+                    return
+                consumed += len(size_line)
+                size = int(size_line.split(b";", 1)[0].strip() or b"0", 16)
+                if size == 0:
+                    self.rfile.readline(1024)
+                    return
+                consumed += size + 2
+                self.rfile.read(size + 2)
+        except (OSError, ValueError):
+            pass
+
+    def _reject_oversized(self, content_length: int) -> None:
+        if content_length <= self.DRAIN_LIMIT:
+            try:
+                self.connection.settimeout(2.0)
+                remaining = content_length
+                while remaining > 0:
+                    chunk = self.rfile.read(min(65536, remaining))
+                    if not chunk:
+                        break
+                    remaining -= len(chunk)
+            except OSError:
+                pass
+        self.close_connection = True
+        self._send_json(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"status": "error", "detail": "Payload too large"})
+
     def _log_target(self):
         # command/path are unset when the request line itself fails to parse.
         path = getattr(self, "path", None)
@@ -198,6 +237,8 @@ class BusAdapterHandler(BaseHTTPRequestHandler):
             path = parsed.path
 
             if self.headers.get("Transfer-Encoding", "").lower() == "chunked":
+                self._drain_chunked()
+                self.close_connection = True
                 self._send_json(HTTPStatus.BAD_REQUEST, {"status": "error", "detail": "Transfer-Encoding: chunked not supported"})
                 return
 
@@ -212,12 +253,9 @@ class BusAdapterHandler(BaseHTTPRequestHandler):
                 return
             
             # Bound request bodies: 10MB limit generally, 256KB for hub bridge
-            if path.startswith("/api/bus/"):
-                if content_length > 256 * 1024:
-                    self._send_json(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"status": "error", "detail": "Payload too large"})
-                    return
-            elif content_length > 10 * 1024 * 1024:
-                self._send_json(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"status": "error", "detail": "Payload too large"})
+            limit = 256 * 1024 if path.startswith("/api/bus/") else 10 * 1024 * 1024
+            if content_length > limit:
+                self._reject_oversized(content_length)
                 return
 
             if content_length == 0:
