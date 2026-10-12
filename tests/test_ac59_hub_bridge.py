@@ -438,3 +438,72 @@ def test_claims_are_explicitly_not_implemented(bus, identities, get_client):
     with pytest.raises(WireContractError) as exc:
         client.release_claim("proj1:scope-a")
     assert "status 501" in str(exc.value)
+
+
+def _raw_exchange(port, head, body_steps, read_timeout=15.0):
+    """Send head, then each (bytes, delay) step; return (status_line, elapsed_s).
+
+    Stops sending as soon as the server answers or closes, like a real client.
+    """
+    import socket
+    import time as _time
+    start = _time.monotonic()
+    s = socket.create_connection(("127.0.0.1", port))
+    s.settimeout(read_timeout)
+    try:
+        s.sendall(head)
+        for data, delay in body_steps:
+            s.settimeout(delay if delay > 0 else 0.01)
+            try:
+                early = s.recv(65536)
+                if early:
+                    return early.split(b"\r\n", 1)[0], _time.monotonic() - start
+            except socket.timeout:
+                pass
+            try:
+                s.sendall(data)
+            except (BrokenPipeError, ConnectionResetError):
+                break
+        s.settimeout(read_timeout)
+        resp = s.recv(65536)
+        return resp.split(b"\r\n", 1)[0], _time.monotonic() - start
+    finally:
+        s.close()
+
+
+DRAIN_BUDGET_S = 3.0 + 1.5
+
+
+def _post_head(path, extra):
+    return (f"POST {path} HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Type: application/json\r\n"
+            + extra + "\r\n").encode()
+
+
+@pytest.mark.parametrize("name,head,steps,status", [
+    # Oversized declared body that the client trickles one byte at a time.
+    ("trickled_oversized", _post_head("/api/bus/send", "Content-Length: 300000\r\n"),
+     [(b"x", 0.5)] * 30, b"413"),
+    # Oversized declared body; client sends a little then stalls.
+    ("incomplete_oversized", _post_head("/api/bus/send", "Content-Length: 300000\r\n"),
+     [(b"x" * 10, 0.0), (b"", 10.0)], b"413"),
+    # Chunked body with a malformed chunk-size line, then a stall.
+    ("malformed_chunk", _post_head("/api/bus/send", "Transfer-Encoding: chunked\r\n"),
+     [(b"zz-not-hex\r\n", 0.0), (b"", 10.0)], b"400"),
+    # Chunked body trickled forever without a terminating zero chunk.
+    ("unterminated_chunked", _post_head("/api/bus/send", "Transfer-Encoding: chunked\r\n"),
+     [(b"1\r\na\r\n", 0.5)] * 30, b"400"),
+])
+def test_rejected_upload_drain_is_time_bounded(server, name, head, steps, status):
+    status_line, elapsed = _raw_exchange(server.port, head, steps)
+    assert status in status_line, (name, status_line)
+    assert elapsed < DRAIN_BUDGET_S, (name, elapsed)
+    # The single-threaded server is free again right away.
+    import time as _time
+    import urllib.request
+    t0 = _time.monotonic()
+    req = urllib.request.Request(f"http://127.0.0.1:{server.port}/api/bus/inbox?actor=x")
+    try:
+        urllib.request.urlopen(req, timeout=5)
+    except urllib.error.HTTPError as e:
+        assert e.code == 401
+    assert _time.monotonic() - t0 < 2.0

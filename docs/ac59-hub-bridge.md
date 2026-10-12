@@ -38,6 +38,11 @@ The bearer token is compared in constant-time against the local FileBus token st
 - **Idempotency**: Requests specify an `idempotency_key`. Sending the exact same payload with the same key returns the original message ID. Sending a different payload with a pre-used idempotency key returns a `409 Conflict`.
 - **Message IDs**: Newly created messages receive a Crockford base32 ULID instead of a standard UUID, meeting the `new_ids` wire requirement while safely preserving legacy compatibility.
 
+## Rejected uploads and slow clients
+
+- Chunked uploads (400) and bodies over the request cap (413) are read and discarded before the reply, so clients see the status instead of a reset connection. Draining is bounded to 1 MiB and to 3 seconds of total wall time; larger declared bodies are refused without draining.
+- Known limitation (pre-existing, not introduced by the bridge): the receiver is a single-threaded `HTTPServer` with a 30-second per-read socket timeout, so a client that trickles an otherwise valid request can still occupy it. It must not be exposed beyond trusted callers until that is addressed.
+
 ## Deployment Notes
 
 - This feature is for loopback/source-level testing and bridging.

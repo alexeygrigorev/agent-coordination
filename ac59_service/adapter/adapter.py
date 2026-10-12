@@ -5,6 +5,7 @@ import logging
 import pathlib
 import ssl
 import sys
+import time
 import uuid
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -31,42 +32,43 @@ logger = logging.getLogger(__name__)
 class BusAdapterHandler(BaseHTTPRequestHandler):
     timeout = 30.0
 
-    # Rejected bodies up to this size are read and discarded before replying,
-    # so a client still uploading sees the 413 instead of a reset connection.
+    # Rejected bodies are read and discarded before replying, so a client still
+    # uploading sees the error status instead of a reset connection. Draining
+    # is bounded both in bytes and in total wall time (a trickling client
+    # cannot hold this single-threaded server longer than DRAIN_SECONDS).
     DRAIN_LIMIT = 1024 * 1024
+    DRAIN_SECONDS = 3.0
+    CHUNKED_END = b"0\r\n\r\n"
+
+    def _drain(self, limit: int, until: bytes = b"") -> None:
+        deadline = time.monotonic() + self.DRAIN_SECONDS
+        consumed = 0
+        tail = b""
+        try:
+            while consumed < limit:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    return
+                self.connection.settimeout(remaining)
+                chunk = self.rfile.read1(min(65536, limit - consumed))
+                if not chunk:
+                    return
+                consumed += len(chunk)
+                if until:
+                    tail = (tail + chunk)[-len(until):]
+                    if tail == until:
+                        return
+        except OSError:
+            pass
+        finally:
+            self.connection.settimeout(self.timeout)
 
     def _drain_chunked(self) -> None:
-        # Read (and discard) a chunked body up to its terminating zero-size
-        # chunk, bounded by DRAIN_LIMIT, so the client sees our error reply.
-        try:
-            self.connection.settimeout(2.0)
-            consumed = 0
-            while consumed <= self.DRAIN_LIMIT:
-                size_line = self.rfile.readline(1024)
-                if not size_line:
-                    return
-                consumed += len(size_line)
-                size = int(size_line.split(b";", 1)[0].strip() or b"0", 16)
-                if size == 0:
-                    self.rfile.readline(1024)
-                    return
-                consumed += size + 2
-                self.rfile.read(size + 2)
-        except (OSError, ValueError):
-            pass
+        self._drain(self.DRAIN_LIMIT, until=self.CHUNKED_END)
 
     def _reject_oversized(self, content_length: int) -> None:
         if content_length <= self.DRAIN_LIMIT:
-            try:
-                self.connection.settimeout(2.0)
-                remaining = content_length
-                while remaining > 0:
-                    chunk = self.rfile.read(min(65536, remaining))
-                    if not chunk:
-                        break
-                    remaining -= len(chunk)
-            except OSError:
-                pass
+            self._drain(content_length)
         self.close_connection = True
         self._send_json(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"status": "error", "detail": "Payload too large"})
 
