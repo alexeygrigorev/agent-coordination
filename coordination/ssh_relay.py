@@ -119,26 +119,45 @@ class SshRelay:
             recipient=request.recipient.render(),
             digest=digest,
         )
+        is_pending = False
         if existing:
-            return SendReceipt(
-                message_id=existing,
-                idempotency_key=key,
-                sender=request.sender,
-                recipient=request.recipient,
-                delivery="inbox",
-                recorded_at="",
-                catalog_resolved_session_id=request.recipient.session_id,
-                catalog_observed_at="",
-                bridge_device_id=bridge,
-                originating_agent=origin,
-                state=TransportState.SEND_RECEIPT,
-                payload_sha256=digest,
-            )
+            pending_keys = {r.get("idempotency_key") for r in self.store.pending_outbox()}
+            if key not in pending_keys:
+                return SendReceipt(
+                    message_id=existing,
+                    idempotency_key=key,
+                    sender=request.sender,
+                    recipient=request.recipient,
+                    delivery="inbox",
+                    recorded_at="",
+                    catalog_resolved_session_id=request.recipient.session_id,
+                    catalog_observed_at="",
+                    bridge_device_id=bridge,
+                    originating_agent=origin,
+                    state=TransportState.SEND_RECEIPT,
+                    payload_sha256=digest,
+                )
+            is_pending = True
 
         if not target.can_run_aplexer():
             # SSH-client hosts (Windows) have no native aplexer. Queue on an
             # aplexer host for the client to poll. This is recorded, not a
             # native Windows-bound send.
+            if is_pending:
+                return SendReceipt(
+                    message_id=existing,
+                    idempotency_key=key,
+                    sender=request.sender,
+                    recipient=request.recipient,
+                    delivery="queued_client_poll",
+                    recorded_at="",
+                    catalog_resolved_session_id=None,
+                    catalog_observed_at="",
+                    bridge_device_id=bridge,
+                    originating_agent=origin,
+                    payload_sha256=digest,
+                )
+            
             message_id = new_message_id()
             self.store.queue_offline(
                 {
@@ -152,6 +171,9 @@ class SshRelay:
                     "bridge_device_id": bridge,
                     "originating_agent": origin.render(),
                     "queued_for_client_poll": True,
+                    "sender_dict": request.sender.to_dict(),
+                    "recipient_dict": request.recipient.to_dict(),
+                    "originating_agent_dict": origin.to_dict(),
                 }
             )
             self.store.remember_send(
@@ -195,7 +217,7 @@ class SshRelay:
                 argv.extend(["--data", json.dumps(request.data, separators=(",", ":"))])
             raw = self.transport.run(target, argv)
             payload = json.loads(raw) if raw.strip() else {}
-            message_id = payload.get("id") or new_message_id()
+            message_id = existing if is_pending else (payload.get("id") or new_message_id())
             self.store.remember_send(
                 key,
                 sender=request.sender.render(),
@@ -218,6 +240,21 @@ class SshRelay:
                 payload_sha256=digest,
             )
         except TransportUnavailable:
+            if is_pending:
+                return SendReceipt(
+                    message_id=existing,
+                    idempotency_key=key,
+                    sender=request.sender,
+                    recipient=request.recipient,
+                    delivery="queued_offline",
+                    recorded_at="",
+                    catalog_resolved_session_id=None,
+                    catalog_observed_at="",
+                    bridge_device_id=bridge,
+                    originating_agent=origin,
+                    payload_sha256=digest,
+                )
+
             message_id = new_message_id()
             self.store.queue_offline(
                 {
@@ -230,6 +267,9 @@ class SshRelay:
                     "correlation_token": request.correlation_token,
                     "bridge_device_id": bridge,
                     "originating_agent": origin.render(),
+                    "sender_dict": request.sender.to_dict(),
+                    "recipient_dict": request.recipient.to_dict(),
+                    "originating_agent_dict": origin.to_dict(),
                 }
             )
             self.store.remember_send(
@@ -258,25 +298,32 @@ class SshRelay:
         for row in self.store.pending_outbox():
             if row.get("queued_for_client_poll"):
                 continue
-            sender_parts = row["sender"].split("/")
-            recipient_parts = row["recipient"].split("/")
+
+            def _parse(field: str) -> NamespacedId:
+                if f"{field}_dict" in row:
+                    return NamespacedId(**row[f"{field}_dict"])
+                parts = row[field].split("/")
+                return NamespacedId(
+                    device_id=parts[0],
+                    workspace="/".join(parts[1:-3]),
+                    agent_tag=parts[-3],
+                    task_id=parts[-1],
+                    session_id=None if parts[-2] == "-" else parts[-2]
+                )
+
             req = SendRequest(
-                sender=NamespacedId(*_pad(sender_parts)),
-                recipient=NamespacedId(*_pad(recipient_parts)),
+                sender=_parse("sender"),
+                recipient=_parse("recipient"),
                 body=row["body"],
                 data=row.get("data"),
                 idempotency_key=row["idempotency_key"],
                 correlation_token=row.get("correlation_token") or "",
             )
+            if "originating_agent" in row or "originating_agent_dict" in row:
+                req.originating_agent = _parse("originating_agent")
+            
             try:
                 receipts.append(self.send(req))
             except (TransportUnavailable, GuardRejected, NativeBindingMissing):
                 continue
         return receipts
-
-
-def _pad(parts: list[str]) -> tuple[str, str, str, str, str | None]:
-    while len(parts) < 5:
-        parts.append("-")
-    device, workspace, tag, session, task = parts[:5]
-    return device, workspace, tag, task, None if session == "-" else session
