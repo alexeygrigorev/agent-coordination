@@ -171,6 +171,111 @@ class TestAC59HTTP(unittest.TestCase):
         self.assertEqual(msgs[0]["kind"], "command")
         self.assertEqual(msgs[0]["data"], {"key": "val"})
 
+    def test_tokens_never_logged(self):
+        import contextlib
+        import io
+        status, b1 = self.request('POST', '/v1/register', {
+            "device_id": "dev1", "agent_name": "a1", "project_id": "proj1"
+        })
+        ident1, tok1 = b1["identity"]["identity_id"], b1["token"]
+        records = io.StringIO()
+        handler = logging.StreamHandler(records)
+        root = logging.getLogger()
+        old_level = root.level
+        root.addHandler(handler)
+        root.setLevel(logging.DEBUG)
+        stderr = io.StringIO()
+        try:
+            with contextlib.redirect_stderr(stderr):
+                status, _ = self.request('GET', f'/v1/inbox?identity_id={ident1}&token={tok1}')
+                self.assertEqual(status, 200)
+                status, _ = self.request('GET', f'/v1/inbox?identity_id={ident1}&token=wrong-secret')
+                self.assertNotEqual(status, 200)
+                status, _ = self.request('GET', f'/v1/inbox?identity_id={ident1}',
+                                         headers={"Authorization": "Bearer header-secret"})
+                self.assertNotEqual(status, 200)
+                status, _ = self.request('POST', '/v1/send', {
+                    "sender_id": ident1, "token": "post-secret", "recipient_id": ident1, "body": "x"})
+                self.assertNotEqual(status, 200)
+        finally:
+            root.removeHandler(handler)
+            root.setLevel(old_level)
+        output = records.getvalue() + stderr.getvalue()
+        self.assertIn("/v1/inbox", output)
+        for secret in (tok1, "wrong-secret", "header-secret", "post-secret", "token="):
+            self.assertNotIn(secret, output)
+
+    def test_malformed_request_line_does_not_reflect_or_log_token(self):
+        import contextlib
+        import io
+        records = io.StringIO()
+        handler = logging.StreamHandler(records)
+        root = logging.getLogger()
+        old_level = root.level
+        root.addHandler(handler)
+        root.setLevel(logging.DEBUG)
+        stderr = io.StringIO()
+        responses = []
+        try:
+            with contextlib.redirect_stderr(stderr):
+                for raw in (b"GET /v1/inbox?token=line-secret extra junk HTTP/1.1\r\n\r\n",
+                            b"GET /v1/inbox?token=version-secret HTTP/9.9\r\n\r\n"):
+                    s = socket.create_connection(('127.0.0.1', self.port))
+                    try:
+                        s.sendall(raw)
+                        chunks = []
+                        while True:
+                            chunk = s.recv(65536)
+                            if not chunk:
+                                break
+                            chunks.append(chunk)
+                        responses.append(b"".join(chunks))
+                    finally:
+                        s.close()
+                time.sleep(0.1)
+        finally:
+            root.removeHandler(handler)
+            root.setLevel(old_level)
+        self.assertTrue(responses[0].startswith(b"HTTP/1.0 400 Bad Request"))
+        output = records.getvalue() + stderr.getvalue()
+        self.assertNotIn("Traceback", output)
+        for secret in ("line-secret", "version-secret"):
+            self.assertNotIn(secret, output)
+            for response in responses:
+                self.assertNotIn(secret.encode(), response)
+
+    def test_header_tokens_never_logged_or_reflected(self):
+        import contextlib
+        import io
+        status, b1 = self.request('POST', '/v1/register', {
+            "device_id": "dev1", "agent_name": "a1", "project_id": "proj1"
+        })
+        ident1, tok1 = b1["identity"]["identity_id"], b1["token"]
+        records = io.StringIO()
+        handler = logging.StreamHandler(records)
+        root = logging.getLogger()
+        old_level = root.level
+        root.addHandler(handler)
+        root.setLevel(logging.DEBUG)
+        stderr = io.StringIO()
+        bodies = []
+        try:
+            with contextlib.redirect_stderr(stderr):
+                for headers, ok in (({"X-Bus-Token": tok1}, True), ({"X-Bus-Token": "xbus-secret"}, False),
+                                    ({"Authorization": f"Bearer {tok1}"}, True),
+                                    ({"Authorization": "Bearer bearer-secret"}, False)):
+                    status, body = self.request('GET', f'/v1/inbox?identity_id={ident1}', headers=headers)
+                    self.assertEqual(status == 200, ok, headers)
+                    bodies.append(json.dumps(body))
+        finally:
+            root.removeHandler(handler)
+            root.setLevel(old_level)
+        output = records.getvalue() + stderr.getvalue()
+        for secret in (tok1, "xbus-secret", "bearer-secret"):
+            self.assertNotIn(secret, output)
+            for body in bodies:
+                self.assertNotIn(secret, body)
+
     def test_structured_reply_linkage_and_foreign_ack(self):
         status, b1 = self.request('POST', '/v1/register', {
             "device_id": "dev1", "agent_name": "a1", "project_id": "proj1"

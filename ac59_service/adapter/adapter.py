@@ -30,6 +30,46 @@ logger = logging.getLogger(__name__)
 
 class BusAdapterHandler(BaseHTTPRequestHandler):
     timeout = 30.0
+
+    def _log_target(self):
+        # command/path are unset when the request line itself fails to parse.
+        path = getattr(self, "path", None)
+        return (getattr(self, "command", None) or "-",
+                urlparse(path).path if path else "-")
+
+    def log_message(self, format, *args):
+        # The default handler logs the raw request line, query string included;
+        # identity tokens must never reach the journal, so log the path only.
+        logger.info("%s %s %s", self.client_address[0], *self._log_target())
+
+    def log_request(self, code="-", size="-"):
+        logger.info("%s %s %s %s", self.client_address[0], *self._log_target(),
+                    getattr(code, "value", code))
+
+    def log_error(self, format, *args):
+        # args can carry the raw request line; keep only numeric status codes.
+        codes = [a for a in args if isinstance(a, int)]
+        logger.warning("%s %s %s error %s", self.client_address[0],
+                       *self._log_target(), codes[0] if codes else "-")
+
+    def send_error(self, code, message=None, explain=None):
+        # The default echoes the raw request line (query tokens included) in
+        # the status line and HTML body; reply with a fixed JSON error instead.
+        self.log_error("code %d", code)
+        try:
+            phrase = HTTPStatus(code).phrase
+        except ValueError:
+            phrase = "Error"
+        body = json.dumps({"status": "error", "detail": phrase}).encode("utf-8")
+        self.send_response(code, phrase)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Connection", "close")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        if getattr(self, "command", None) != "HEAD" and code >= 200 and code not in (204, 304):
+            self.wfile.write(body)
+        self.close_connection = True
+
     def _send_json(self, status: HTTPStatus, payload: dict) -> None:
         body = json.dumps(payload).encode("utf-8")
         self.send_response(status)
