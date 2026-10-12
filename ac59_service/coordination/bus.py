@@ -37,7 +37,18 @@ def _utc() -> str:
 
 
 def _new_id() -> str:
-    return str(uuid.uuid4())
+    import os, time
+    ts = int(time.time() * 1000)
+    rand = os.urandom(10)
+    ts_bytes = ts.to_bytes(6, byteorder="big")
+    b = ts_bytes + rand
+    val = int.from_bytes(b, byteorder="big")
+    chars = []
+    CROCKFORD_CHARS = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+    for _ in range(26):
+        chars.append(CROCKFORD_CHARS[val & 31])
+        val >>= 5
+    return "".join(reversed(chars))
 
 
 def _file_digest(path: Path) -> str:

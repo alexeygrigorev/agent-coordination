@@ -144,6 +144,12 @@ class BusAdapterHandler(BaseHTTPRequestHandler):
             parsed = urlparse(self.path)
             path = parsed.path
 
+            if path.startswith("/api/bus/"):
+                import ac59_service.adapter.hub_bridge as hb
+                query = parse_qs(parsed.query)
+                if hb.handle_hub_bridge_request(self, self.server.bus, "GET", path, query=query):
+                    return
+
             if path == "/v1/inbox":
                 query = parse_qs(parsed.query)
                 identity_id = query.get("identity_id", [None])[0] or self.headers.get("X-Bus-Identity")
@@ -205,8 +211,12 @@ class BusAdapterHandler(BaseHTTPRequestHandler):
                 self._send_json(HTTPStatus.BAD_REQUEST, {"status": "error", "detail": "Negative Content-Length"})
                 return
             
-            # Bound request bodies: 10MB limit
-            if content_length > 10 * 1024 * 1024:
+            # Bound request bodies: 10MB limit generally, 256KB for hub bridge
+            if path.startswith("/api/bus/"):
+                if content_length > 256 * 1024:
+                    self._send_json(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"status": "error", "detail": "Payload too large"})
+                    return
+            elif content_length > 10 * 1024 * 1024:
                 self._send_json(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"status": "error", "detail": "Payload too large"})
                 return
 
@@ -223,6 +233,11 @@ class BusAdapterHandler(BaseHTTPRequestHandler):
             if not isinstance(payload, dict):
                 self._send_json(HTTPStatus.BAD_REQUEST, {"status": "error", "detail": "Payload must be a JSON object"})
                 return
+
+            if path.startswith("/api/bus/"):
+                import ac59_service.adapter.hub_bridge as hb
+                if hb.handle_hub_bridge_request(self, self.server.bus, "POST", path, payload=payload):
+                    return
 
             if path == "/v1/register":
                 device_id = payload.get("device_id")
