@@ -1,3 +1,6 @@
+> **Deprecated: superseded by [Agent Hub](https://github.com/alexeygrigorev/agent-hub).**
+> Use Agent Hub for the machine registry, authenticated cross-host messages and outbound host agents. SSH relay and role-failover code remain historical/compatibility components; keep existing services until replacement delivery is verified. See the [migration guide](https://github.com/alexeygrigorev/agent-hub/blob/main/docs/GENERIC-HUB.md).
+
 # Cross-computer Agent Coordination
 
 Fourth standalone product. Native cross-host coordination MVP under
