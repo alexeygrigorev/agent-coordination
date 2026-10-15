@@ -21,7 +21,7 @@ class RoleAuthority:
         self.boot_id = boot_id or Path("/proc/sys/kernel/random/boot_id").read_text().strip()
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with self._tx() as db:
-            db.executescript('''
+            for stmt in '''
             CREATE TABLE IF NOT EXISTS authority_meta(key TEXT PRIMARY KEY, value TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS projects(id TEXT PRIMARY KEY, parent TEXT REFERENCES projects(id));
             CREATE TABLE IF NOT EXISTS agents(id TEXT PRIMARY KEY, host TEXT NOT NULL,
@@ -43,7 +43,9 @@ class RoleAuthority:
             CREATE TABLE IF NOT EXISTS startup_plans(project TEXT NOT NULL, role TEXT NOT NULL, task TEXT NOT NULL, PRIMARY KEY(project,role));
             CREATE TABLE IF NOT EXISTS actions(key TEXT PRIMARY KEY, project TEXT NOT NULL,
               role TEXT NOT NULL, epoch INTEGER NOT NULL, payload TEXT NOT NULL);
-            ''')
+            '''.strip().split(';'):
+                if stmt.strip():
+                    db.execute(stmt)
             if 'activation_due' not in [r[1] for r in db.execute('PRAGMA table_info(roles)')]:
                 db.execute('ALTER TABLE roles ADD COLUMN activation_due REAL NOT NULL DEFAULT 0')
             old = db.execute("SELECT value FROM authority_meta WHERE key='boot'").fetchone()

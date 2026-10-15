@@ -15,7 +15,7 @@ class QuorumNode:
         self.clock = clock
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with self._tx() as db:
-            db.executescript('''
+            for stmt in '''
             CREATE TABLE IF NOT EXISTS state(
                 id INTEGER PRIMARY KEY,
                 current_term INTEGER NOT NULL DEFAULT 0,
@@ -24,7 +24,9 @@ class QuorumNode:
                 lease_expires REAL NOT NULL DEFAULT 0
             );
             INSERT OR IGNORE INTO state(id) VALUES(1);
-            ''')
+            '''.strip().split(';'):
+                if stmt.strip():
+                    db.execute(stmt)
         Path(self.path).chmod(0o600)
 
     @contextmanager

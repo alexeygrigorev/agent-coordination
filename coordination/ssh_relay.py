@@ -180,19 +180,23 @@ class SshRelay:
             entry = catalog.resolve_tag(request.recipient.workspace, request.recipient.agent_tag)
             inspect_delivery_guard(entry, request.delivery)
 
-            argv = [
-                target.aplexer_bin or "aplexer",
+            import shlex
+            aplexer_bin = target.aplexer_bin or "aplexer"
+            inner_argv = [
+                aplexer_bin,
                 "message",
                 "send",
-                "--workspace",
-                request.recipient.workspace,
                 "--to",
                 request.recipient.agent_tag,
                 "--json",
                 request.body,
             ]
             if request.data is not None:
-                argv.extend(["--data", json.dumps(request.data, separators=(",", ":"))])
+                inner_argv.extend(["--data", json.dumps(request.data, separators=(",", ":"))])
+                
+            quoted_inner = " ".join(shlex.quote(a) for a in inner_argv)
+            cd_command = f"cd {shlex.quote(request.recipient.workspace)} && {quoted_inner}"
+            argv = ["sh", "-c", cd_command]
             raw = self.transport.run(target, argv)
             payload = json.loads(raw) if raw.strip() else {}
             message_id = payload.get("id") or new_message_id()
@@ -231,13 +235,6 @@ class SshRelay:
                     "bridge_device_id": bridge,
                     "originating_agent": origin.render(),
                 }
-            )
-            self.store.remember_send(
-                key,
-                sender=request.sender.render(),
-                recipient=request.recipient.render(),
-                digest=digest,
-                message_id=message_id,
             )
             return SendReceipt(
                 message_id=message_id,
@@ -278,5 +275,11 @@ class SshRelay:
 def _pad(parts: list[str]) -> tuple[str, str, str, str, str | None]:
     while len(parts) < 5:
         parts.append("-")
-    device, workspace, tag, session, task = parts[:5]
+    
+    device = parts[0]
+    task = parts[-1]
+    session = parts[-2]
+    tag = parts[-3]
+    workspace = "/".join(parts[1:-3])
+    
     return device, workspace, tag, task, None if session == "-" else session

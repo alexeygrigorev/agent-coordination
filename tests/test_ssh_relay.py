@@ -37,9 +37,9 @@ class FakeTransport:
 
     def run(self, device, argv, timeout=30):
         self.calls.append(argv)
-        if argv[-2:] == ["list", "--json"] or argv[-1] == "--json" and "list" in argv:
+        if any("list" in a for a in argv) and any("--json" in a for a in argv):
             return json.dumps(self.sessions)
-        if "message" in argv and "send" in argv:
+        if any("message send" in a for a in argv) or (any("message" in a for a in argv) and any("send" in a for a in argv)):
             return json.dumps(self.send_result)
         raise AssertionError(argv)
 
@@ -72,8 +72,8 @@ def test_send_resolves_catalog_and_records_inbox_receipt(tmp_path: Path):
     assert receipt.catalog_resolved_session_id == "93cf28f2-2872-411c-a5da-179e1b83b59f"
     assert receipt.originating_agent.agent_tag == "agent-coordination-head"
     assert receipt.bridge_device_id == "hetzner-rmthz"
-    assert any("list" in c for c in transport.calls)
-    assert any("send" in c for c in transport.calls)
+    assert any(any("list" in a for a in c) for c in transport.calls)
+    assert any(any("send" in a for a in c) for c in transport.calls)
 
 
 def test_idempotent_retry_does_not_double_send(tmp_path: Path):
@@ -87,9 +87,9 @@ def test_idempotent_retry_does_not_double_send(tmp_path: Path):
         correlation_token="T",
     )
     first = relay.send(req)
-    sends_after_first = sum(1 for c in transport.calls if "send" in c)
+    sends_after_first = sum(1 for c in transport.calls if any("send" in a for a in c))
     second = relay.send(req)
-    sends_after_second = sum(1 for c in transport.calls if "send" in c)
+    sends_after_second = sum(1 for c in transport.calls if any("send" in a for a in c))
     assert first.message_id == second.message_id
     assert sends_after_second == sends_after_first
 
@@ -125,7 +125,7 @@ def test_windows_target_queues_for_client_poll_not_native_binding(tmp_path: Path
     )
     assert receipt.delivery == "queued_client_poll"
     assert receipt.catalog_resolved_session_id is None
-    assert not any("send" in c for c in transport.calls)
+    assert not any(any("send" in a for a in c) for c in transport.calls)
     pending = relay.store.pending_outbox()
     assert pending and pending[0]["queued_for_client_poll"] is True
 
