@@ -452,8 +452,6 @@ def handle_rpc_line(line: str) -> str:
                 aplexer_bin,
                 "message",
                 "send",
-                "--workspace",
-                params["workspace"],
                 "--to",
                 params["to"],
                 "--json",

@@ -23,10 +23,12 @@ class FlakyTransport:
         self.calls.append(argv)
         if self.is_offline:
             raise TransportUnavailable("network_down")
-        if argv[-2:] == ["list", "--json"] or argv[-1] == "--json" and "list" in argv:
+        
+        cmd = " ".join(argv)
+        if "list" in cmd and "--json" in cmd:
             import json
             return json.dumps(self.sessions)
-        if "message" in argv and "send" in argv:
+        if "message" in cmd and "send" in cmd:
             import json
             return json.dumps({"id": "msg-ok", "delivery": "inbox", "created_at": 12345678})
         raise AssertionError(argv)
