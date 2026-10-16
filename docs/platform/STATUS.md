@@ -525,3 +525,36 @@ are unverified by this checkpoint.
   containment and fresh quota admission. Original code, task-fork history
   and private evidence were retained. Current Agent Hub main is still
   `213fcf6`; combined runtime acceptance and the remaining roadmap stay open.
+
+### Independent repair reviews (2026-10-17)
+
+- M1 repair `033d710` is preserved in actual Agent Branches task `0394`.
+  Its author reports typecheck and 23 focused tests passing. Independent
+  Codex rereview also passed those tests and 15 private composed-Worker
+  probes. The original identity, retry, credential and owner counterexamples
+  are resisted, but the reviewer reproduced additional retention defects:
+  polling pruned history can fail to advance, retained-message retries can
+  depend on a deleted parent, membership removal can fail at the storage cap,
+  and cleanup can exceed its batch bound. The pinned report is pending;
+  M1 remains unaccepted.
+- The real registry still returns 201 then 409 for the same tag in different
+  projects. Task `0399` prepares an executable migration patch and tests in
+  private source copies, without editing the reserved Hub source. Initial
+  audit found additional pairing, inbox-alias and legacy credential-binding
+  consumers that must be covered. A storage-only patch is insufficient.
+- OpenCode Flash UI repair `6de5b4e`, preserved in task `0395`, reports
+  12 strict-contract browser checks, 6 asset tests, typecheck and official
+  dakit checks passing. Twelve local render artifacts cover desktop/mobile,
+  light/dark and interaction states. The owned worker has exited and its
+  quota reservation was released. Independent Grok review is running.
+  These fixtures do not establish a real browser-to-Worker conversation.
+- Independent Argon review rejected M6 candidate `fe7a8c1` after 144 Worker
+  tests, 42 host/CLI tests and 5 adversarial probes. Findings: invalidated
+  unstarted offers can permanently retain capacity; conflicting edits bypass
+  enqueue admission; policy changes can be bypassed by old legacy offers;
+  and the required routed-edit credential cannot be provisioned through the
+  current HTTP paths. Task `0400` owns repair, including real device-pairing
+  acceptance and preserving started/uncertain capacity until confirmed exit.
+- Hub main is still `213fcf6`; no product candidate was merged or deployed.
+  The accepted plan, scoped CLI/native reviews, required combined integration,
+  post-milestone Argon review, and M2b/M4–M11 roadmap remain in force.
