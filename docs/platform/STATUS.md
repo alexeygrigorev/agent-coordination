@@ -503,3 +503,25 @@ reviewed product commits and obtain the required post-milestone Argon review.
 Task/outcome, notification and M2b/M6–M11 acceptance remains open. Production
 adoption, physical cross-host delivery, domain readiness and timer migration
 are unverified by this checkpoint.
+
+### Worker recovery checkpoint (2026-10-16T23:18:54.875182+00:00)
+
+- The first OpenCode UI run still used the guessed contract and its browser
+  run failed 8 of 10 checks. The head stopped that owned workload, verified
+  its scope inactive, and preserved source as `f298644` in task `0391`.
+  A fresh OpenCode `glm-5.3-flash` continuation in task `0395` now has the
+  exact protocol, strict fixture requirements, and a checkpoint before
+  browser rendering. The rejected UI snapshot is not product acceptance.
+- The first M6 Grok execution stopped without a completed handoff or tests.
+  Its native handle was missing and its owned scope was inactive. The head
+  preserved the partial implementation as `0fda8bc` in task `0393`; a fresh
+  Codex continuation in task `0396` owns completion and verification.
+- Antigravity's M1 repair is active in task `0394`. The real registry's
+  same-tag limitation needs a compatible storage/registration migration;
+  the required shared source lease has been requested from its current
+  owner. That criterion remains open while the other eight repairs proceed.
+  No reserved Hub source was changed without agreement.
+- All replacement model workers use independent 1500 MiB / 256-task
+  containment and fresh quota admission. Original code, task-fork history
+  and private evidence were retained. Current Agent Hub main is still
+  `213fcf6`; combined runtime acceptance and the remaining roadmap stay open.
