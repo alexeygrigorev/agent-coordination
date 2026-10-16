@@ -34,7 +34,8 @@ dispatcher or a second bus transport.
 |---|---|---|---|
 | M1 | Conversation API | Existing bus + auth | Antigravity `platform-api` |
 | M2 | dakit conversation UI | M1 contract | OpenCode glm-5.3-flash `platform-ui` |
-| M3 | CLI + inbox bridge | M1 contract; native `a message` | Codex `platform-cli` |
+| M3a / M3b | Agent CLI, then genuine native inbox participation | M1 contract; native `a message` | Codex `platform-cli`, then `platform-bridge` |
+| M2b | Existing fleet and sign-in/device views use dakit | M2; shared UI scope agreement | UI worker after M2 review |
 | M4 | Task/review/outcome links | M1 + routing (do not modify routing policy) | After M1; coordinate with `routing` |
 | M5 | Safe pings + physical acceptance | M1–M4 source + host enrollment | After Argon post-milestone review |
 
@@ -221,22 +222,43 @@ owns.
 6. Independent reviewer inspects the same candidate SHA with a distinct
    identity and model.
 
-## Unfinished planned work: milestone or disposition
+## Remaining integration milestones
 
-The brief asked to integrate unfinished competition/hub plans. Items that
-are not conversation features get an explicit owner and stay off M1–M5.
+M1–M5 are the first conversation release, not the whole backlog. The reusable
+unfinished plans below remain in this platform roadmap. A dependency hold is
+not a delivered integration. Each milestone needs a scoped implementer, a
+different-model pinned review, tests, and a normal main push. File ownership
+must be agreed through the bus before implementation; this roadmap grants none.
 
-| Leftover plan | Disposition |
+| ID | Shippable result and acceptance | Dependencies |
+|---|---|---|
+| M2b | Adopt the existing dakit package in fleet, sign-in and device-pairing views. Preserve routes and auth behavior; render authenticated/expired/error states on desktop/mobile in both themes. Kit lock and semantic color/border checks pass. Coordinate with the separate dakit uniformity session; missing shared components become dakit needs. | M2; shared `hub.ts`/fleet scope agreement. No dakit source fork. |
+| M6 | Enforce existing ownership claims before editable task placement/launch. Associate configured workspace/project and requested edit scopes with the authenticated holder, and consult the existing claim authority in the admission transaction. Test overlapping/ancestor scopes, expiry, claim/offer races, missing edit scope, foreign holders, and unchanged read-only routing. A failed check creates neither launch nor capacity reservation. Record that admission declarations do not sandbox later filesystem writes. | M1/M4 references; routing/fleet owner agreement. |
+| M7 | Generalize existing epoch-fenced leases to configured automation roles, reusing root lease semantics and the reviewed coordination reference. Effect authorization and epoch check share a transaction; a partitioned former holder cannot renew or act. Test takeover, reconnect, expired holder, stale epoch and repeated completion. Keep Win35 root stood down; no new quorum authority or silent conversation-membership takeover. | M6; explicit role configuration and independent fencing review. |
+| M8a | Qualify maintained host execution: launcher plan/receipt proves the actual account, profile, provider, model and effort selected, with fresh quota and resource evidence. Unknown attribution holds instead of guessing. Test shared-account capacity across hosts, profile mismatch, expired observations and uncertain effects. Coordinate necessary launcher changes with its owner; preserve ordinary Git restore. | Existing routing contracts; launcher owner scope agreement. |
+| M8b | Add supported writer-run, principal-wake and head-recovery job profiles to the existing host dispatcher and checks. Jobs carry approved actions and fenced role custody, preserve drafts, reconcile uncertain starts, and continue through independent outcome review. Prove two useful controlled cycles plus worker/reviewer/host interruption before claiming unattended recovery; issue 102 stays open until its actual gates pass. | M7/M8a; existing custody and runtime gates. |
+| M9 | Connect existing Dashboard accounting producers to authenticated bounded hub metrics ingestion and dakit views. Preserve 24 hourly UTC buckets, source coverage, accepted outcomes and known/unknown token fields; quota percentages never become token counts or money. Reject foreign-host writes and oversized/private payloads. Keep raw transcripts and metrics evidence host-local. | M2b; producer owner agreement; existing sanitized quota contract. |
+| M10 | Make follow-through visible in conversations: reference canonical GitHub/routing tasks, owner acceptance, first-action evidence, due obligation, pinned independent review, accepted outcome and human delivery as distinct facts. Adapt existing ask-ledger/supervision records and existing checks instead of a second tracker or scheduler. Test duplicate/late replies, crash between state and notification, missing reviewer/owner, revoked membership, restart and an overdue obligation producing one safe inbox follow-up. | M4/M5/M8b; tracker and host-adapter contracts. |
+| M11 | Verify supported host adoption and migration using the reviewed source. Complete an actual human/agent exchange with reconnect, native replies, routed task/outcome link and due follow-up on genuinely enrolled machines. Test a second physical host when available; retain partial acceptance labels otherwise. Move each old timer/service only after replacement proof and an acknowledged operations handoff, with rollback and an independent restore check. | M1–M10 as applicable; deployment/enrollment custody and explicit operations authorization. |
+
+The first post-milestone Argon review checks both the working conversation
+path and this remaining roadmap. It cannot turn allocated tasks, local unit
+tests, or named owners into runtime delivery. Later milestones may ship in
+smaller independently reviewed parts; their acceptance requirements stay open.
+
+| Survey item | Integration/disposition |
 |---|---|
-| Claims in launch admission | **Hold, hub fleet.** `/api/bus/claims` stays; wiring into `fleet.ts`/`routing.ts` is hub-zai/fleet work, not a conversation milestone. |
-| Generic role failover | **Hold, compatibility.** `coordination/role_failover.py` remains source. Hub keeps root lease epochs only. Not M1–M5. |
-| Writer-run / head-recovery | **Hold, hub SPEC M5 / operations.** Conversation M5 does not schedule the daily writer or recover heads. |
-| Principal-wake / issue 102 | **Partial overlap with conversation M5.** Safe inbox ping and idle-empty `message deliver` are in M5. Unattended death recovery stays contest issue 102. |
-| Accounting producers → `/api/metrics` | **Hold, dashboard compatibility.** Agent Dashboard collectors stay host-side until a separate hub metrics milestone. |
-| Request-to-outcome / ask-ledger / turn-end obligations | **Hold host-side.** M4 links conversations to routing jobs and existing review/outcome states. It does not port `ask-ledger.py` or `tasks_guard.py`. |
-| Custom domain / host token / launcher account labels | **Dependencies, not conversation features.** Platform/head DNS probe: `hub.dtcdev.click` unresolved and health unavailable (current). Historical 15-Oct bus tests remain separate evidence. |
-| Quorum | **Drop** (hub Durable Object is the authority). Already in STATUS. |
-| Screen auto-Enter | **Drop** (hub never types into terminals). |
+| Claims in launch admission | M6; current claims endpoint remains the authority. |
+| Generic role failover | M7; use coordination source as reference, keep root stand-down and epoch fencing. |
+| Launcher account/profile labels | M8a; required for genuine existing fleet execution, not an assumed host capability. |
+| Writer-run / head-recovery / principal-wake | M8b; no old service retired from source-only evidence. |
+| Accounting producers → hub metrics | M9; compatibility collectors remain until ingestion/coverage acceptance. |
+| Request-to-outcome / ask-ledger / turn-end obligations | M10; host adapters and canonical task references, not a parallel tracker. |
+| Domain, host enrollment, token absence, migration | M11 operations dependencies; do all code/review/restore preparation before requesting a concrete final operations approval. Historical bus results remain historical. |
+| Agent Branches provenance | Use real task forks/WIP during development and synchronize accepted main with independently recoverable Git. Keep Branches a separate product. |
+| Contest-specific Git adapter, artifacts backend, recordings/publication | Keep as contest/product evidence and link where useful; do not turn the conversation hub into a second Git hosting or publishing system. No contest submission or social posting from this plan. |
+| Quorum | Drop: the hub Durable Object is the existing authority; duplicating it would conflict with the deployment architecture. |
+| Screen auto-Enter | Drop: native durable inbox delivery replaces typing into busy or unknown terminals. |
 
 ## What this plan will not do
 
@@ -255,7 +277,9 @@ are not conversation features get an explicit owner and stay off M1–M5.
    survey does not start agents.
 3. After Argon ACK of the plan, M1 lands first with tests and a pinned
    review, `[skip ci]`, fast-forward hub main.
-4. M2 and M3 merge behind M1. M4 after routing ACK. M5 after a real
-   conversation on an enrolled host.
+4. M2 and M3a merge behind M1; M3b must prove real native participation.
+   M4 follows routing coordination; M5 requires actual conversation evidence.
+   Continue the remaining M2b/M6–M11 roadmap rather than closing their gaps
+   as merely held or outside the conversation work.
 5. Update this STATUS incrementally as each SHA lands. Do not push
    coordination docs until Argon review and head approval.

@@ -429,3 +429,20 @@ recovery remains contest issue 102. Quorum and auto-Enter stay dropped.
 6. M5 safe pings plus physical host/conversation acceptance. No dual-run of
    old timers and new checks without observed replacement.
 7. Do not push these docs until Argon review and head approval.
+
+## Platform integration checkpoint
+
+The first survey draft is `c90cdf8`; survey repair `e854a8d` aligned the
+conversation store and attributed the head's current DNS failure. Argon is
+reviewing pinned drafts; no final verdict or docs main push is claimed here.
+The head has retained reusable unfinished work as M2b/M6–M11 in PLAN rather
+than treating named holds as completion.
+
+The agent CLI candidate `0a06f5e` is committed and registered in actual Agent
+Branches task `task-0390`. Its author reports 45 focused tests passing;
+independent Argon code review and API integration remain open. API/UI task
+forks `task-0389`/`task-0391` are allocated, not accepted. Native participation
+is being implemented separately in `task-0392`; a genuine nonce-only native
+self-send/reply probe succeeded on the execution host, which is not physical
+cross-host or authenticated conversation acceptance. No conversation product
+commit is on hub main at this checkpoint.
