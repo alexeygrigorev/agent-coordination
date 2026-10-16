@@ -140,7 +140,7 @@ foreign-sender 403 recorded. Native same-host `a message` 60/60. Old SSH
 typing path delivered anonymously and broke native replies. Recipient
 registration bug fixed in `c062b9d`.
 
-**Not a conversation.** Messages are 1:1 actor addressing (`tag`,
+**Not a conversation on main.** Messages are 1:1 actor addressing (`tag`,
 `project:tag`, `role:…`, `machine:…`). There is no members set, no human+agent
 group, no unread cursor per member, no conversation-scoped ACL. `thread_id`
 is a reply-chain grouping, not a first-class conversation. Dashboard has no
@@ -148,6 +148,14 @@ bus/conversation page (`public/fleet.html` sections: alerts, liveness, checks,
 registry, start work, machines, hub agents, sessions, registered agents).
 `public/index.html` still says “under construction”. `public/fleet.css` is
 ad-hoc system-ui CSS, not dakit.
+
+**API candidate (not accepted).** Platform Antigravity worktree
+`~/git/agent-hub-wt-platform-api` has untracked `docs/CONVERSATIONS.md`.
+That draft uses dedicated `conversation_messages` plus atomic `seq` and
+optional `bridge_ref`, with no dual-write into `messages`. Named
+`src/conversations.ts` and `test/conversations.test.ts` were **not** present
+when inspected. Shared hub dispatch remains unwired pending hub-zai ACK.
+Agent Branches task 0389.
 
 ### 3.3 Scheduler, leases, checks, liveness (SPEC M4–M6 partial)
 
@@ -342,7 +350,7 @@ What a human/agent conversation needs, versus what exists:
 | Authenticated human identity | DTC session / admin token | No conversation membership for humans |
 | Authenticated agent identity | Device-flow agent tokens, bus actors | Actors are not conversation members |
 | Direct and group threads | 1:1 `to_actor` + optional `thread_id` | No `conversations` / members / ACL |
-| Durable ordered history | ULID messages, 30-day retention | No conversation cursor; inbox is per actor |
+| Durable ordered history | ULID bus messages, 30-day retention | Need dedicated `conversation_messages.seq`; do not dual-write `messages` |
 | Retries | `idempotency_key` | Reuse; do not replace |
 | Inbox receipts | ack/accept/complete stages | Per-message, not per-member unread |
 | Human UI | fleet.html operator page | No conversation UI; not dakit |
@@ -383,11 +391,15 @@ were not read.
 
 ## 9. Honest gaps in this survey
 
-- No production HTTP, DNS, or timer probe. Runtime claims stay attributed to
-  15–16 Oct reports.
+- This survey did not itself probe production HTTP, DNS, or timers. Platform
+  reports a **current** independent check: `hub.dtcdev.click` unresolved and
+  health unavailable. Historical 15-Oct bus tests remain separate evidence.
+  Runtime feature claims stay attributed to 15–16 Oct reports except that
+  DNS/health line.
 - Worker test suite not executed in this session (docs-only task).
-- Platform API/CLI/UI worktrees were clean at `213fcf6` when listed; workers
-  may have uncommitted work later. This survey did not enter those trees.
+- Platform API worktree is still at `213fcf6` plus untracked
+  `docs/CONVERSATIONS.md`. CLI/UI trees were not re-listed after the first
+  clean inspection. This survey did not edit those trees.
 - Local dashboard/bus/launcher divergence from GitHub was not reconciled
   (out of edit scope).
 - Quota/host token/domain rollout remains owned by hub-zai / deploy access,
@@ -395,7 +407,15 @@ were not read.
 - Argon has a prepared worktree `~/git/agent-coordination-wt-platform-plan-review`
   at `98857ca`; it has not reviewed this document yet.
 
-## 10. Next actions
+## 10. Leftover planned work (mapped)
+
+See PLAN.md “Unfinished planned work”. Summary: claims-in-launch, generic
+role failover, writer-run, head-recovery, accounting producers, and
+ask-ledger/request-to-outcome stay **held** with their current owners. Only
+safe inbox ping / idle-empty deliver overlaps conversation M5. Unattended
+recovery remains contest issue 102. Quorum and auto-Enter stay dropped.
+
+## 11. Next actions
 
 1. Independent Argon review of this STATUS and of `PLAN.md` (existing
    `platform-plan-review` worktree). Repair findings here.

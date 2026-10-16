@@ -12,8 +12,9 @@ dispatcher or a second bus transport.
 
 ## Constraints
 
-- Reuse `/api/bus/*` messages, idempotency keys, ack/accept/complete, device
-  and human auth, and `hub bridge`. Add conversation records on top.
+- Reuse device/human auth, idempotency, and `hub bridge`. Keep `/api/bus/*`
+  for 1:1 machine/role traffic. Conversation rows live in dedicated tables
+  with atomic `seq` (no dual-write into `messages`).
 - No new Durable Object, no Quorum, no SSH relay revival, no contest Worker
   changes, no aplexer-watch auto-Enter, no busy-composer input.
 - UI uses dakit (`~/git/dakit`). File missing components as dakit needs.
@@ -23,8 +24,9 @@ dispatcher or a second bus transport.
 - Physical delivery requires host evidence. Tests are source evidence only.
 - Existing host timers stay up until a replacement check is observed working.
 - Platform already prepared hub worktrees `agent-hub-wt-platform-{api,cli,ui}`
-  and candidate sessions. Do not duplicate those writers. Shared `src/hub.ts`
-  dispatch needs an ACK from the current hub owner before overlapping edits.
+  (Agent Branches tasks 0389 / 0390 / 0391; not accepted). Do not duplicate
+  those writers. Shared `src/hub.ts` dispatch needs an ACK from the current
+  hub owner before overlapping edits.
 
 ## Milestone map
 
@@ -43,24 +45,35 @@ first integrated milestones. Prepared review worktree:
 ## M1 — Conversation API
 
 **Goal.** Authenticated humans and agents join named conversations, send
-durable ordered messages, retry safely, and record inbox receipts. Point-to-point
-`/api/bus/send` remains for machine/role addresses.
+durable ordered messages, retry safely, and record inbox receipts.
+Point-to-point `/api/bus/send` remains for machine/role addresses.
 
-**Shape (reuse, do not replace).**
+**Shape (dedicated store; no unsafe bus dual-write).**
 
-- New tables beside `messages`: `conversations`, `conversation_members`,
-  `conversation_receipts` (or equivalent unread cursor per member). Messages
-  already have `thread_id`; store `conversation_id` and keep ULID order.
-- Identity: human = existing session/admin; agent = existing device-flow
-  actor. Do not invent a parallel identity store. Membership is explicit.
-- Authorization: only members read or write; non-members 403. Admin may
-  inspect metadata, not silently join.
+- Dedicated tables: `conversations`, `conversation_members`,
+  `conversation_messages` with a per-conversation monotonic `seq`. Optional
+  `bridge_ref` records a native aplexer envelope id. Do **not** insert the
+  same row into legacy `messages`. Bus `thread_id` is not the conversation
+  store.
+- Align with the API-worktree candidate
+  `~/git/agent-hub-wt-platform-api/docs/CONVERSATIONS.md` after review:
+  `/api/conversations`, membership, sequence pagination, verified self
+  identity. Implementation files named by platform were not on disk when
+  inspected. Dispatch wiring in `src/hub.ts` waits for hub-zai ACK. Draft
+  is not accepted.
+- Identity: human from verified session subject (`human:<sub>`); agent from
+  verified device-flow actor. Refuse host/job/routing-client/`role:root`.
+  No JSON/header sender override.
+- Authorization: only current members read or write; non-members 403. An
+  admin session is not blanket membership.
 - Send: idempotency key per `(conversation_id, actor, key)` returns the
-  original message. Body size stays at the current bus limit.
-- Receipts: per-member delivered/read (map onto existing ack). Keep
-  accept/complete as optional task stages, not as “read”.
-- List/inbox: ordered history with `after`/`before` cursors; unread counts
-  per member. No long-poll inside the Durable Object.
+  original message and seq. Conflicting payload 409. Body size stays at the
+  current bus limit (16 KiB).
+- Receipts: per-member read cursor / unread count. Bus accept/complete stay
+  optional later task stages, not “read”.
+- List: ordered by `seq` with `after`/`before`; no long-poll in the Durable
+  Object. Direct = exactly two members; group bounded.
+- Cross-project same-tag isolation tests before implementation review.
 
 **Acceptance.**
 
@@ -69,9 +82,11 @@ durable ordered messages, retry safely, and record inbox receipts. Point-to-poin
   agent senders; receipt does not mark accept/complete.
 - Negative tests live next to `test/m3-http.test.ts` style HTTP cases.
 - No change to routing tables or model policy.
-- Independent different-model review of the pinned SHA.
+- Independent review of the **same candidate SHA** by a distinct identity and
+  model. Do not require a different commit.
 - Docs: short contract in `~/git/agent-hub/docs/` (conversation section), not
-  a new abstraction manifesto.
+  a new abstraction manifesto. Candidate `docs/CONVERSATIONS.md` in the API
+  worktree is the starting contract.
 
 **Out of scope.** UI, CLI verbs beyond a thin API client used by tests, host
 bridge fan-out, wake-up, DNS, enrollment.
@@ -114,8 +129,9 @@ on that host.
 - CLI subcommands next to current `hub send/inbox/reply/ack` in
   `host/agent_hub_host/cli.py`. Same credential files, no new secret format.
 - Bridge: extend `host/agent_hub_host/bridge.py`. Inbox-only by default
-  (`a message send` without pane). Dedup on durable hub message id. Never
-  `--pane` / Enter on busy, menu, draft, or unknown composers.
+  (`a message send` without pane). Dedup on conversation message id and
+  `bridge_ref`. Never `--pane` / Enter on busy, menu, draft, or unknown
+  composers.
 - Reconnect: unread conversation receipts catch up when the host agent runs
   `hub bridge --once`.
 - Do not impersonate native session identity (`--from` remains forbidden).
@@ -202,7 +218,25 @@ owns.
 4. dakit uniformity session: no new raw palette in hub CSS.
 5. Resource: worker ≤1500M, scratch under the worktree `.local/tmp`, no
    `/tmp`, no shared-checkout edits, no worktree deletion of peers.
-6. Independent reviewer SHA ≠ implementer SHA/model.
+6. Independent reviewer inspects the same candidate SHA with a distinct
+   identity and model.
+
+## Unfinished planned work: milestone or disposition
+
+The brief asked to integrate unfinished competition/hub plans. Items that
+are not conversation features get an explicit owner and stay off M1–M5.
+
+| Leftover plan | Disposition |
+|---|---|
+| Claims in launch admission | **Hold, hub fleet.** `/api/bus/claims` stays; wiring into `fleet.ts`/`routing.ts` is hub-zai/fleet work, not a conversation milestone. |
+| Generic role failover | **Hold, compatibility.** `coordination/role_failover.py` remains source. Hub keeps root lease epochs only. Not M1–M5. |
+| Writer-run / head-recovery | **Hold, hub SPEC M5 / operations.** Conversation M5 does not schedule the daily writer or recover heads. |
+| Principal-wake / issue 102 | **Partial overlap with conversation M5.** Safe inbox ping and idle-empty `message deliver` are in M5. Unattended death recovery stays contest issue 102. |
+| Accounting producers → `/api/metrics` | **Hold, dashboard compatibility.** Agent Dashboard collectors stay host-side until a separate hub metrics milestone. |
+| Request-to-outcome / ask-ledger / turn-end obligations | **Hold host-side.** M4 links conversations to routing jobs and existing review/outcome states. It does not port `ask-ledger.py` or `tasks_guard.py`. |
+| Custom domain / host token / launcher account labels | **Dependencies, not conversation features.** Platform/head DNS probe: `hub.dtcdev.click` unresolved and health unavailable (current). Historical 15-Oct bus tests remain separate evidence. |
+| Quorum | **Drop** (hub Durable Object is the authority). Already in STATUS. |
+| Screen auto-Enter | **Drop** (hub never types into terminals). |
 
 ## What this plan will not do
 
