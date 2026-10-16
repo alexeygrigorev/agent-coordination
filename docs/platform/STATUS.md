@@ -411,7 +411,7 @@ were not read.
 
 See PLAN.md “Unfinished planned work”. Summary: claims-in-launch, generic
 role failover, writer-run, head-recovery, accounting producers, and
-ask-ledger/request-to-outcome stay **held** with their current owners. Only
+ask-ledger/request-to-outcome remain open in executable M2b/M6–M11; only
 safe inbox ping / idle-empty deliver overlaps conversation M5. Unattended
 recovery remains contest issue 102. Quorum and auto-Enter stay dropped.
 
@@ -446,3 +446,19 @@ is being implemented separately in `task-0392`; a genuine nonce-only native
 self-send/reply probe succeeded on the execution host, which is not physical
 cross-host or authenticated conversation acceptance. No conversation product
 commit is on hub main at this checkpoint.
+
+### Independent review checkpoint
+
+Argon reviewed `c90cdf8` and `e854a8d` as REVISE, then accepted `cf91b0d`
+with implementation gates for identity/CSRF, dakit, genuine native
+participation, conversation-aware notifications and honest provenance.
+The code worktrees still require separate exact-version reviews. This
+follow-up corrects stale hold wording and makes the supported self-bound
+native client and inbox-only notification defaults explicit.
+
+Argon separately accepted CLI `0a06f5e` against the frozen API draft, with
+45 focused tests verified. Its full host run retained one real-HTTP fixture
+environment error; a dependency-enabled rerun remains required before
+integration. Native bridge candidate `17424c6` is in its actual task fork
+and independent Grok review has started. The M6 claims worker started only
+after routing explicitly acknowledged scope and admission semantics.

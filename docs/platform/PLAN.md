@@ -188,9 +188,12 @@ owns.
 - Reuse scheduled checks (`src/checks.ts`) for `inbox_backlog` on a
   conversation actor. Optional `routine` check that sends one hub
   conversation message. No new scheduler.
-- Wake: only `hub bridge` + existing aplexer `message deliver` at a verified
-  idle empty prompt. Principal-wake from SPEC M5 stays a later recovery
-  item; this milestone does not close contest issue 102.
+- Notification defaults to a durable native inbox only, without PTY or
+  composer writes. Extend existing checks to query conversation read
+  watermarks; the current 1:1 bus backlog query cannot detect conversation
+  unread state. Any future opt-in terminal wake needs its own reviewed
+  stable-idle/empty-draft and single-attempt uncertainty guards. Fenced
+  principal-wake belongs to M8b; M5 does not close contest issue 102.
 - Physical acceptance on already-authorized machines: Hetzner host (already
   enrolled per prior reports) plus at least one human session. Win35/laptop
   host enrollment remains a hub operations task, not a conversation feature
@@ -276,7 +279,9 @@ smaller independently reviewed parts; their acceptance requirements stay open.
 2. Platform keeps API/UI/CLI workers in their existing hub worktrees;
    survey does not start agents.
 3. After Argon ACK of the plan, M1 lands first with tests and a pinned
-   review, `[skip ci]`, fast-forward hub main.
+   review, `[skip ci]`, fast-forward hub main. New candidate/release commits
+   carry an `Agent: <actor>/<verified model>` trailer; retain already reviewed
+   source SHAs and record provenance instead of rewriting their history.
 4. M2 and M3a merge behind M1; M3b must prove real native participation.
    M4 follows routing coordination; M5 requires actual conversation evidence.
    Continue the remaining M2b/M6–M11 roadmap rather than closing their gaps
