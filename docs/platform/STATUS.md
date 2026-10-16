@@ -462,3 +462,44 @@ environment error; a dependency-enabled rerun remains required before
 integration. Native bridge candidate `17424c6` is in its actual task fork
 and independent Grok review has started. The M6 claims worker started only
 after routing explicitly acknowledged scope and admission semantics.
+
+### Reviewed plan publication and implementation repair
+
+- Published this survey and PLAN at coordination main `096bdd9`; published
+  the exact sanitized independent Argon report at `6cb7a77`. Argon accepted
+  final input `096bdd9` after rejecting the first two drafts. Both public
+  main synchronization and an independent private GitHub restore were
+  verified; restored `6cb7a77` passed `git fsck`. Completed owned survey and
+  documentation worktrees were removed after preserving private evidence
+  and the original review history.
+- Agent Hub main remains `213fcf6`. CLI candidate `0a06f5e` has scoped Argon
+  acceptance; its 45 focused tests and the repaired 30-test existing HTTP
+  fixture passed. That fixture does not prove the new conversation round trip.
+- Native bridge `17424c6` has scoped independent Grok acceptance. Genuine
+  native identity, nonce probes and durable delivery/reply mapping were
+  reviewed. Installed native send still lacks an atomic idempotency primitive;
+  uncertain effects hold and reconcile rather than resend blindly.
+- API `ee6d679` was rejected by independent Codex review. Nine findings
+  cover identity namespaces, removal/retry authorization, current credential
+  checks across awaited bodies, exact human subjects, last-owner transitions,
+  aggregate growth, real registry constraints, re-add cursors and a
+  clock-sensitive integration assertion. Independent tests completed 13/14;
+  separate probes reproduced the security failures. Antigravity repair is
+  active. The real registry's global tag constraint remains an explicit
+  integration criterion, not a passing replacement-schema fixture.
+- OpenCode's dakit UI is a candidate. Its guessed adapter/browser fixtures
+  must match the real API contract before review and rendered acceptance.
+  The existing route/body/sequence mismatch was identified before integration.
+- Grok is implementing M6 claims admission after routing acknowledged the
+  source boundary and atomic offer/reservation semantics. Claims remain the
+  existing authority; free-text prompts do not grant edit authority.
+- Measured process-limit failures in two owned verification workers were
+  corrected to the policy's 256-task cap, retaining 1500 MiB memory caps.
+  Runtime failures and later completed test results remain distinct evidence.
+
+Next: repair and independently re-review M1; align and render the UI against
+that contract; verify actual Worker/CLI/native/browser flow; then integrate
+reviewed product commits and obtain the required post-milestone Argon review.
+Task/outcome, notification and M2b/M6–M11 acceptance remains open. Production
+adoption, physical cross-host delivery, domain readiness and timer migration
+are unverified by this checkpoint.
