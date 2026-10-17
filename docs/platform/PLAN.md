@@ -73,6 +73,12 @@ hub quota API, CLI and UI consumed by existing routing. M9 accounting and M13
 quota are linked but have separate acceptance: usage accounting is not evidence
 of available provider quota.
 
+Addendum 4 adds M14: one authenticated `hub status` CLI/API call replaces the
+manual session/report/Git/CI/deployment check. It includes pending human actions
+and a short change summary, using existing canonical records and host snapshots.
+M12e remains first priority; the new read projection can develop independently
+as its input contracts become available.
+
 ## Milestone map
 
 | ID | Outcome | Current source / next owner |
@@ -87,6 +93,7 @@ of available provider quota.
 | M7 | Configured roles and epoch-fenced job effects | Reviewed composition integrated/restored as `6bc91a1`; actual qualified effect backend remains M8b |
 | M12 | Capture intake, assign tasks, preserve handoff and replace psc session orchestration | M12a source on `bc79601`; M12e first priority, then actual assignment/backfill/handoff adoption |
 | M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Addendum 3; extend existing quota contracts and routing, independent review and real host acceptance required |
+| M14 | One-call task/session/report/commit/deployment/CI/human-action status and change summary | Addendum 4; authenticated `hub status [--since 2h] [--json]` and API over existing records; not implemented |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -585,6 +592,83 @@ without treating M9 source acceptance as M13 completion. Roll out collectors
 through the actual host owner; preserve existing tools as fallback until runtime
 acceptance is measured.
 
+## M14 — Status in one call
+
+**Source.** Alexey's Addendum 4 to `hub-intake-brief.md`, received 17 October
+2026: replace the manual “how is it going?” sequence with
+`hub status [--since 2h] [--json]` and the matching authenticated API. Preserve
+M12e as the first working milestone; M14 aggregates existing facts rather than
+creating another tracker, scheduler or launch controller.
+
+**M14a — One authorized status projection.** Return a bounded per-task summary
+joining existing intake/task links, canonical sessions on every host, reports,
+Git and CI/deployment evidence, and pending human actions. The public CLI makes
+one hub API request; assistants do not have to fan out into SSH/psc/gh calls.
+Each component includes source identity, observed time, freshness and explicit
+unknown/unavailable states. A missing host or collector must produce partial
+coverage rather than a false healthy or empty result. Preserve task/workspace
+and host authorization, deterministic pagination and existing storage limits.
+
+**M14b — Session and report observations.** Include each session's exact native
+identity, host and engine/profile with working, waiting, stopped, limit-hit and
+stuck/uncertain observations. Detect the native `Weekly/Monthly Limit Exhausted`
+message, low-context warnings and typed-but-unsubmitted input on the host using
+supported native status/terminal evidence. State the detection source and time;
+do not equate a live process with useful work, PTY output with delivery, or an
+empty composer with readiness. Publish the status category and minimal evidence
+metadata, not raw terminal history, prompts, credentials or drafts. Read-only
+status must never submit the input, press Enter, restart a session or retry work.
+Read the headline/status line of task-linked report artifacts through authorized,
+bounded host collection; preserve the report path/reference and revision/time.
+Treat report content as data, distinguish author claims from independent verdicts,
+and do not read arbitrary unlinked paths or export entire private reports.
+
+**M14c — Main, deployment, CI and human actions.** Show commits landed on main
+separately from deployed commits. A deployed label requires a successful deploy
+run for the relevant repository/environment whose actual deployed revision or
+artifact includes that commit, with run ID, source SHA and observed time. A CI
+pass, push, skipped workflow, failed deploy, or a later unrelated run cannot prove
+deployment. Preserve pending/failed/not-deployed/unknown distinctions and expose
+CI results independently. Reuse existing Git/provider integrations and credentials
+within their current authority. Summarize what awaits Alexey: approvals, decisions
+and device-login actions, their task/session, requested next step and expiry where
+applicable. Display a device-login code only to its authorized owner through the
+existing login flow; never export provider access/refresh tokens in status data.
+
+**M14d — Short change summary.** Support an explicit time range such as
+`--since 2h` and a short diff from the caller's last successful status observation.
+Use bounded, authorization-scoped cursors or snapshots, with a clear baseline,
+time window and coverage. Repeated reads, lost responses, concurrent callers,
+filter changes and credential refresh must not erase or mix another caller's
+changes. Changed session states, new report headlines/verdicts, landed/deployed
+commits, CI transitions and new/resolved human actions appear with their sources.
+When a baseline expires or is unavailable, report that fact and return the
+current snapshot without inventing a historical diff.
+
+**Acceptance.** Exercise the public CLI and real authenticated Hub API against
+multiple tasks and hosts, including an unreachable host. A single CLI invocation
+must retrieve sessions/engine/state, report headlines, main/deployed commit
+status, CI and pending Alexey actions without manual remote calls. Use synthetic
+native snapshots for quota exhaustion, context-low and unsubmitted drafts; verify
+read-only collection performs no input or native effects and uploads no secrets
+or draft text. Reconcile actual registered sessions and linked reports on enrolled
+hosts, keeping unsupported observations unknown. Prove a main-only commit stays
+not deployed, a failed/skipped run cannot promote it, and a successful deploy
+with verified revision inclusion changes only the relevant environment. Verify
+first/next `hub status` and `--since`/JSON results agree, retries and caller-scoped
+diffs retain changes, revoked access reveals no data, and pending decisions/login
+states remain accurate. Obtain independent Argon review of the plan extension
+and exact source before normal integration; record real multi-host acceptance
+separately from fixtures.
+
+**Dependencies and owner.** The platform head owns decomposition and integration;
+use separate eligible workers with acknowledged physical scopes after fresh
+quota/resource admission. Reuse M12 task/session/handoff links, M13 quota state,
+M9 report conventions, M10 canonical Git references and the existing routing and
+CI/deployment integrations. Read-projection work can proceed in parallel once
+contracts and capacity allow; unknown inputs need not block source development.
+Keep the real M12e loop and intake/handoff adoption ahead of this addition.
+
 ## What this plan will not do
 
 - Duplicate FileBus, SSH relay, ChannelDO, or Agent Relay.
@@ -606,16 +690,19 @@ acceptance is measured.
    continuation from `hub handoff`, not just task CRUD or a local preview.
 3. Extend existing quota collection/API/UI/routing under M13. Agree ownership
    with routing; verify live per-machine coverage and secret-free payloads.
-4. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
+4. Deliver M14 one-call status through existing task/session/quota/report/Git/CI
+   sources, with verified deployment inclusion, short diffs and pending Alexey
+   actions. Obtain independent review of the M13/M14 plan extension and source.
+5. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
    independent report `4c7cf04`, the transparent metadata correction and original
    failure evidence. M9 candidate `ae21e27` is composed with accepted main
    and received SCOPED REVISE `ce40f49`. Repair all four groups and obtain a new
    exact independent review of the acknowledged R4 repair after `c85f458` received
    REVISE in `9618d97`; producer adoption remains separate.
-5. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
+6. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
    follow-through and M11 physical migration. Published Windows, host binding and
    M5 source do not close their outstanding physical and enrollment gates.
-6. Keep STATUS, the head report and private recovery checkpoints current after
+7. Keep STATUS, the head report and private recovery checkpoints current after
    accepted milestones and user steering. Preserve journals, peer checkouts,
    installed tools and worktrees. Commit explicit paths with `[skip ci]` and
    actual provenance; push normally to main without PRs or force-push.

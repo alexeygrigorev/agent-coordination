@@ -37,6 +37,11 @@ and review, with fresh quota/launcher/resource admission before every launch.
 Addendum 3 is now M13 in PLAN: all enrolled machines collect provider usage
 locally, publish no raw tokens, expose hub quota CLI/API/dakit UI, and existing
 routing avoids exhausted engines. This is planned work, not shipped coverage.
+Addendum 4 is now M14 in PLAN: authenticated `hub status [--since 2h] [--json]`
+and API return per-task sessions on all hosts, engine and working/waiting/limit/
+context-low/unsubmitted-input observations, report headlines, main versus deployed
+commits, CI, pending Alexey actions and a short diff. It reuses existing records
+and remains planned; no one-call implementation or runtime acceptance is claimed.
 
 M12e workers launched from accepted main in separate worktrees using the requested
 OpenCode Go / Muse Spark 1.3 model: `platform-session-api` (`ce5ab3c4`, task0428)
