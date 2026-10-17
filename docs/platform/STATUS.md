@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `16d66d6`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `6cf0c18`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -21,7 +21,7 @@ evidence only.
 
 ## Current checkpoint — 17 October 2026
 
-**Conversation foundation and portable host storage are on Hub main `16d66d69708268ab84089447534f0439e0bfd893`.**
+**Conversation foundation, portable host storage and reviewed M5 follow-ups are on Hub main `6cf0c185495a33cf04ec2b986c3c901ed3de2cda`.**
 It includes the conversation API, project-qualified F7 registry and credential
 fixes, machine-bound public pairing, dakit conversations/fleet/auth/device UI,
 CLI/native conversation bridge and explicit P3 retention-gap recovery. This is
@@ -38,8 +38,8 @@ source integration; deployment and physical fleet adoption remain open.
 - Actual Agent Branches task0418 fork contains the integrated main commit with
   a head-custody WIP receipt. The Windows follow-up is also preserved in genuine
   task0420. Canonical Branches main and private GitHub recovery main now both
-  equal `16d66d6`. A disposable remote restore passed fsck, nine blob checks,
-  all 203 source SHA-256 checks and old/new CLI help checks.
+  equal `6cf0c18`. A disposable remote restore passed fsck, nine blob checks,
+  all 207 source SHA-256 checks and old/new CLI help checks.
 - Shared `~/git/agent-hub` remains at local HEAD `5dcdf71`: all 131 tracked files
   are verified unchanged. Native context confirmed zero physical scope overlap
   for the isolated integration worktree. The earlier cross-worktree dispatch
@@ -59,32 +59,36 @@ source integration; deployment and physical fleet adoption remain open.
   locators, corrects tracked-file counts and distinguishes final resource samples;
   it changes no source, verdict or test claims. Code is now on main, canonical
   Branches and private recovery; physical Windows DLL/NTFS/Win35/M11 is unproven.
-- M5 original proposal `1229be7` remains rejected (`1fe94af`). Repaired source
-  `117f240` received Grok review `6fb7b21`: the original five defects are repaired,
-  with independent 57 focused tests, eight adversarial cases, four memory-native
-  bridge checks and targeted compatibility/typecheck passing. The review retains
-  a MEDIUM operational lifecycle failure: grants/slots/receipts have no retirement
-  and eventually stop follow-ups at the 4096-receipt cap. Head keeps M5 unmerged
-  until this is repaired. New Codex `platform-pings-r3` (`2554424e`) has source
-  checkpoint `48b3106` in genuine task0419 fork/WIP; 57 existing focused cases and
-  typecheck pass, new lifecycle tests are running. Its latest-slot/frozen-intent
-  authority and opaque generations must preserve replay safety during cleanup.
-- M4 author source `dcb27b7` is frozen. Head composed it with accepted `16d66d6`
-  as `1a15cb1`: all seven M4 paths are byte-identical to the author, all 200 other
-  base source paths unchanged, 207-file manifest `96ea8ee5`. Genuine task0422
-  fork/WIP contains the composed candidate. Argon `platform-links-review`
-  (`e3f6e2ff`) independently reviews exact `1a15cb1`; no source acceptance
-  or routing compatibility ACK is inferred. Author evidence: eight HTTP tests,
-  two platform tests, one retention and one export check, plus typecheck.
-- M7 actual task0423 has source `abd48b8` in its fork/WIP: configured roles,
-  the existing lease/job authority, epoch/generation/current-host checks,
-  transactional execute intents, writer-date exclusion and host consumer guards.
-  All 199 other base source paths remain unchanged; its source manifest has 206
-  files (`4a2e920d`). Grok `platform-role-leases-review` (`b050da9a`) independently
-  reviews it. Author tests include 23 role cases, 56 host cases, targeted legacy
-  writer/root/M6 checks and typecheck; skipped cases and repeated groups are not
-  counted as unique passes. The real writer backend is unsupported and holds
-  before process start; M8b runtime is not implemented by these fake-effect tests.
+- M5 source `212560b` received independent Grok **SCOPED ACCEPT** in
+  `34ee3d0`. The five original defects and R2's MEDIUM retirement failure are
+  repaired: current intervals continue after 4,096 historical receipts are
+  reclaimed, unresolved effects survive cleanup/restart, retired keys cannot
+  authorize new writes, and target read cursors stay unchanged. Independent
+  evidence: 80 focused cases, 53 distinct compatibility cases, 12 adversarial
+  probes, four memory-bridge cases and typecheck; repeated runs are not extra
+  unique coverage. A Low hooked UTF-8 detail-size mismatch remains fail-closed.
+  Head normal-merged the source and report as `6cf0c18` with all 207 source files
+  byte-identical to the accepted pin and typecheck passing. Actual task0419
+  fork/WIP, canonical main and private remote restore contain that integration.
+  The restore verified all 207 source hashes (`1aee1637`) and both CLI help
+  checks. Checks are not enabled by this source change. Physical M5, M8b,
+  issue 102 and M11 remain open.
+- M4's first composed source `1a15cb1` was rejected by Argon report `ab3b953`:
+  stale target authority on replay, incomplete standalone lifecycle, false
+  terminal/review dispositions and expiry filtering after pagination LIMIT.
+  Codex repaired these in `7b6f7ff`, preserved in genuine task0422 fork/WIP.
+  Author evidence: 19 link HTTP/lifecycle cases, two platform, five retention,
+  one export and typecheck; intermediate failures remain retained. Distinct
+  Argon `platform-links-r2-review` (`9673eaac`) ACKed and began inspecting the
+  exact candidate. Source acceptance and routing compatibility ACK are pending.
+- M7 source `abd48b8` received **REVISE** in Grok report `9574242` despite its
+  23 role cases passing. An unresolved writer intent can permit a second project
+  to execute for the same date after its active lease expires. This source stays
+  unmerged. Codex `platform-role-leases-r2` (`3b36ac3f`) ACKed and traced both
+  claim and execute transactions; it owns a bounded global writer-date repair
+  and HTTP/SQLite regression. Different dates must remain usable and unresolved
+  evidence retained. The real writer backend still holds before process start;
+  fake-effect tests do not implement M8b or prove physical M11.
 - The first M4 bootstrap was stopped immediately after a head shell failed to
   halt on a capacity assertion. No tracked edits were produced; native history
   and first-action evidence are retained. Corrected fail-fast launch gating,
@@ -97,17 +101,18 @@ source integration; deployment and physical fleet adoption remain open.
   ID or successful creation was claimed. Existing genuine task0418 was used for
   the actual main integration. New task identity must be reconciled before retry.
 
-Argon completed the post-main review of exact published `16d66d6` and returned
-SCOPED ACCEPT in `c1951e2`, with no blocking source bugs and two Low host workflow
-findings. Its retained probes/manifests are valid, but the report contains an
-invented M5 commit SHA and eleven incorrect changed-path entries plus unsupported
-API names. That report remains unpublished pending Grok factual audit
-`platform-postland-factual-audit` (`e5aa637d`), preserving the Argon source verdict
-and actual test evidence. F-POST-1 concerns stale local machine identity after
-some login/refresh transitions; F-POST-2 documents manual machine migration.
-Physical rollout and the full roadmap remain separate from this source verdict. M4, M5, M7, M8a/M8b, M9, M10 and
-M11 remain active; M6 is already integrated. No deploy, physical host enrollment,
-service migration, native CLI/Rust installation or credential change occurred.
+Argon completed the required post-main review of exact `16d66d6`: SCOPED
+ACCEPT in `c1951e2`, no blocking source bugs and two Low host workflow findings.
+Its valid manifests/probes are retained; Grok factual audit `a5685ed` corrected
+invented commit/path/API descriptions while preserving the attributed Argon
+source verdict. Publication `10c65ff` adds explicit parent/audit-snapshot notes
+and separate head typecheck evidence; that record is on main and in recovery.
+F-POST-1 concerns stale local machine identity after login/refresh transitions;
+F-POST-2 concerns manual machine migration. Both remain bounded follow-ups.
+Physical rollout and full-roadmap acceptance remain separate. M4, physical M5,
+M7, M8a/M8b, M9, M10 and M11 remain active; M6 is already integrated. No deploy,
+physical enrollment, service migration, native CLI/Rust installation or
+credential change occurred.
 Sections below retain the original survey and dated development checkpoints;
 their historical main pins and pending-source statements are superseded here.
 
@@ -115,7 +120,7 @@ their historical main pins and pending-source statements are superseded here.
 
 | Product | Checkout | GitHub main observed | Role in a conversation platform |
 |---|---|---|---|
-| Agent Hub | Shared checkout preserved at `5dcdf71` | `16d66d6` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
+| Agent Hub | Shared checkout preserved at `5dcdf71` | `6cf0c18` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
 | Agent Coordination | `~/git/agent-coordination` at `98857ca` | `98857ca` | Deprecated SSH/role-failover source; this survey/plan |
 | Agent Bus | `~/git/agent-bus` local `bf351f4` | `a9156b9` (deprecation notice) | FileBus predecessor; do not duplicate |
 | Agent Dashboard | `~/git/agent-dashboard` local `6863b99` | `3f126df` (deprecation notice) | Accounting views; hub fleet page replaced operator UI |

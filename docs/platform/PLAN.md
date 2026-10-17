@@ -31,30 +31,32 @@ dispatcher or a second bus transport.
 
 ## Current execution checkpoint
 
-Hub main `16d66d6` contains independently reviewed M1/F7/M2/M2b/M3/P3/pairing
-and portable host storage. Canonical Agent Branches and private remote restore
-match all 203 source hashes. Post-main Argon review accepted exact `16d66d6`; its report publication
-awaits a factual audit correcting unsupported pins/paths/API descriptions. Windows source `3888a43`
-has distinct corrective audit acceptance `e5133fc`; physical Windows remains a
-separate host gate. M5 `117f240` repairs the original rejected `1229be7` but retains a MEDIUM
-retirement gap. Codex `platform-pings-r3` implements bounded lifecycle cleanup
-with durable replay fences; head keeps M5 unmerged until that gap is resolved. The recipient’s read cursor must not move when
-a follow-up is sent, and the follow-up must remain eligible for native delivery.
-No impersonated user/agent credentials or transient in-memory dedupe qualify.
-M4/M5/M7/M8a/M8b/M9/M10/M11 remain in scope.
+Hub main `6cf0c18` contains reviewed M1/F7/M2/M2b/M3/P3/pairing, portable
+host storage and M5 bounded follow-up retirement. Canonical Agent Branches and
+private remote restore match all 207 reviewed source hashes; both CLI help
+checks and integration typecheck pass. Post-main Argon source review of
+`16d66d6` is published in `10c65ff` after factual correction `a5685ed`.
+Its two Low host workflow findings remain bounded follow-ups. M5 exact source
+`212560b` received Grok SCOPED ACCEPT `34ee3d0`: the five original defects and
+R2 retirement gap are repaired. Target read cursors remain unchanged and system
+follow-ups remain eligible for native delivery. Physical M5 is still open.
+M4 repaired candidate `7b6f7ff` is in task0422 and under Argon review after four
+findings in `ab3b953`. M7 `abd48b8` stays unmerged after Grok `9574242` found a
+same-date cross-project duplicate intent after lease expiry; a Codex repair is
+active. M4/M5/M7/M8a/M8b/M9/M10/M11 remain in scope.
 
 ## Milestone map
 
 | ID | Outcome | Current source / next owner |
 |---|---|---|
-| M1 | Authenticated conversation API and F7 registry | Integrated on Hub `7929a1b`; post-main Argon gate running |
+| M1 | Authenticated conversation API and F7 registry | Integrated on Hub `7929a1b`; post-main Argon gate recorded in `10c65ff` |
 | M2 | dakit conversation UI | Integrated on `7929a1b`; physical adoption remains separate |
 | M3a / M3b | Public CLI and genuine native inbox participation | POSIX and portable Windows source integrated on `16d66d6` after corrective audit; own-session POSIX round trips verified, physical Windows unproven |
 | M2b | Fleet, sign-in and device views use dakit | Integrated on `7929a1b`, official kit lock preserved |
-| M4 | Canonical task/review/outcome links in both directions | Task0422 candidate `1a15cb1` composed on `16d66d6`, independent Argon review running; routing policy unchanged |
-| M5 | Safe scheduled follow-ups and physical acceptance | Candidate `117f240` has scoped source acceptance but fails operational retirement; Codex `platform-pings-r3` repairs lifecycle, then distinct review and physical acceptance |
+| M4 | Canonical task/review/outcome links in both directions | Task0422 repaired candidate `7b6f7ff`, independent Argon review running; routing compatibility ACK pending |
+| M5 | Safe scheduled follow-ups and physical acceptance | Source `212560b` accepted in `34ee3d0`, integrated/restored as `6cf0c18`; physical acceptance remains |
 | M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
-| M7 | Configured roles and epoch-fenced job effects | Task0423 source `abd48b8`, independent Grok review running; actual writer backend remains M8b |
+| M7 | Configured roles and epoch-fenced job effects | Task0423 source `abd48b8` REVISE `9574242`; Codex repairs unresolved global writer-date fence; actual backend remains M8b |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -325,25 +327,20 @@ smaller independently reviewed parts; their acceptance requirements stay open.
    `e5133fc`; canonical/private restore against all 203 hashes passed. Preserve
    original reports and native journals. Physical Windows owner tests, enrollment
    and adoption remain M3b/M11 gates; source acceptance does not close them.
-2. Publish the fact-checked post-main Argon review of exact `16d66d6` and this
-   full roadmap; preserve its genuine source verdict while correcting invented
-   metadata. Assign the two verified Low host workflow findings to bounded follow-up. Its verdict covers the named source and observed evidence;
-   deployment and physical multi-host acceptance remain separate.
-3. M5 preserves its repaired expiring grants, target unread state, bridge
-   eligibility and interval intents while adding safe bounded retirement.
-   Repeated operation past historical receipt capacity must continue without
-   reopening retired slots or deleting unresolved effects.
-   Register actual commits in existing task0419 under the new executor identity,
-   obtain a different-model review, fix findings, then integrate and restore.
-4. M4 candidate `1a15cb1` in task0422 is under independent review for real
-   authenticated link and reverse-reference endpoints. Validate both conversation membership and target visibility,
-   bounded retention/accounting and unchanged routing semantics. Register fork
-   WIP, obtain distinct source review and coordinate the routing compatibility
-   ACK; silence is not an ACK.
-5. Compose accepted M4/M5 changes with the current main, resolve conflicts and
-   verify their shared conversation/auth/retention behavior. Continue M7 role
-   fencing, M8a qualified execution, M8b recovery profiles, M9 accounting, M10
-   follow-through and M11 physical migration with the existing ownership gates.
+2. Preserve the published post-main Argon review and factual correction in
+   `10c65ff`; address the two verified Low host workflow findings in a bounded
+   follow-up. Its source verdict does not close deployment or multi-host gates.
+3. M5 source is accepted, integrated and privately restored as `6cf0c18`.
+   Preserve its current-slot fences, unresolved intents and fair bounded cleanup.
+   Physical scheduled follow-up/native delivery remains an acceptance obligation.
+4. Finish Argon review of M4 repaired candidate `7b6f7ff` in task0422; repair
+   findings before source integration. Coordinate routing compatibility ACK;
+   silence is not an ACK. Fix M7's global writer-date uncertainty fence through
+   the active Codex worker, preserve task0423 ancestry, then distinct review.
+5. Compose accepted M4/M7 changes with M5 main, resolve shared conversation/
+   retention/auth conflicts and independently verify any semantic merge changes.
+   Continue M8a qualified execution, M8b recovery profiles, M9 accounting, M10
+   follow-through and M11 physical migration with existing ownership gates.
 6. Keep STATUS, the head report and private recovery checkpoints current after
    accepted milestones. Source and release commits carry `[skip ci]` and actual
    agent/model provenance; push normally to main without PRs or force-push.
