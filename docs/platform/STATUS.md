@@ -1189,3 +1189,35 @@ combined-tree portability acceptance remain open.
 Private recovery now holds eight source/review refs, including the accepted
 launcher protocol and corrected audit, with a fresh restore, 18 selected blobs
 and fsck verified. Hub main remains `5dcdf71`; the full roadmap stays active.
+
+
+### M5 development and source recovery checkpoint — 17 October 2026
+
+Grok session `ace5d868` has acknowledged actual Agent Branches task `0419`
+(`platform-pings-0419`) in a fresh main worktree. Its scope is a two-artifact
+M5 proposal: extend existing scheduled checks with genuine conversation unread
+backlog and safe conversation follow-up messages. It will preserve current
+membership, project-qualified actors, interval/idempotency and retained-unread
+semantics, and add no scheduler or terminal writes. It works privately against
+frozen `cfb4dc2` as a provisional dependency; acceptance and integration require
+the combined review and M1–M3 integration. M5 physical host/human/agent acceptance
+remains a separate required gate.
+
+Combined reviewer `4aab5128` has independently reconstructed all 199 files,
+verified all 88 changed-path input/output hashes and all 131 unchanged tracked
+files, and acknowledged the exact pin. The head has prospectively acknowledged
+its precise own-session native journal scope and gap-first test sequence;
+independent native results and the final verdict remain pending.
+
+The head also reconstructed all 146 Windows proposal outputs from immutable
+Git input and verified the aggregate and ten table rows against review `3d0dfad`.
+The review retained logs/manifests but removed its temporary candidate and probe
+source; the head's reproduction is retained separately. Physical Windows/DLL
+execution and portability against the eventual combined tree remain unproven.
+Private recovery now holds ten accepted source/review refs, with a fresh remote
+restore, 21 selected blobs and fsck verified; recovery main remains `5dcdf71`.
+
+The M4 routing ownership request remains queued: native delivery rejected a
+stale idle report contradicted by later terminal activity. No readiness event
+or ownership ACK was fabricated. Hub main is unchanged; existing source leases
+and all later milestone gates remain in force.
