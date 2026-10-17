@@ -924,3 +924,38 @@ fairness/rollback audit. It is not yet a verdict or evidence that a genuinely
 unexpired claim was deleted. Exact total-budget assertions remain required.
 Both component reviewers and the new integration worker have verified genuine
 native first actions. The main conversation source remains unchanged.
+
+
+### Atomic cleanup repair and existing-view adoption — 17 October 2026
+
+Independent API verification of `7c00467` executed 383 distinct cases: 379 pass,
+four fail, plus typecheck passing. All six previous successful-call fairness
+counterexamples now pass, including service reconstruction before each call.
+Three failures reproduce one remaining composition atomicity defect: a later
+conversation deletion or Hub cursor write can fail after earlier bus work has
+committed. The authenticated retention endpoint also reproduces the partial
+commit. The fourth failure is the confirmed HTTP fixture clock mismatch.
+Grok `6c5ddc7b` is repairing both on original task `0409`; a new exact-source
+review remains required. The combined worker has been told to retain `7c00467`
+as provisional and wait for the committed repair before final validation.
+
+M2b is now allocated as actual task `0415` (`platform-existing-ui-0415`), Codex
+`1f675592`, in a fresh-main worktree. It owns only two inert proposal artifacts
+and private scratch. It will adopt the official reviewed dakit package across
+fleet, sign-in and device-pairing views, preserving routes, auth, CSRF and
+trusted machine selection. Acceptance requires actual Worker/browser checks
+across desktop and narrow layouts, both themes and authenticated/expired/error
+states. The dakit owner has received a concrete scope/kit-lock request; no
+agreement or source handoff is inferred. Native first action and ACK are verified.
+
+Launcher repair checkpoint `6f7e1d1c533b7040840090fdf5e1a9c81c394ab9` is
+preserved in task `0412` fork/WIP. The author verified all 25 reconstruction
+hashes and reports 195 launcher, 182 guard, 48 host, 61 M6 and 32 qualified
+Worker tests passing; final 42 Fleet/routing checks remain in progress.
+A Miniflare test transiently used about 37 MiB against its assigned 25 MiB
+scratch cap. The head has explicitly raised the task cap to 45 MiB after
+checking aggregate headroom, without retroactively claiming compliance. No
+production source/state or runtime account qualification is credited.
+
+The full platform goal remains active. Hub main is still `5dcdf71`; component
+reviews, combined validation, source handoffs and later milestones remain open.
