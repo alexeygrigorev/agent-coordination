@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `213fcf6`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `5dcdf71`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -23,7 +23,7 @@ evidence only.
 
 | Product | Checkout | GitHub main observed | Role in a conversation platform |
 |---|---|---|---|
-| Agent Hub | `~/git/agent-hub` at `213fcf6` | `213fcf6` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
+| Agent Hub | `~/git/agent-hub` at `5dcdf71` | `5dcdf71` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
 | Agent Coordination | `~/git/agent-coordination` at `98857ca` | `98857ca` | Deprecated SSH/role-failover source; this survey/plan |
 | Agent Bus | `~/git/agent-bus` local `bf351f4` | `a9156b9` (deprecation notice) | FileBus predecessor; do not duplicate |
 | Agent Dashboard | `~/git/agent-dashboard` local `6863b99` | `3f126df` (deprecation notice) | Accounting views; hub fleet page replaced operator UI |
@@ -603,3 +603,40 @@ are unverified by this checkpoint.
 Hub main remains `213fcf6`; no candidate above is product acceptance or a
 production deployment. Required combined Worker/browser/CLI/native evidence,
 post-land Argon direction review and the rest of the roadmap remain open.
+
+### First accepted product milestone landed: M6 (2026-10-17)
+
+- Agent Hub main is now `5dcdf7164b28bd0e3a1d717ac9090c054eca3f24`.
+  It contains exact M6 source `71349b42` and the sanitized independent Argon
+  acceptance report in `docs/reviews/CLAIM-ADMISSION.md`. All four prior
+  findings were resolved. The head rebased onto fresh main, verified the code
+  matched the accepted source, and passed typecheck, 163 Worker tests and
+  42 host/CLI tests before the normal main push. No Actions run was created
+  for the `[skip ci]` push.
+- Shared main and the real Agent Branches canonical were fast-forwarded to
+  the same SHA. An expired scoped development token was renewed privately;
+  the peer's original token file was preserved. The separate private GitHub
+  recovery clone restored the same SHA, passed `git fsck`, matched nine
+  relevant source/report blobs, and ran the restored CLI help command.
+- This is source acceptance of typed claims admission, not filesystem
+  sandboxing, provider execution qualification or deployment. The future
+  F7 registry integration must use its immutable credential actor binding
+  in `claim_admission.ts`; that adapter remains an explicit merge-time gate.
+- API repair checkpoint `a7452d8`, preserved in task `0401`, reports 29
+  conversation tests and typecheck passing. Additional integration/probe/docs
+  work and independent rereview remain. UI repair `7179868`, preserved in
+  task `0403`, reports 29 browser checks and 12 adapted reviewer probes;
+  independent Grok rereview is running. Combined conversation acceptance
+  remains open.
+- A fresh launcher audit found GitHub main `5145d0d` has substantial
+  provider-admission/root-profile/task-unit code absent from the shared
+  installed checkout `53c7b2e`. Its task-unit quota cohort gate deliberately
+  holds. Task `0404` prepares executable launcher/Hub companion patches in
+  private copies of current source, reusing these guards. Actual reserved
+  source remains unchanged and full M8a remains open.
+
+Next: post-land Argon direction review of this foundation and the remaining
+critical path; finish M1/F7 security and ownership gates; then verify the real
+Worker/browser/CLI/native conversation flow. The full M2b/M4–M11 roadmap and
+later review of the working conversation path remain required. No deployment,
+cloud resources, domain, credentials, services or timers were changed.
