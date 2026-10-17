@@ -156,6 +156,49 @@ API support comes first, MCP exposure later. These are new requirements, not
 completed features. Routing-contract coordination is recorded; no ACK or runtime
 assignment is inferred. See [M12 in PLAN.md](PLAN.md#m12--intake-becomes-tracked-assignable-work).
 
+### 17 October source and intake checkpoint
+
+Hub accepted main remains `6cf0c185495a33cf04ec2b986c3c901ed3de2cda`.
+The following candidates remain subject to independent review and normal
+integration; their test results do not establish deployment or host adoption.
+
+- Combined M4/M5/M7 candidate `f6ec420cec3ab28fbea218dda478539b96fd4bbc`
+  is registered in actual Agent Branches task 0426. Head verification passed
+  typecheck and 39 unique focused cases: 30 role cases proved by the disjoint
+  union of two bounded runs, plus nine conversation/link/ping cases. An initial
+  larger run stopped at its early resource guard; its evidence remains retained.
+  Argon explicitly acknowledged the final review pin; its verdict is pending.
+- M9 metrics source `cef74e2bc09f48b104f775399c0e1d56cf7effc5` is registered
+  in task 0424. The author reports seven real Worker/SQLite HTTP cases, six Python
+  cases, typecheck, dakit checks and local fixture renders passing. A distinct
+  Codex reviewer independently passed those 13 cases and typecheck, then reported
+  nine adversarial failures across four defects: credential mutation during a
+  streamed upload, revoked/expired snapshot reads, global storage caps and older
+  idempotency replay after a newer snapshot. Final review and repair are pending;
+  the original green tests do not establish source acceptance.
+  Producer agreement, live ingestion, physical adoption and an observed live
+  24-hour window remain unproven.
+- Host-binding source `8ff51a1fac456849529d2e8728eae454caf9ec75`, task 0425,
+  has entered distinct Grok review. Author synthetic tests and the mock HTTP CLI
+  flow passed; no actual credentials, registry rows or host configurations were
+  changed. The early source commit's unnecessary per-command hooks bypass was
+  disclosed and prohibited; the final commit used normal hooks and checks.
+  Independent review and normal integration remain required.
+- M12a task 0427 now has an actual Codex worker in its own fresh-main worktree,
+  with acknowledged first action. Its scope is durable intake/task API, existing
+  public CLI integration, explicit assistant grants, versioned handoff context
+  and `hub handoff`. Argon has separately acknowledged the full M12 plan and
+  both addenda at coordination commit `da9fa7a`. Actual assignment, backfill,
+  assistant adoption, later MCP and cross-host session orchestration remain
+  required subsequent phases. Routing coordination remains pending; an attempted
+  delivery was refused by the native readiness guard and left queued.
+
+New workers each have a 1500 MiB/256-task limit, one-core execution and private
+scratch bounds. Conservative aggregate admission after the M12a launch was
+526,921,728 bytes against the 536,870,912-byte scratch limit. Fresh provider
+quotas and the protected Codex gate passed. No additional launch or test growth
+is admitted without a fresh measurement and outstanding-reservation accounting.
+
 ## 1. Product map
 
 | Product | Checkout | GitHub main observed | Role in a conversation platform |
