@@ -38,6 +38,13 @@ Addendum 3 is now M13 in PLAN: all enrolled machines collect provider usage
 locally, publish no raw tokens, expose hub quota CLI/API/dakit UI, and existing
 routing avoids exhausted engines. This is planned work, not shipped coverage.
 
+M12e workers launched from accepted main in separate worktrees using the requested
+OpenCode Go / Muse Spark 1.3 model: `platform-session-api` (`ce5ab3c4`, task0428)
+and `platform-session-host` (`0241129b`, task0429). Both have fresh quota/resource
+admission and source inspection observed. Model-owned ACK/first-action artifacts
+and the agreed API/host interface are the next checkpoint; launch receipts alone
+are not acceptance. Each is capped at 1500M, one CPU and 12 MiB private scratch.
+
 Retention/roles repair has 138 distinct author passes; exact composition with
 M12a at `aec97138afd5bccd9cd053794d85ee6dcfef548f` is under Argon review.
 M9 repair has 37 distinct author cases plus rendered UI checks; composed
