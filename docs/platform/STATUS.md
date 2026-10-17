@@ -64,12 +64,18 @@ unresolved protocol/proof issues. A broader host run reported 661 passes and 20
 environment errors; it is not a clean regression result. New Muse continuations
 `platform-session-api-r2` (`c5491cd7`) and `platform-session-host-r2` (`c827c25c`)
 carry the explicit corrections and wiring work. These are unaccepted source
-increments, not a working end-to-end loop. Each continuation reserves 20 MiB
-private scratch after a fresh aggregate check; existing artifacts are preserved.
+increments, not a working end-to-end loop. The API continuation reserves 28 MiB and the host continuation 20 MiB private
+scratch after fresh aggregate checks; repeated OpenCode native-library files and
+all prior evidence are preserved. Both corrected model-native identity receipts
+now match their actual session/workspace.
 
-M9 repair has 37 distinct author cases plus rendered UI checks; frozen
-`e5ed3bfa0bf2e186eccf7f4868962cf0dd3475a6` needs composition with current main
-and independent rereview. Runtime/enrollment and ownership gates remain.
+M9 repair has 37 distinct author cases plus rendered UI checks. New composition
+`ae21e27bc769e878af109ce50144da0fed5a5611` on accepted current main is registered
+in actual task0424, with 240 source pairs frozen at digest
+`2a2e6489c31062c7bb77b92639cde96f3c5c7863807420f8d5075a93945f8a10`.
+Independent Codex reviewer `platform-metrics-r2-review` (`f5b90545`) has acknowledged
+the exact pin and produced a matching native first-action receipt. Review is
+pending; producer adoption/runtime/enrollment and ownership gates remain.
 
 - Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
   The registration-field wording correction `85fdcec` received exact independent

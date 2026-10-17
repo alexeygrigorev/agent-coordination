@@ -52,8 +52,8 @@ M4/M5/M7 composition with M12a at `aec97138afd5bccd9cd053794d85ee6dcfef548f`
 received Argon scoped acceptance in `4c7cf04`: 186 distinct cases, typecheck and
 bundle dry-run passed. It is integrated and privately restored as `6bc91a1`;
 all 228 reviewed source hashes match. The final delta corrects report metadata
-only; the original report and failures remain preserved. M9 repaired source is frozen with current main at
-`e5ed3bfa0bf2e186eccf7f4868962cf0dd3475a6`, awaiting independent rereview;
+only; the original report and failures remain preserved. M9 repaired source is composed with current main at
+`ae21e27bc769e878af109ce50144da0fed5a5611`, under independent Codex rereview;
 producer adoption remains open. M8a/M8b execution qualification/recovery,
 M10 follow-through and M11 physical acceptance remain required.
 
@@ -597,8 +597,8 @@ acceptance is measured.
    with routing; verify live per-machine coverage and secret-free payloads.
 4. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
    independent report `4c7cf04`, the transparent metadata correction and original
-   failure evidence. M9 candidate `e5ed3bf` requires composition with new main
-   and independent rereview when prioritized capacity permits.
+   failure evidence. M9 candidate `ae21e27` is composed with accepted main
+   and under independent Codex rereview; producer adoption remains separate.
 5. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
    follow-through and M11 physical migration. Published Windows, host binding and
    M5 source do not close their outstanding physical and enrollment gates.
