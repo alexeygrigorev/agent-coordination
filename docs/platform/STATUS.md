@@ -558,3 +558,48 @@ are unverified by this checkpoint.
 - Hub main is still `213fcf6`; no product candidate was merged or deployed.
   The accepted plan, scoped CLI/native reviews, required combined integration,
   post-milestone Argon review, and M2b/M4–M11 roadmap remain in force.
+
+### Pinned candidates and second review cycle (2026-10-17)
+
+- M1 review report `95bb542` rejects `033d710`. Six original findings are
+  resolved in the tested paths; retention/accounting and re-add semantics
+  remain partial, and the real registry dependency stays open. New findings
+  F10–F16 include a high-severity default tombstone cap that prevents an owner
+  from removing a current reader. Independent verification passed 23 candidate
+  tests and 20 composed Worker probes, including eight assertions that confirm
+  counterexamples. Argon task `0401` owns repair; passing counterexample probes
+  are not requirement acceptance.
+- F7 registry proposal `7d8cd28` is preserved in actual task `0399`. The
+  patch is applied only in private copies. Its exact-artifact typecheck,
+  34 Worker/M1 tests and 193 inherited regressions passed. The proposal covers
+  atomic project/tag uniqueness, immutable credential project binding,
+  pairing/refresh, bus aliases and historical message isolation. All 110
+  actual core/config hashes stayed unchanged. Independent Argon review is
+  running; source application still requires the reserved owners' handoff.
+- M6 repair `71349b4`, preserved in actual task `0400`, reports 163 Worker
+  tests, five adapted Argon probes, 42 host/CLI tests and typecheck passing.
+  It repairs invalid unstarted-offer retirement, enqueue conflicts, current
+  policy checks and real HTTP-paired agent submission for routed edits.
+  Independent Argon rereview is running. Started or uncertain effects still
+  retain capacity until confirmed exit; intent declarations are not an OS
+  filesystem sandbox.
+- Independent Grok UI report `f66536d` rejects `6de5b4e`. Browser probes
+  reproduced cross-human failed-draft leakage, stacked mobile panes, an
+  oversized chevron caused by the wrong dakit class, changing create retry
+  keys and an enabled composer after denial. Static/official dakit checks,
+  typecheck and six asset tests pass. Codex task `0403` owns the five repairs,
+  targeted regressions and clean rendered evidence. The missing shared
+  message-thread/composer vocabulary was sent privately to the dakit owner.
+- M8a host safeguard/proposal `1f6d191` is preserved in task `0402` and is
+  under independent Grok review. The actual maintained launcher exposes
+  provider/model planning and plain-text submission, with no qualifying
+  account/native-profile/effort/request/native-identity receipt. The host
+  candidate holds unsupported task execution before claim/submission; it does
+  not implement the missing launcher contract. Its reported 202 host tests,
+  34 restore tests and 42 server regressions do not prove actual credential
+  attribution. Launcher owner agreement and companion implementation remain
+  required; full M8a is open.
+
+Hub main remains `213fcf6`; no candidate above is product acceptance or a
+production deployment. Required combined Worker/browser/CLI/native evidence,
+post-land Argon direction review and the rest of the roadmap remain open.
