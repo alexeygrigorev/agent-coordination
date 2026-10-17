@@ -1,3 +1,11 @@
+## Current checkpoint — 17 October, 20:29 Berlin
+
+Four urgent streams ran in separate Antigravity worktrees and landed on main. Auth/domain/sessions release479f863 passed real CI deployment39057082540. Follow-up2a75dac passed automatic push deployment39057715619 and is active at100% as Worker d7ce214f-93e1-439c-966e-6f8337f56e32. Fresh browser redirects on both hosts reach Google with the correct cookie; new-host real bootstrap device approval, human API access, refresh and family logout passed. Alexey's own Google identity completion awaits his asynchronous confirmation; do not claim it passed.
+
+Human CLI coverage34/34 native IDs, both required external aliases, owned external name send/capture/stop, compact table/JSON, and actual parent tree edge all passed. The authenticated dashboard shows both names and the live parent/child edge with no page errors. Shared aplexer skill4288f90 pushed Hub-first orchestration and explicit parent IDs. All four original finished branches/worktrees retired after preserving evidence and verifying landed source.
+
+Two useful workers now run: disk/monitoring de9badb4 (Hub660c3f8e, original taskeec0c582, same intent recovered after capacity returned), and intake-parent plumbing cd0e3245 (Hubaa963785, task45605db6, explicit child of this coordinator). Both first actions and exact native bindings verified. Disk original dirty source remains preserved while rebasing. Source scopes are disjoint. Root owns integration/deploy. Monitor6/6b ports next, with original broader roadmap active. Recovery details and exact paths: `.local/platform/AUTH-CURRENT.json`; operator-facing commands/results: `~/tmp/agent-reports/hub-platform.md`.
+
 ## Live integration update — 17 October, 20:19 Berlin
 
 All four independent worker streams have source on main. Combined release `479f863d7302a6dde341b7a2b9251135237cbe1b` passed [real CI/CD deployment39057082540](https://github.com/alexeygrigorev/agent-hub/actions/runs/39057082540). Cloudflare authenticated active-version check confirms100% version `44b6fadd-65f1-4512-b1c2-09022fc7d31c` with that source. Fresh new-host auth requests still serve the previous Durable Object behavior during rollout; web Google and new-host device acceptance are pending, not claimed fixed. Auth tests31+proxy2 andPython18 passed. AdditionalAlexey admin and Orin preserved.
