@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `6bc91a1`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `91b8b6c`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -20,6 +20,66 @@ Unit tests are not physical delivery. Passing vitest/unittest counts are source
 evidence only.
 
 ## Current checkpoint — 17 October 2026
+
+**Authoritative update — 13:12 UTC.** Full goal remains M1–M15 plus M2b.
+Hub main/canonical/private remain `91b8b6c`; this turn publishes coordination
+updates only. The protected physical checkout remains clean at `5dcdf71`.
+No deployment, enrollment, credential refresh, service or timer change occurred.
+
+- **M12 first:** actual0430 source `1f4e300` is frozen, with 253 verified source
+  hashes. Independent Argon `a935a199` (actual0440) has verified 187 Python
+  cases and is continuing selected Worker/SQLite, novel authority and native
+  protocol checks. Full engine/tier/host/cwd/brief and all five R2 finding groups
+  remain acceptance gates. The real Grok Bot box -> Hub -> Hetzner AI loop is
+  open; intake assignment/backfill/fresh-agent handoff follow it.
+- **M13:** Muse `62c9c839` (actual0439) continues the full native collection,
+  authenticated API/CLI/dakit UI and routing-admission source slice. Its failed
+  and scratch-aborted tests remain failed, including `quota-hhttp`. The head
+  reclaimed only explicitly requested ended temporary paths after privileged
+  inode/maps/fd/cwd/socket checks, retaining all receipts and source. A fresh
+  aggregate proof permits future guarded runs at 28 MiB hard / 24 MiB early;
+  earlier 16/12 and 24/20 runs are not retroactively reclassified. Live native
+  credits/spend coverage remains required; a fixture roundtrip is insufficient.
+- **M15:** independent report `444f5ba` accepts plan `2119268` under M15-IG1..7
+  and rejects original source `4e0f864` on six findings. Muse `964f24fe` froze
+  repair `1b7e109` in actual0436. The head verified 237 source hashes: all 228
+  accepted files unchanged plus nine new lifecycle files. Argon `73f1ad33`
+  (actual0441) has verified native identity and explicit ACK and is reviewing
+  the repair. Two author runs have early-scratch aborts despite exit zero;
+  their claimed success is unaccepted. API/CLI, durable custody/decisions,
+  guarded Git/process effects and physical acceptance remain M15c/d work.
+- **Hub-zai follow-up:** actual0437 Muse recovery ended normally with candidate
+  `10796ab`, three new docs/test files and two earlier focused liveness passes.
+  First identities and task handoffs are verified; actual fork/WIP is updated.
+  Corrected evidence places failed USER `agent-hub-fleet-host.service` on local
+  RMTHZ. Its root cause is unknown. Earlier wrong-unit/scope conclusions and
+  discovery parser errors are preserved with an erratum. Current active Worker
+  revision/rollback, credential audience and activation readiness still need
+  bounded verified reads. Runtime changes remain gated behind M12 acceptance.
+- **Routing override:** Alexey prohibits new `grok` engine workers because Build
+  shares Bot limits; running Grok sessions may finish. New workers prefer Muse,
+  Z.ai `glm-5.3-flash` or Antigravity, with Codex coordinating/reviewing. The M13
+  owner ACKed and proposed the existing disabled-provider policy. The head
+  approved that exact config edit with reserve/claim enforcement and boundary
+  tests in its isolated source; integration/runtime enforcement is pending.
+
+M13/M14’s seven plan gates and M15’s separate seven gates are explicit in PLAN.
+M9 UI `aa048b7` and full DTO `f20b35a` remain independently unaccepted and are
+not blanket prerequisites for M12. Prior checkpoints below are historical;
+this update and private CURRENT.json govern current assignments and results.
+
+### Earlier checkpoints (retained history)
+
+**Quota implementation staffed (17 October, 12:20 UTC).** Actual0439 Muse Spark
+worker `platform-quota` (`62c9c839`) is running in its own fresh-main quota
+worktree with verified native identity, task ACK and design artifact. Its scope
+covers the full M13 collector/API/CLI/dakit UI/routing-admission source slice,
+with all three binding quota gates. M12 remains first priority. Admission became
+possible after retiring only three exact regenerable caches from ended workers:
+privileged read-only maps/fd inode checks found no references or unreadable
+processes, exclusive file scopes were held, and source/reports/histories/worktrees
+were preserved. This is source work in progress, not deployed quota coverage.
+
 
 **Plan-review publication (17 October, 12:06 UTC).** Hub GitHub, canonical Agent
 Branches and private recovery now equal `91b8b6c189c4f54b9d9e2c44d7dfcb09e5208396`.

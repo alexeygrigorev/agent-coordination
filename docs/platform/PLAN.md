@@ -12,6 +12,11 @@ dispatcher or a second bus transport.
 
 ## Constraints
 
+- Alexey’s 17 October override: start no new `grok` engine workers; Grok
+  Build shares Grok Bot limits. Let existing Grok sessions finish. Prefer Muse
+  Spark, Z.ai `glm-5.3-flash` or Antigravity; Codex coordinates and reviews.
+  Keep existing Grok Bot participation and quota telemetry.
+
 - Reuse device/human auth, idempotency, and `hub bridge`. Keep `/api/bus/*`
   for 1:1 machine/role traffic. Conversation rows live in dedicated tables
   with atomic `seq` (no dual-write into `messages`).
@@ -76,68 +81,39 @@ Muse UI repair `aa048b7503130fdf25d77041ed7c6bcc5c84035d` is frozen in
 actual0435; the author omitted the required in-run resource guard, so independent
 validation with a real guard remains required. Source and evidence are preserved.
 
-Session R2 repair `2ca4700` is registered in task0430 with 246 verified hashes.
-Argon completed **SCOPED REVISE** in `db3dcbc`; report-only metadata correction
-`9f9a5fc` preserves all five finding groups and the 169 passing existing cases.
-The groups cover inherited host authority, post-body session authority, late ACK
-recovery, journal fairness/terminal errors and actual native identity/mailbox/
-stop-containment fidelity. Full engine/tier/host/cwd/brief support remains required.
+Session R3 source `1f4e3007c1d5d02217861d5d1f1812549e7186c1` is frozen in
+actual0430 and has 253 verified source hashes. Independent Argon worker
+`platform-session-r3-review` (`a935a199`, actual0440) is reviewing all five R2
+finding groups, full engine/tier/host/cwd/brief behavior, native protocol and
+current host-authority compatibility. Its Python batch verified 187 cases;
+selected Worker/SQLite and novel tests continue. This is progress, not acceptance.
+The real Grok Bot box -> Hub -> Hetzner AI loop remains the primary acceptance.
 
-Primary Muse recovery worker `platform-session-r3-recovery2` (`a9da74f2`) owns
-actual0430 in the preserved isolated `agent-hub-wt-platform-session-r3` tree:
-committed `a46213fc38972cc59cd0eda0ae2abbe3c9a46d88` plus unfinished edits.
-Predecessor `ad6431cf` was stopped by the head after repeated guard-aborted full
-suite runs; its claimed 26/26 green result is withdrawn. Source, histories,
-patch and failed receipts are retained. The new worker verified identity and
-ACKed the correction, uses a tested head-owned guard, and must select at most
-two Vitest cases per invocation. No M12 source or physical acceptance follows.
-The short first recovery turn `ea30db81` ended normally while awaiting a
-generic design reply; the saved model conversation proves this cause. The new
-turn has explicit authorization to continue implementation without that wait.
-Only the shared host-authority fixes are prerequisite; M9 accounting/UI remains
-independent of this primary path. The first real AI cross-host loop is unproven.
+M12a intake/CLI/handoff source remains accepted; actual assignment, real backfill
+and fresh-agent continuation remain next. Full M9 UI/DTO is independently reviewed
+and is not a blanket prerequisite for M12. Addendum 3 is M13 quota, Addendum 4
+is M14 one-call status, and Addendum 5 is M15 lifecycle; none removes earlier
+M1–M11 or M2b work. M13/M14 plan acceptance and all seven binding gates remain
+published in Hub `91b8b6c` with 228 accepted source hashes unchanged. Actual0439
+Muse `platform-quota` (`62c9c839`) owns the full collector/API/CLI/dakit UI/routing
+source slice. M14 implementation follows available canonical input contracts.
 
-Head-owned actual task0434 has draft `b9698bf3`, combining `2ca4700` with
-`f20b35a`. The two initial additive Hub-import/CLI-registration conflicts are
-resolved; the updated merge has no further conflicts. A new 269-file union
-manifest is verified. This is a draft for subsequent corrected source and coupled
-review, not accepted source or a main/runtime change.
-Producer adoption, M8a/M8b qualification/recovery, M10 follow-through and M11
-physical acceptance remain required.
+M15’s independent review `444f5ba` accepts plan pin `2119268` subject to seven
+implementation gates, but rejects source `4e0f864` on six findings. Muse repair
+`1b7e1094cf248b072853fe1ad956f8dfa1c95256` is registered in actual0436;
+independent Argon `platform-lifecycle-r2-review` (`73f1ad33`, actual0441) now owns
+exact-source review. Shared API/CLI, durable decisions and guarded host effects
+remain M15c/d work, separate from pure module acceptance.
 
-Addendum 3 adds M13 below: collect quota on every enrolled machine and provide
-hub quota API, CLI and UI consumed by existing routing. M9 accounting and M13
-quota are linked but have separate acceptance: usage accounting is not evidence
-of available provider quota.
-
-Addendum 4 adds M14: one authenticated `hub status` CLI/API call replaces the
-manual session/report/Git/CI/deployment check. It includes pending human actions
-and a short change summary, using existing canonical records and host snapshots.
-M12e remains first priority; the new read projection can develop independently
-as its input contracts become available.
-Argon plan report `b033eea` reviews exact coordinator pin `6750e34`. Correction
-`7408769` and mechanical label follow-up `91b8b6c` are now published in actual
-task0432. The head verified all 54 full Git references and seven binding gates;
-this accepts the earlier plan subject to those gates, with no source/runtime
-acceptance. M15 has its separate independent review in actual0438. Preserve M12e first, then actual assignment and
-handoff; independent quota/status work may proceed with spare capacity. Full M9
-accounting acceptance is not a blanket prerequisite for those independent slices.
-
-Addendum 5 adds M15 below: canonical session lifecycle provenance, automatic
-needs-action classification, durable limit decisions and guarded cleanup. Actual
-Agent Branches task0436 is assigned to Muse Spark worker `platform-lifecycle`
-(`ee366bf6`) in its own fresh-main worktree. Genuine identity, task ACK and first
-useful design artifact are verified. New modules/tests/docs are independent;
-shared session parser/schema/API integration requires agreement with M12.
-
-Alexey's hub-zai handoff is tracked once as actual task0437, assigned sequentially
-to `platform-session-r3-recovery2` after the primary M12 repair freeze. Alert
-default `f5efc43` already landed. The old script repeatedly ran an unfiltered
-suite through pipelines without `pipefail`; do not rerun it or count pipeline
-success as validation. Inventory and bounded failure diagnosis precede any
-activation; domain capability, host enrollment/pairing and timer migration remain
-open. Preserve the shared checkout and existing timers. User stopped hub-zai;
-native absence and new-worker custody ACK are verified; revalidate custody before taking any shared runtime action.
+Alexey’s repeated hub-zai handoff is processed once as actual0437. Muse recovery
+stages `e1ab1a3e`, `d3500965` and `19668b11` ended normally with preserved
+artifacts; final source `10796ab` is registered for independent review. Alert
+default `f5efc43` already landed. Two bounded liveness tests passed; runtime
+activation is open. The failed `agent-hub-fleet-host.service` is a USER unit on
+local RMTHZ; its root cause remains unknown. Earlier claims that the failure was
+remote are corrected. Preserve original discovery errors, shared checkout and
+timers. Do not replay the old unfiltered ship script. Source acceptance, exact
+custody, active revision/rollback and budget evidence precede activation.
 
 ## Milestone map
 
@@ -152,9 +128,9 @@ native absence and new-worker custody ACK are verified; revalidate custody befor
 | M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
 | M7 | Configured roles and epoch-fenced job effects | Reviewed composition integrated/restored as `6bc91a1`; actual qualified effect backend remains M8b |
 | M12 | Capture intake, assign tasks, preserve handoff and replace psc session orchestration | M12a source on `bc79601`; M12e first priority, then actual assignment/backfill/handoff adoption |
-| M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Addendum 3; extend existing quota contracts and routing, independent review and real host acceptance required |
+| M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Actual0439, Muse `platform-quota` (`62c9c839`), fresh-main isolated worker; independent source review and real host acceptance required |
 | M14 | One-call task/session/report/commit/deployment/CI/human-action status and change summary | Addendum 4; authenticated `hub status [--since 2h] [--json]` and API over existing records; not implemented |
-| M15 | Session lifecycle registry, needs-action list, durable limit decisions and safe cleanup | Addendum 5; actual0436 Muse `platform-lifecycle` owns new modules/tests/docs, integration and runtime acceptance open |
+| M15 | Session lifecycle registry, needs-action list, durable limit decisions and safe cleanup | Actual0436 repair `1b7e109`; independent Argon actual0441; M15c/d integration and runtime open |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -603,6 +579,17 @@ orchestrator handoff and cross-host session orchestration in M12’s full scope.
 computer through that computer’s hub agent. Assistants should use `hub quota`
 instead of running `quse` separately on each machine.
 
+**Assigned source owner.** Actual Agent Branches task0439, agent
+`platform-quota-0439`, is assigned to OpenCode Go / Muse Spark 1.3 native worker
+`platform-quota` (`62c9c839-b92e-4a88-83e3-75578751e525`) in the fresh-main
+`agent-hub-wt-platform-quota` worktree based on `91b8b6c`. Genuine first-action
+identity, explicit task ACK and the first design artifact are verified. It owns the full
+collector → API/CLI/dakit UI → routing-admission source slice, with scoped quota,
+fleet and routing edits. Authentication/registry/session-control and routing
+configuration remain outside its scope except the explicitly approved Grok
+disabled-provider policy edit and its existing fleet gates. Existing
+M12 staffing stays first; this worker uses newly verified spare capacity.
+
 **M13a — Host collection and authenticated snapshots.** Extend the existing
 `src/quota.ts`, host quota snapshot adapter and maintained local collectors.
 Read local provider tokens/state only on their own machine, with the existing
@@ -785,15 +772,25 @@ and intake assignment/handoff adoption second; this independently owned slice
 uses spare capacity. The private 17 October cleanup report supplies detection
 examples; use synthetic equivalents in committed tests, never private transcripts.
 
-**Owner and cuts.** Actual Agent Branches task0436, agent
-`platform-lifecycle-0436`, is assigned to OpenCode Go / Muse Spark 1.3 worker
-`platform-lifecycle` (`ee366bf6-6fca-4303-91c7-fee061bb8dbe`) in
-`/home/alexey/git/agent-hub-wt-platform-lifecycle`, based on fresh main `6bc91a1`.
-It ACKed the task and wrote its design before integration changes. It owns new
-`src/session_lifecycle.ts`, `host/agent_hub_host/session_lifecycle.py`, focused
-new tests and `docs/SESSION-LIFECYCLE.md`. M12 owns shared command/API/parser
-integration. Independent Argon review of the extension and different-provider
-source review precede normal main integration/private recovery.
+**Owner and cuts.** Actual0436 (`platform-lifecycle-0436`) retains the source
+lineage. Original Muse `ee366bf6` produced `4e0f864`; Muse repair worker
+`platform-lifecycle-r2` (`964f24fe`) froze `1b7e109` on current main `91b8b6c`.
+All 228 accepted source files are unchanged, with nine new lifecycle source
+files. Independent Argon `73f1ad33` owns actual0441 review. M12 owns shared
+command/API/parser integration. Neither source freeze nor module acceptance
+completes API/CLI, durable decisions or host cleanup.
+
+Binding gates from independent report `444f5ba` on plan pin `2119268` apply:
+
+| Gate | Required implementation evidence |
+|---|---|
+| M15-IG1 | Reuse canonical fleet/session-control/intake records and additive sessions views; no second registry or controller. |
+| M15-IG2 | Authenticated immutable starter, current custodian and fenced integer epoch transfer; unknown/legacy ownership and human sessions remain protected. |
+| M15-IG3 | Preserve simultaneous flags/obligations; finished AND superseded need authoritative no-pending proof and fresh evidence with no newer activity; missing provenance stays unknown. |
+| M15-IG4 | Honest reset provenance/timezone and durable resume/reassign/drop decisions; fresh quota, routing, reserves and cooldown before execution. Timezone-naive or missing-zone reset is unknown; explicit-offset interpretation is under R2 review. |
+| M15-IG5 | Structured default output; bounded opt-in text is data, redacted before truncation with additional privacy controls. |
+| M15-IG6 | Effect-free dry-run; apply revalidates exact identity/custody/epoch/containment and obligations, plus owned clean fully merged Git paths and fresh no-user/no-lock evidence. |
+| M15-IG7 | Server owns canonical joins/classification/projection/plans/decisions; host owns observations and local effect guards, with no drifting duplicate authority. |
 
 - **M15a: registration and observations.** Extend canonical fleet launch/session,
   M12 control and intake links. Register authenticated starter, current authorized
@@ -859,35 +856,26 @@ real enrolled-host acceptance separately; source fixtures do not establish it.
 
 ## Next actions
 
-1. Complete actual0430 M12 repair with Muse `a9da74f2`, all five R2 finding
-   groups, full engine/tier/host/cwd/brief and synchronous host authority.
-   Independently review the exact freeze, then verify the real Grok Bot box ->
-   Hetzner AI start/send-confirm/capture/confirmed-stop loop. Full M9 UI/DTO is
-   a separate review path, with UI `aa048b7` and interrupted R5 probes retained.
-2. Deliver M12b assignment and M12c actual backfill/assistant adoption using the
-   accepted M12a ledger. Prove automatic real-session links and fresh-agent
-   continuation from `hub handoff`, not just task CRUD or a local preview.
-3. Extend existing quota collection/API/UI/routing under M13. Agree ownership
-   with routing; verify live per-machine coverage and secret-free payloads.
-4. Deliver M14 one-call status through existing task/session/quota/report/Git/CI
-   sources, with verified deployment inclusion, short diffs and pending Alexey
-   actions. Obtain independent review of the M13/M14 plan extension and source.
-5. Deliver M15 under actual0436, agree additive session integration with M12,
-   review source independently and verify guarded owned-host lifecycle behavior.
-   Execute actual0437 hub-zai handoff inventory/recovery after M12 source freeze;
-   verify targeted tests, domain/auth custody, enrollment and replacement checks
-   before any deployment or timer migration. Do not repeat the old ship script.
-6. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
-   independent report `4c7cf04`, the transparent metadata correction and original
-   failure evidence. M9 candidate `ae21e27` is composed with accepted main
-   and received SCOPED REVISE `ce40f49`. R4 `0c77917` received REVISE
-   `4e6bfc2`; full Muse repair `f20b35a` now awaits Codex `bf8cb749` exact
-   acceptance. Producer adoption remains separate. Preserve the interrupted
-   core review, all earlier findings and resource incidents.
-6. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
-   follow-through and M11 physical migration. Published Windows, host binding and
-   M5 source do not close their outstanding physical and enrollment gates.
-7. Keep STATUS, the head report and private recovery checkpoints current after
-   accepted milestones and user steering. Preserve journals, peer checkouts,
-   installed tools and worktrees. Commit explicit paths with `[skip ci]` and
-   actual provenance; push normally to main without PRs or force-push.
+1. Finish actual0440 independent review of M12 source `1f4e300`, including current
+   host authority, five R2 groups, native protocol and full start parameters.
+   Repair findings before acceptance/main integration, then verify the genuine
+   Grok Bot box -> Hub -> Hetzner allowed-engine AI loop end to end.
+2. Deliver actual M12 assignment, backfill and fresh-agent continuation using
+   the accepted intake ledger and `hub handoff`.
+3. Complete actual0439 M13 source, independent review and live native-unit quota
+   coverage. Reuse canonical launch policy to prohibit new Grok workers while
+   preserving running sessions and telemetry. The exact disabled-provider config
+   and reserve/claim enforcement edits are approved for this source candidate.
+4. Implement M14 status over canonical inputs under M14-IG1..4; distinguish
+   main commits, deployed inclusion, CI and pending human actions.
+5. Complete actual0441 M15 repair review under the seven gates, then integrate
+   M15c/d API/CLI, durable decisions and guarded owned-host effects separately.
+6. Review actual0437 ops candidate `10796ab`; finish corrected bounded readonly
+   deployment/rollback and real unit/config diagnosis. Activate only after source,
+   custody, budget and qualification gates; migrate checks/timers one at a time.
+7. Keep M9 UI `aa048b7` and full DTO `f20b35a` independent; preserve interrupted
+   reviews and known negatives. Continue M8a/M8b, producer adoption, M10 and M11
+   physical work without claiming these complete from module/unit evidence.
+8. Keep STATUS, the head report and private recovery current; preserve journals,
+   source and failed/aborted receipts. Explicit-path commits use `[skip ci]` and
+   actual provenance, normal main pushes and verified private restore.

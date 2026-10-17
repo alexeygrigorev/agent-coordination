@@ -1,11 +1,23 @@
-## M15 extension — assigned, independent review pending
+## M15 extension — plan scoped acceptance, repair source under review
 
-Addendum 5 is now M15 in PLAN. Actual0436 Muse `platform-lifecycle` owns new
-lifecycle modules/tests/docs; shared M12 integration, durable runtime decisions,
-guarded apply and actual host acceptance remain open. The extension requires
-independent Argon plan challenge and exact-source review; earlier M13/M14 or M12
-verdicts do not accept M15. Hub-zai's remaining work is assigned as actual0437,
-with primary M12 work retained first and no repeated invalidated ship script.
+Independent Argon report `444f5ba5f3b85afc4ccb13d103a4ce50af8fc0e3`
+accepts coordinator plan pin `2119268` subject to M15-IG1..7, now explicit in
+PLAN. It rejects original module source `4e0f864` on six findings: supersession
+proof, newer/invalid activity, ownership/target/epoch guards, reset timezone,
+unknown provenance classification and truncation/privacy/duplicated authority.
+
+Muse repair `1b7e1094cf248b072853fe1ad956f8dfa1c95256` is registered in
+actual0436. The head verified all 228 accepted source files unchanged plus nine
+new lifecycle files (237 pairs). Independent Argon `73f1ad33`, actual0441,
+reviews that exact pin and all six findings. Two author guard runs aborted early
+while returning zero; those runs remain unaccepted and need fresh verification.
+M15c/d API/CLI, durable ownership/decisions and guarded host cleanup remain open.
+This review does not accept M12, quota/status source or physical activation.
+
+Hub-zai recovery is actual0437, source `10796ab` pending independent review.
+M12 exact source `1f4e300` is separately under Argon actual0440; the real Hub
+session-control loop remains first priority. New Grok workers are prohibited by
+Alexey’s latest steering; current reviewers use Antigravity.
 
 ## M13/M14 extension — scoped plan accepted, 17 October 2026
 
@@ -19,9 +31,8 @@ labels; original reports and resource evidence remain preserved.
 Report-only Hub main/canonical/private `91b8b6c` is verified, including unchanged
 228 accepted source hashes. Gates M13-IG1..3 and M14-IG1..4 are now explicit in
 PLAN. This accepts that plan pin subject to those gates, with no quota/status
-source or runtime acceptance. M15 is outside this earlier review and is being
-reviewed separately at coordinator `2119268` / module source `4e0f864` in
-actual0438. M12e stays first, then actual assignment/backfill/fresh-agent handoff;
+source or runtime acceptance. M15 is outside this earlier review; its separate plan/source verdict and repair
+review are indexed above. M12e stays first, then actual assignment/backfill/fresh-agent handoff;
 independent M13/M14 work may use spare capacity.
 
 ---
