@@ -82,12 +82,17 @@ M9 repair has 37 distinct author cases plus rendered UI checks. New composition
 in actual task0424, with 240 source pairs frozen at digest
 `2a2e6489c31062c7bb77b92639cde96f3c5c7863807420f8d5075a93945f8a10`.
 Independent Codex reviewer `platform-metrics-r2-review` (`f5b90545`) has acknowledged
-the exact pin and produced a matching native first-action receipt. Review is
-pending. The reviewer has reproduced a legitimate refreshed host token being
+the exact pin and produced a matching native first-action receipt. Final report
+`ce40f492ea15887116770e82ece799ab7b58ab8e` is SCOPED REVISE (two P1 and two P2
+groups), directly parented by the reviewed source; all 240 source hashes remain
+unchanged. The report is registered in actual task0424 and stays outside main.
+New Muse worker `platform-metrics-r3` (`289bf092`) owns the bounded repair in a
+fresh-main isolated worktree seeded from that immutable report; its actual native
+first-action receipt is verified. New exact review is required after repair. The reviewer has reproduced a legitimate refreshed host token being
 rejected by metrics because the machine still points to its predecessor credential,
 and a direct outbound helper sending unknown nested fields before the Worker rejects
-them. Further accepted-proof/zero and UI pagination/disappearance probes are under
-review. The candidate stays off main; final findings and bounded repair are next.
+them. Accepted-proof/zero and UI pagination/disappearance failures are the other two
+confirmed groups. The candidate stays off main while repair proceeds.
 An early scratch guard stopped one regression batch before the hard cap; preserved
 logs distinguish aborted runs from passes, and serial splits completed all original
 37 M9 cases. A later monitor sampling gap is disclosed rather than presented as a
