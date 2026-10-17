@@ -1181,8 +1181,11 @@ effects. Both earlier settled journals and failed logs remain preserved.
 
 Independent Argon `4aab5128` is reviewing exact `cfb4dc2` in a separate workspace.
 No source acceptance, source-owner handoff or main integration is inferred.
-Windows review has independently reproduced 205 cases with the real-Windows
-skip, stdlib smoke and seven further probes; its verdict remains pending.
+Windows report `3d0dfadbed35812aeaacbb98f304acfecf711e91`, directly on `2de0a6c`,
+gives SCOPED ACCEPT after independently reproducing 205 cases with the
+real-Windows skip, stdlib smoke and seven further probes. Head verification of
+its retained reconstruction evidence remains pending; physical Windows and
+combined-tree portability acceptance remain open.
 Private recovery now holds eight source/review refs, including the accepted
 launcher protocol and corrected audit, with a fresh restore, 18 selected blobs
 and fsck verified. Hub main remains `5dcdf71`; the full roadmap stays active.
