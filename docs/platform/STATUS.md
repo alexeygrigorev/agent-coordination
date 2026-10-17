@@ -994,3 +994,36 @@ credential/device/auth hunks and liveness fixture. Deployment, environment,
 domain and enrollment remain reserved. No handoff is inferred from silence.
 Hub main remains `5dcdf71`; the complete roadmap and combined review gates
 remain required.
+
+
+### Public-issued token reaches the combined native path — 17 October 2026
+
+Actual task `0414` now preserves inert integration checkpoint
+`4f9bc78930d73db88b83420e687eb28b4aed92ee`. Its portable patch applies to fresh
+main and leaves tracked application source unchanged in the development
+worktree. Characterization passes typecheck and 426 author cases across
+registry/pairing/conversations, inherited M6, host/P3, retention and composition.
+The real local Worker/browser/Python CLI path issues the new agent token through
+public device APIs and passes seven checks. The worker's genuine own native
+inbox/reply/reconnect fixture also passes. Local human/machine fixtures and one
+physical host remain the limits; this is not production enrollment or M11.
+
+This checkpoint remains unaccepted. It still contains rejected API `7c00467`
+and provisional pairing `1149f65`; both require the existing repair/review
+outcomes before final combination. One of 29 mocked browser assertions fails
+on an in-flight account switch. The head has required a reproducible diagnosis
+that preserves account-isolation assertions; the real happy path does not clear
+that failure. Existing native journals/effects are preserved, including an
+initial fixture that stopped on a workspace assertion. The head also requested
+correction of journal paths outside the assigned scratch scope before any
+further native cycles. No uncertain effect is reset, deleted or blindly retried.
+
+M2b's initial `9d80233` checkpoint is preserved in actual task `0415` fork/WIP.
+Its expanded real Worker/SQLite browser matrix passes 84 screenshot cases, and
+the sign-in duplicate-error refinement is in progress. A transient head sample
+observed 52,051,968 allocated bytes against the earlier 30 MiB task scratch cap;
+the head subsequently raised that task cap to 65 MiB within aggregate headroom.
+The worker cleaned only completed owned scratch and is measuring both allocated
+and apparent sizes. The earlier overrun remains disclosed; its exact historical
+cause was not instrumented. Final reconstruction and independent review remain
+required. Hub main is unchanged at `5dcdf71`.
