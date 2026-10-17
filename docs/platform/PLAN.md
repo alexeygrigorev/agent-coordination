@@ -1,3 +1,11 @@
+
+## 2026-10-17 urgent shipping override, 16:19 Berlin
+
+Alexey waived review/custody/activation/budget gates for shipping. Finished work goes immediately to main; no frozen WIP or long-lived task branches. M12, M13, M15 module slice, hub-zai alert/operations follow-up and M14a landed. Nineteen merged task worktrees/branches retired with private evidence preserved.
+
+Real Muse session d18e1de8-43b3-4a7e-a992-ed1b22d0f5a0 passed the repeatable public CLI/HTTPS start → automatic binding → correlated receipt → capture (3686 characters) → confirmed stop loop before 16:25 Berlin. Main 7df2dd9; deployed Worker version 9dd0127f-f405-4fbc-8c2e-153347dc56cf includes server changes through cdf5e5a; subsequent commits add host/client tooling. Exact commands and truthful remaining gaps are at the top of ~/tmp/agent-reports/hub-platform.md.
+
+Physical Grok Bot box execution remains OPEN pending an existing route to that box; asked asynchronously and continued work. Unattended host-service recovery, other-machine adoption and remaining M12 crash/tier findings are next. Receipt proof is not task-completion proof. Canonical latest urgent state: .local/platform/URGENT-CURRENT.json.
 # Conversation platform plan
 
 Small shippable milestones on Agent Hub. Survey evidence:
