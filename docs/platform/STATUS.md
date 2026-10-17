@@ -905,3 +905,22 @@ HOLD behavior and requests corrected documentation; full M8a remains open.
 Hub main remains `5dcdf71`. Source ownership, exact combined-stack verification,
 `GATE-CONV-REVIEW`, physical cross-host adoption, and the full M2b/M4–M11 roadmap
 remain required. No deployment or global installation occurred.
+
+
+Private integration development is now allocated as actual Agent Branches task
+`0414` (`platform-conv-int-0414`), Grok session `51db3a5a`. The worker reconstructs
+one combined tree from transport `d9b4cde`, API `7c00467`, accepted registry
+`ddaf80d`, accepted bridge gap recovery `0896ebe`, and pairing `1149f65`.
+It owns only two inert proposal artifacts and private scratch. API and pairing
+inputs remain provisional until their independent reviews finish; no reserved
+source is edited. The combined acceptance path must issue its new agent token
+through public device APIs before browser/CLI/native qualification.
+
+Independent API review has so far passed typecheck and observed 208 passes and
+one failure in the unchanged 209-case compatibility selection. The failing HTTP
+fixture uses wall-clock claim expiry with a later pinned scheduled-tick clock;
+the reviewer is testing that mismatch deterministically and continuing the
+fairness/rollback audit. It is not yet a verdict or evidence that a genuinely
+unexpired claim was deleted. Exact total-budget assertions remain required.
+Both component reviewers and the new integration worker have verified genuine
+native first actions. The main conversation source remains unchanged.
