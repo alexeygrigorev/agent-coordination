@@ -1027,3 +1027,35 @@ The worker cleaned only completed owned scratch and is measuring both allocated
 and apparent sizes. The earlier overrun remains disclosed; its exact historical
 cause was not instrumented. Final reconstruction and independent review remain
 required. Hub main is unchanged at `5dcdf71`.
+
+
+API repair `8dc9235ce246ff8316048fa837b34b53ae7a0cdd` is now committed and
+preserved in task `0409` fork/WIP. Its author passes typecheck and 387 tests,
+including both real SQLite rollback regressions and deterministic early/late
+HTTP clocks. Independent Codex `35054b0e` is reviewing the exact pin: initial
+verification passes 211 tracked cases and all 59 persistent/fault probes,
+including the three former atomicity failures. Expanded checks remain in
+progress; no API acceptance is inferred yet.
+
+Pairing review `8fa824c0046ec147e3d552987ca001e998dbb722` gives **REVISE** on
+`1149f65`. Its independent tests exposed two MEDIUM gaps beyond the green
+baseline: token/refresh responses omit the machine identifier required by the
+actual CLI login configuration, and approval can resolve a different actor or
+machine than displayed after concurrent registry changes. New actual task
+`0416`, Codex `c645a36f`, is repairing these in two inert artifacts with real
+CLI and GET/change/POST regressions. The integration and M2b workers have been
+told to preserve that dependency and avoid duplicate protocol fixes.
+
+M2b final `d80dfebd806ae320af699ab149b6c183e376ed07` is preserved in task
+`0415` fork/WIP: 349 author tests, typecheck, official kit checks and 85 real
+route screenshots pass. Independent Argon `44a36b91` is reviewing this exact
+adoption proposal while the separate pairing repair remains required. Earlier
+scratch overrun is retained in its report; the sampled later regular-file peak
+is distinguished from an unknown historical maximum. This is a source proposal,
+not a deployed or fully integrated M2b release.
+
+The integration worker has received prospective scopes for its two exact
+existing journal sets, so it can reconcile them against its own native
+envelopes. The earlier path mismatch remains disclosed. Further native effects
+stay paused pending that inventory and updated source inputs. All original
+journal/effect evidence remains preserved; no uncertainty is discarded.
