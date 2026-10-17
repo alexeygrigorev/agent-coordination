@@ -99,7 +99,8 @@ source integration; deployment and physical fleet adoption remain open.
   evidence retained. The real writer backend still holds before process start;
   fake-effect tests do not implement M8b or prove physical M11.
 - M9 has genuine task0424 on `6cf0c18`. Grok `platform-metrics` (`0295eaea`)
-  ACKed its isolated Hub scope and read the metrics source contracts. It is
+  ACKed its isolated Hub scope and committed early receiver `738f45e` to the
+  actual task0424 fork/WIP. This is an untested source checkpoint. It is
   implementing authenticated bounded summary ingestion, a strict host projection
   adapter and dakit views. Existing Dashboard producers are read-only; private
   raw metrics and transcripts are excluded. No live Dashboard head was listed,
@@ -124,7 +125,10 @@ invented commit/path/API descriptions while preserving the attributed Argon
 source verdict. Publication `10c65ff` adds explicit parent/audit-snapshot notes
 and separate head typecheck evidence; that record is on main and in recovery.
 F-POST-1 concerns stale local machine identity after login/refresh transitions;
-F-POST-2 concerns manual machine migration. Both remain bounded follow-ups.
+F-POST-2 concerns manual machine migration. F-POST-1 is assigned to task0425: Codex `platform-host-binding` (`cb9e7288`)
+ACKed and confirmed the authenticated token-response contract. It is repairing
+local binding transitions and documenting F-POST-2’s existing controlled migration
+procedure, using synthetic config fixtures. No enrollment or migration is run.
 Physical rollout and full-roadmap acceptance remain separate. M4, physical M5,
 M7, M8a/M8b, M9, M10 and M11 remain active; M6 is already integrated. No deploy,
 physical enrollment, service migration, native CLI/Rust installation or

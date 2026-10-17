@@ -36,7 +36,8 @@ host storage and M5 bounded follow-up retirement. Canonical Agent Branches and
 private remote restore match all 207 reviewed source hashes; both CLI help
 checks and integration typecheck pass. Post-main Argon source review of
 `16d66d6` is published in `10c65ff` after factual correction `a5685ed`.
-Its two Low host workflow findings remain bounded follow-ups. M5 exact source
+Its two Low host workflow findings are assigned to task0425 for bounded local
+binding repair and a truthful migration runbook; enrollment stays unchanged. M5 exact source
 `212560b` received Grok SCOPED ACCEPT `34ee3d0`: the five original defects and
 R2 retirement gap are repaired. Target read cursors remain unchanged and system
 follow-ups remain eligible for native delivery. Physical M5 is still open.
@@ -47,7 +48,9 @@ was rejected for a same-date cross-project duplicate intent after lease expiry.
 Repaired `275c84a` is in task0423 with 30 role and two identity passes; distinct
 Grok review is active. M9 task0424 has a Grok worker implementing a bounded authenticated
 receiver, host sanitizer and dakit views against read-only Dashboard reports;
-producer ownership/adoption remain pending. M4/M5/M7/M8a/M8b/M9/M10/M11 remain
+early receiver `738f45e` is in the actual fork/WIP, with adapter, UI and tests
+still in progress. Producer ownership/adoption remain pending.
+M4/M5/M7/M8a/M8b/M9/M10/M11 remain
 in scope.
 
 ## Milestone map
