@@ -67,18 +67,33 @@ Muse `platform-metrics-r5` (`5deb7db5`, actual task0424) completed full repair
 unchanged earlier reports are verified. It includes the two additional
 unbound-machine issuance cases found during the interrupted core review of
 `ab725d1`. That earlier Codex session ended without a final report; its cause
-is unknown and its partial results remain preserved. New Codex HIGH
-`platform-metrics-r5-review` (`bf8cb749`, actual task0433) owns the exact full
-R5 review. Author positives and the isolated draft do not constitute acceptance.
+is unknown and its partial results remain preserved. The full R5 reviewer `bf8cb749` also ended without a final report; cause unknown.
+Its retained probes found a synchronous registration-transaction authority gap
+and two host-list pagination races. Neither interrupted review accepts R5.
+Muse UI repair `aa048b7503130fdf25d77041ed7c6bcc5c84035d` is frozen in
+actual0435; the author omitted the required in-run resource guard, so independent
+validation with a real guard remains required. Source and evidence are preserved.
 
-Session repair `2ca4700` is registered in task0430 with 246 verified hashes.
-Argon `platform-session-r2-review` (`e0fb234a`) independently passed all 169
-existing cases, but its new HTTP/host/native probes require **SCOPED REVISE**.
-The final report is being written. Repair acceptance must cover post-body live
-authority, late ACK recovery, journal scanning and terminal errors, actual native
-reply-mailbox/timestamp shapes, engine identity and confirmed stop containment.
-Preserve the full engine/tier/host/cwd/brief requirement in the next source repair.
-The first real AI cross-host loop remains unproven.
+Session R2 repair `2ca4700` is registered in task0430 with 246 verified hashes.
+Argon completed **SCOPED REVISE** in `db3dcbc`; report-only metadata correction
+`9f9a5fc` preserves all five finding groups and the 169 passing existing cases.
+The groups cover inherited host authority, post-body session authority, late ACK
+recovery, journal fairness/terminal errors and actual native identity/mailbox/
+stop-containment fidelity. Full engine/tier/host/cwd/brief support remains required.
+
+Primary Muse recovery worker `platform-session-r3-recovery2` (`a9da74f2`) owns
+actual0430 in the preserved isolated `agent-hub-wt-platform-session-r3` tree:
+committed `a46213fc38972cc59cd0eda0ae2abbe3c9a46d88` plus unfinished edits.
+Predecessor `ad6431cf` was stopped by the head after repeated guard-aborted full
+suite runs; its claimed 26/26 green result is withdrawn. Source, histories,
+patch and failed receipts are retained. The new worker verified identity and
+ACKed the correction, uses a tested head-owned guard, and must select at most
+two Vitest cases per invocation. No M12 source or physical acceptance follows.
+The short first recovery turn `ea30db81` ended normally while awaiting a
+generic design reply; the saved model conversation proves this cause. The new
+turn has explicit authorization to continue implementation without that wait.
+Only the shared host-authority fixes are prerequisite; M9 accounting/UI remains
+independent of this primary path. The first real AI cross-host loop is unproven.
 
 Head-owned actual task0434 has draft `b9698bf3`, combining `2ca4700` with
 `f20b35a`. The two initial additive Hub-import/CLI-registration conflicts are
@@ -105,6 +120,22 @@ correction in actual task0432. Preserve M12e first, then actual assignment and
 handoff; independent quota/status work may proceed with spare capacity. Full M9
 accounting acceptance is not a blanket prerequisite for those independent slices.
 
+Addendum 5 adds M15 below: canonical session lifecycle provenance, automatic
+needs-action classification, durable limit decisions and guarded cleanup. Actual
+Agent Branches task0436 is assigned to Muse Spark worker `platform-lifecycle`
+(`ee366bf6`) in its own fresh-main worktree. Genuine identity, task ACK and first
+useful design artifact are verified. New modules/tests/docs are independent;
+shared session parser/schema/API integration requires agreement with M12.
+
+Alexey's hub-zai handoff is tracked once as actual task0437, assigned sequentially
+to `platform-session-r3-recovery2` after the primary M12 repair freeze. Alert
+default `f5efc43` already landed. The old script repeatedly ran an unfiltered
+suite through pipelines without `pipefail`; do not rerun it or count pipeline
+success as validation. Inventory and bounded failure diagnosis precede any
+activation; domain capability, host enrollment/pairing and timer migration remain
+open. Preserve the shared checkout and existing timers. User stopped hub-zai;
+native absence and new-worker custody ACK are verified; revalidate custody before taking any shared runtime action.
+
 ## Milestone map
 
 | ID | Outcome | Current source / next owner |
@@ -120,6 +151,7 @@ accounting acceptance is not a blanket prerequisite for those independent slices
 | M12 | Capture intake, assign tasks, preserve handoff and replace psc session orchestration | M12a source on `bc79601`; M12e first priority, then actual assignment/backfill/handoff adoption |
 | M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Addendum 3; extend existing quota contracts and routing, independent review and real host acceptance required |
 | M14 | One-call task/session/report/commit/deployment/CI/human-action status and change summary | Addendum 4; authenticated `hub status [--since 2h] [--json]` and API over existing records; not implemented |
+| M15 | Session lifecycle registry, needs-action list, durable limit decisions and safe cleanup | Addendum 5; actual0436 Muse `platform-lifecycle` owns new modules/tests/docs, integration and runtime acceptance open |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -699,6 +731,77 @@ CI/deployment integrations. Read-projection work can proceed in parallel once
 contracts and capacity allow; unknown inputs need not block source development.
 Keep the real M12e loop and intake/handoff adoption ahead of this addition.
 
+## M15 — Session lifecycle registry and cleanup
+
+**Request and priority.** Alexey's Addendum 5 in `hub-intake-brief.md` extends
+M12 session orchestration and feeds M14 status / M12 handoff. Keep M12e first
+and intake assignment/handoff adoption second; this independently owned slice
+uses spare capacity. The private 17 October cleanup report supplies detection
+examples; use synthetic equivalents in committed tests, never private transcripts.
+
+**Owner and cuts.** Actual Agent Branches task0436, agent
+`platform-lifecycle-0436`, is assigned to OpenCode Go / Muse Spark 1.3 worker
+`platform-lifecycle` (`ee366bf6-6fca-4303-91c7-fee061bb8dbe`) in
+`/home/alexey/git/agent-hub-wt-platform-lifecycle`, based on fresh main `6bc91a1`.
+It ACKed the task and wrote its design before integration changes. It owns new
+`src/session_lifecycle.ts`, `host/agent_hub_host/session_lifecycle.py`, focused
+new tests and `docs/SESSION-LIFECYCLE.md`. M12 owns shared command/API/parser
+integration. Independent Argon review of the extension and different-provider
+source review precede normal main integration/private recovery.
+
+- **M15a: registration and observations.** Extend canonical fleet launch/session,
+  M12 control and intake links. Register authenticated starter, current authorized
+  custodian, task, brief/report references, engine/model/profile, host, native UUID
+  and incarnation, workspace/cwd/worktree/branch, start and last activity. Retain
+  immutable starter across fenced, authorized durable ownership handoff. Client
+  owner strings, tags and generic notes cannot establish custody. Legacy or
+  unknown ownership is visible and cannot authorize effects. No second registry,
+  controller, quota store or lease system.
+- **M15b: readonly classification and cleanup plans.** `hub sessions` groups
+  waiting on Alexey, limit-blocked, finished/stale and active; preserve all
+  simultaneous flags and unknown provenance. Detect configurable idle hours,
+  5h/weekly/other usage limits with honest reset time/zone, missing worktree,
+  completion and supersession. Reports and screen text are evidence hints:
+  finished requires fresh terminal evidence plus no active child commands,
+  unresolved sends/stops, questions, approvals, drafts or other obligations.
+  Idle, a quota limit, an old report or an old done banner alone never permits
+  cleanup. Use bounded, caller-scoped structured DTOs for status and handoff.
+- **M15c: durable decisions and API/CLI integration.** Persist limit-block
+  decisions with actor/time/reason: resume after reset with engine X, reassign
+  to engine/session Y, or drop. Recheck fresh quota, routing, reserves and
+  cooldown before execution; a reset timestamp is not proof of capacity.
+  Extend the existing authenticated sessions API and parser; preserve
+  start/send/capture/stop and their delivery semantics. Pure module seams do
+  not satisfy durable storage, real CLI or assignment acceptance.
+- **M15d: guarded cleanup and host acceptance.** `hub sessions cleanup` defaults
+  to a readonly dry-run. Only explicit `--apply` acts, and only on confirmed
+  finished/superseded sessions belonging to the authenticated current custodian.
+  Sessions owned by another coordinator, marked as Alexey's/human, or of unknown
+  ownership are protected. Admin privileges do not override this boundary.
+  Revalidate the exact host/native UUID/incarnation/owner epoch, absence of
+  new activity, pending obligations and drafts, and process containment before
+  stopping. Missing records or exit code zero alone do not prove stopped.
+
+Worktree/branch removal is limited to the session's own verified tree, clean
+including index and untracked files, with every commit reachable from freshly
+verified `origin/main`. Dirty, unmerged, ambiguous, shared or foreign paths are
+listed and retained. Reject symlink escapes, unsafe paths, active cwd users,
+other branch/worktree users, locks, stale/missing Git evidence and changed HEAD.
+Revalidate immediately before effects; uncertain outcomes are durable and are
+reconciled before retry. Dry-run performs no stop/delete/fetch mutation. The
+new requirement authorizes this guarded product behavior and disposable synthetic
+fixtures, not an ad hoc cleanup of existing sessions, worktrees or histories.
+
+**Acceptance.** Synthetic cases cover all cleanup-report classes, stale reports,
+missing trees, pending questions/drafts, active descendants, multi-flag states,
+foreign/human/unknown custody, ownership transfer, quota reset uncertainty,
+dirty/untracked/unmerged trees, stale refs, symlinks and state changes between
+plan and apply. Prove dry-run produces no effects; controlled owned synthetic
+apply stops only its exact fixture process and deletes only its clean merged
+fixture tree. Prove scoped API/CLI behavior, idempotency/uncertain reconciliation,
+durable decisions across restart, and shared status/handoff consistency. Record
+real enrolled-host acceptance separately; source fixtures do not establish it.
+
 ## What this plan will not do
 
 - Duplicate FileBus, SSH relay, ChannelDO, or Agent Relay.
@@ -710,13 +813,11 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
 
 ## Next actions
 
-1. Audit the final Argon R2 report and assign the next Muse session repair on a
-   corrected combined baseline, addressing all new HTTP/host/native findings and
-   full engine/tier/host/cwd/brief support. Complete full R5 Codex `bf8cb749`
-   review of `f20b35a`. Update actual0434's draft and union manifest, then obtain
-   distinct coupled review before integration. Deliver M12e's real Grok Bot box
-   -> Hetzner AI start/send-confirm/capture/confirmed-stop loop with existing
-   routing, genuine custody, qualification and safe composer checks.
+1. Complete actual0430 M12 repair with Muse `a9da74f2`, all five R2 finding
+   groups, full engine/tier/host/cwd/brief and synchronous host authority.
+   Independently review the exact freeze, then verify the real Grok Bot box ->
+   Hetzner AI start/send-confirm/capture/confirmed-stop loop. Full M9 UI/DTO is
+   a separate review path, with UI `aa048b7` and interrupted R5 probes retained.
 2. Deliver M12b assignment and M12c actual backfill/assistant adoption using the
    accepted M12a ledger. Prove automatic real-session links and fresh-agent
    continuation from `hub handoff`, not just task CRUD or a local preview.
@@ -725,7 +826,12 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
 4. Deliver M14 one-call status through existing task/session/quota/report/Git/CI
    sources, with verified deployment inclusion, short diffs and pending Alexey
    actions. Obtain independent review of the M13/M14 plan extension and source.
-5. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
+5. Deliver M15 under actual0436, agree additive session integration with M12,
+   review source independently and verify guarded owned-host lifecycle behavior.
+   Execute actual0437 hub-zai handoff inventory/recovery after M12 source freeze;
+   verify targeted tests, domain/auth custody, enrollment and replacement checks
+   before any deployment or timer migration. Do not repeat the old ship script.
+6. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
    independent report `4c7cf04`, the transparent metadata correction and original
    failure evidence. M9 candidate `ae21e27` is composed with accepted main
    and received SCOPED REVISE `ce40f49`. R4 `0c77917` received REVISE

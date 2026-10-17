@@ -1,4 +1,13 @@
-## M13/M14 extension — correction in progress, 17 October 2026
+## M15 extension — assigned, independent review pending
+
+Addendum 5 is now M15 in PLAN. Actual0436 Muse `platform-lifecycle` owns new
+lifecycle modules/tests/docs; shared M12 integration, durable runtime decisions,
+guarded apply and actual host acceptance remain open. The extension requires
+independent Argon plan challenge and exact-source review; earlier M13/M14 or M12
+verdicts do not accept M15. Hub-zai's remaining work is assigned as actual0437,
+with primary M12 work retained first and no repeated invalidated ship script.
+
+## M13/M14 extension — correction received, audit pending, 17 October 2026
 
 Argon report `b033eeade5b6718e15c47df08ff8989f523cdfe9` reviews coordinator
 `6750e34` in actual task0432. It reports scoped plan acceptance subject to seven
@@ -8,8 +17,9 @@ correction: priority ordering, optional versus unavailable quota windows,
 canonical account deduplication and manual quota overrides. Head acceptance is
 pending; source and runtime acceptance are not implied.
 
-New Argon `platform-quota-status-plan-review-r2` (`5de3093f`) owns the report-only
-correction on sole parent `b033eea`. The original report and its discrete guardian
+Argon `platform-quota-status-plan-review-r2` (`5de3093f`) completed report-only
+correction `740876920570b1b3ec12edab58810476de4ba79c` on sole parent `b033eea`.
+Head audit is pending; the new completion is not itself source acceptance. The original report and its discrete guardian
 receipt remain preserved. M12e remains first, then actual assignment/backfill and
 fresh-agent handoff. Independent M13/M14 work may use spare capacity.
 

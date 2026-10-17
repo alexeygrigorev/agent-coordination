@@ -21,6 +21,50 @@ evidence only.
 
 ## Current checkpoint — 17 October 2026
 
+**Latest execution update (17 October, 11:55 UTC).** Full scope is M1–M15 plus
+M2b. Addendum 5 is M15: session provenance/ownership, needs-action grouping,
+durable limit decisions and guarded dry-run/apply cleanup feeding status/handoff.
+Actual0436 is assigned to OpenCode Muse Spark worker `platform-lifecycle`
+(`ee366bf6`) in its own fresh-main worktree; native identity, explicit task ACK
+and design artifact are verified. It owns new modules/tests/docs. Shared API/CLI
+integration, independent review and actual host acceptance remain open.
+
+Primary actual0430 is resumed by Muse `platform-session-r3-recovery2`
+(`a9da74f2`) in the preserved isolated source tree, committed `a46213fc` plus
+unfinished changes. Its predecessor was stopped by the head after repeatedly
+running guard-aborted whole suites and claiming 26/26 green. That result is
+withdrawn; code, history, patch and receipts are preserved, and the new worker
+ACKed the correction. The head-owned replacement guard passed success, early
+abort and unfiltered-Vitest rejection self-tests after correcting shared-cgroup
+attribution. Product tests must select at most two Vitest cases per invocation.
+The first recovery model turn `ea30db81` then ended normally awaiting a design
+reply; its model record confirms the cause. Resumed turn `a9da74f2` has explicit
+permission to continue without a generic ACK wait. No session source or real AI
+cross-host acceptance is implied.
+
+Both full R5 Codex reviews ended without final reports; cause unknown. Retained
+probes identify an atomic authority gap and two UI pagination races. UI repair
+`aa048b7` awaits guarded independent validation; its author supplied no real
+in-run guard. Argon session report `db3dcbc` is final SCOPED REVISE, with only
+mechanical metadata corrected in `9f9a5fc`. Plan correction `7408769` is complete
+but awaits head audit; source/runtime acceptance remains separate.
+
+Alexey handed over hub-zai's unfinished work while stopping that quota-blocked
+session. Processed once despite repeated notification: actual task0437 is
+assigned sequentially to Muse `a9da74f2` after primary M12 source freeze.
+The worker explicitly ACKed task0437 and wrote a verified read-only inventory.
+`f5efc43` alert default already landed; the stale report's uncommitted claim is
+obsolete. Remaining work is targeted validation/test-runner diagnosis, domain
+capability, host enrollment/grok-bot pairing and replacement-check migration.
+The old full-suite pipeline script must not run again. Shared checkout and
+existing timers remain preserved; activation requires exact custody, current
+capability and independent evidence. The cleanup report explicitly protected
+Hub worktrees and does not explain the interrupted Hub reviews.
+
+Earlier checkpoint paragraphs below are historical and may name ended workers.
+The latest execution update and private CURRENT.json govern current ownership.
+
+
 **Accepted Hub main, canonical Agent Branches and private recovery equal
 `6bc91a1278250b374ea1d0b11acd353fae51a8cb`.** M12a ledger/API/public CLI and
 `hub handoff` received independent Argon scoped acceptance: 36 Worker/SQLite HTTP,
