@@ -43,6 +43,14 @@ context-low/unsubmitted-input observations, report headlines, main versus deploy
 commits, CI, pending Alexey actions and a short diff. It reuses existing records
 and remains planned; no one-call implementation or runtime acceptance is claimed.
 
+M13/M14 independent plan-extension review now has actual Agent Branches task0432
+and Argon `platform-quota-status-plan-review` (`1f2004e9`), reviewing coordinator
+plan pin `6750e34`. Its native identity and task ACK are verified; verdict pending.
+The failed creation was reconciled against complete local state and repository
+listing: a generated 65-character fork name exceeded the sidecar's 63-character
+limit. A shorter agent prefix created task0432 successfully; no service changes
+or cleanup were needed. The original failed request and reconciliation remain.
+
 The original M12e API/host workers completed their isolated component work;
 the connected source and independent review are recorded below. The current
 Muse repair is complete; a new Argon reviewer owns its exact source review.
@@ -162,6 +170,11 @@ uses server-owned approval order and fresh post-await checks, preserving current
 bound-family operations while a later approval is pending. Legacy pending grants
 without a verifiable approval witness cannot displace an already bound host.
 No real enrollment or migration is authorized by this source repair.
+The frozen core increment `ab725d1597c4520244d82bafe351fa42c4f1a6c4` is
+registered in actual task0424. Its author reports eight actual-route regressions,
+typecheck and selected compatibility checks passing, including pending-approval
+continuity and legacy grant fences. Independent acceptance is still required;
+the worker continues the remaining DTO, evidence and UI repairs.
 
 The R4 author disclosed a monitoring gap and actual 46.29 MiB and 27.06 MiB
 scratch peaks against an assigned 18 MiB; the monitor recorded growth without
