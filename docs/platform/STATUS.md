@@ -148,6 +148,10 @@ The addendum also requires per-task durable handoff context (verbatim requests,
 decisions, rules, state, next action and approvals) and a global `hub handoff`
 briefing so another authorized agent can continue with no previous chat context.
 Assistants must maintain it as they work through CLI/API and later MCP.
+A second addendum makes the hub the primary session-orchestration interface
+across Hetzner, laptop and Win35, with psc retained as backup. M12 now includes
+list/start/send with delivery confirmation/capture/stop via CLI/API and later
+MCP, plus a required Grok Bot box -> real Hetzner throwaway-session loop.
 API support comes first, MCP exposure later. These are new requirements, not
 completed features. Routing-contract coordination is recorded; no ACK or runtime
 assignment is inferred. See [M12 in PLAN.md](PLAN.md#m12--intake-becomes-tracked-assignable-work).

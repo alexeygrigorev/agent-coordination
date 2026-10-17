@@ -385,6 +385,17 @@ Do not export session environments, command secrets or raw private histories.
 Backfill is complete only after the tasks exist in the authoritative hub and a
 fresh list/show retrieves them; a local manifest or dry run is preparation.
 
+**M12e — Hub session orchestration replaces psc.** Provide authenticated CLI/API
+operations to list, start (engine/tier/host/cwd/brief), send/prompt, capture/read
+and stop sessions across Hetzner, the laptop and Win35, with the same operations
+available through the MCP interface when it ships. Use existing routing and host
+adapters; psc remains a backup. Preserve session custody and safe composer checks.
+Reliable delivery must expose recorded, transported, acknowledged and uncertain
+outcomes accurately: HTTP success or PTY bytes alone cannot mean the target agent
+processed a prompt. Correlate requests and confirmations; reconcile lost replies
+without duplicate starts or blind resends. Reuse M6/M8 qualification and recovery
+controls rather than adding another launcher or weakening an unresolved gate.
+
 **M12d — MCP follow-up.** Keep the API suitable for the later MCP hub at
 `mcp.dtcdev.click`. Track MCP exposure separately; do not claim that shipping the
 HTTP API has installed or deployed an MCP integration.
@@ -401,6 +412,15 @@ without the old chat or local STATE file. Test concurrent context updates,
 stale snapshots, revoked access and pending approvals without duplicate work.
 Run a real
 bounded session/report backfill and reconcile counts against the source inventory.
+Demonstrate an assistant on the Grok Bot box performing the full hub CLI/API
+start -> send -> confirm-delivered -> capture -> stop loop against a real
+throwaway session on Hetzner. Verify the actual prompt and captured response,
+then verify the intended session stopped. Cover unavailable hosts, lost replies,
+revoked access and uncertain delivery without silent drops or unsafe retries.
+Track laptop/Win35 adapter qualification separately; the Hetzner demonstration
+does not prove those hosts work. MCP acceptance follows its separately delivered
+interface. This session-control scope is required alongside task assignment and
+handoff, not satisfied by a task CRUD API.
 Obtain Argon review on the exact implementation and act on its findings before
 normal main integration. Token/device auth, workspace ownership, private recovery
 and the physical/runtime gates remain in force.
@@ -410,8 +430,8 @@ proceed independently. Real assignment depends on routing-owner compatibility an
 M6/M8a/M8b as applicable; adoption/backfill depends on the accepted API being
 available. M10 consumes these task records for follow-through rather than adding
 another intake ledger. Keep each phase independently owned and reviewed, while
-retaining assignment, actual backfill, assistant adoption and a demonstrated
-orchestrator handoff in M12’s full scope.
+retaining assignment, actual backfill, assistant adoption, demonstrated
+orchestrator handoff and cross-host session orchestration in M12’s full scope.
 
 ## What this plan will not do
 
