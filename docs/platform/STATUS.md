@@ -1154,3 +1154,35 @@ Linux and controlled Windows contracts do not prove actual DLL/ABI execution,
 physical Win35 delivery or M11. Windows root remains stood down, and native
 Rust source/build/install remains held. Full M1–M11 and M2b acceptance gates
 remain in force.
+
+
+### Final combined source enters independent review — 17 October 2026
+
+Actual task `0418` now preserves final two-artifact proposal
+`cfb4dc26985cbe39a1ae770ade4a6a57880edcbc` in its fork/WIP. The 88-path patch
+has digest `e8c91a9c3f3a795360c85eec300d3df9187a361d57f9a9dfc9312ad60e673d10`;
+all 199 reconstructed files match the final frozen manifest. Author evidence:
+453 unique Worker cases, 635 host cases, 30 mocked browser cases, 85 real
+fleet/auth/device screenshots plus four conversation theme/width screenshots,
+nine public pairing/CLI/browser groups and ten final native/P3 groups pass.
+Typecheck and kit/bundle checks pass. The optional importer retains its
+29/30 external-schema limitation.
+
+Two earlier native runs stopped on harness assumptions: the CLI's generic
+HOLD output and the monotonic server-read watermark already advanced by
+self-authored sends. Only the harness changed. The final run proves the gap
+stage first with zero native mail: local cursor 1 remains below server-read 3,
+a retained-message skip is refused, the missing sequence is explicitly audited
+without changing server-read, replay is refused, and local catch-up reaches 3.
+It then completes exactly one own delivery/reply and reconnect/dedup. The head
+independently reconciled the final genuine native envelopes and journal:
+cursors 3 and 4, one delivery, one completed reply, one gap audit, zero unresolved
+effects. Both earlier settled journals and failed logs remain preserved.
+
+Independent Argon `4aab5128` is reviewing exact `cfb4dc2` in a separate workspace.
+No source acceptance, source-owner handoff or main integration is inferred.
+Windows review has independently reproduced 205 cases with the real-Windows
+skip, stdlib smoke and seven further probes; its verdict remains pending.
+Private recovery now holds eight source/review refs, including the accepted
+launcher protocol and corrected audit, with a fresh restore, 18 selected blobs
+and fsck verified. Hub main remains `5dcdf71`; the full roadmap stays active.
