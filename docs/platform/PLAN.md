@@ -32,7 +32,7 @@ dispatcher or a second bus transport.
 ## Current execution checkpoint
 
 Hub main, canonical Agent Branches and private recovery are at
-`bc796013d9f522d8a2e3ea050f7b264e2fabfc41`. Reviewed M12a intake ledger,
+`6bc91a1278250b374ea1d0b11acd353fae51a8cb`. Reviewed M12a intake ledger,
 API, public CLI and `hub handoff` are integrated: 65 independent cases passed,
 with typecheck and all 216 reviewed source hashes verified. This accepts source;
 actual assignment, backfill, assistant adoption and session control remain open.
@@ -48,9 +48,11 @@ review. Fresh measured quota and maintained launcher support must pass before
 launch; the reported reset in roughly 4d 22h is operator context, not a live
 quota reading. No new Claude workers or full GLM-5.3.
 
-M4/M5/M7 repair has 138 distinct author test passes. Its composition with accepted
-M12a is frozen at `aec97138afd5bccd9cd053794d85ee6dcfef548f`, under independent
-Argon review, not on main. M9 repaired source is frozen with current main at
+M4/M5/M7 composition with M12a at `aec97138afd5bccd9cd053794d85ee6dcfef548f`
+received Argon scoped acceptance in `4c7cf04`: 186 distinct cases, typecheck and
+bundle dry-run passed. It is integrated and privately restored as `6bc91a1`;
+all 228 reviewed source hashes match. The final delta corrects report metadata
+only; the original report and failures remain preserved. M9 repaired source is frozen with current main at
 `e5ed3bfa0bf2e186eccf7f4868962cf0dd3475a6`, awaiting independent rereview;
 producer adoption remains open. M8a/M8b execution qualification/recovery,
 M10 follow-through and M11 physical acceptance remain required.
@@ -68,10 +70,10 @@ of available provider quota.
 | M2 | dakit conversation UI | Integrated on `7929a1b`; physical adoption remains separate |
 | M3a / M3b | Public CLI and genuine native inbox participation | POSIX and portable Windows source integrated on `16d66d6` after corrective audit; own-session POSIX round trips verified, physical Windows unproven |
 | M2b | Fleet, sign-in and device views use dakit | Integrated on `7929a1b`, official kit lock preserved |
-| M4 | Canonical task/review/outcome links in both directions | Task0422 candidate `7b6f7ff` accepted by Argon `fc5bd30`; composition with M5 needs review; routing ACK pending |
+| M4 | Canonical task/review/outcome links in both directions | Reviewed composition integrated/restored as `6bc91a1`; routing adoption ACK and physical use remain open |
 | M5 | Safe scheduled follow-ups and physical acceptance | Source `212560b` accepted in `34ee3d0`, integrated/restored as `6cf0c18`; physical acceptance remains |
 | M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
-| M7 | Configured roles and epoch-fenced job effects | Task0423 repaired `275c84a` under Grok review after `9574242` REVISE; actual backend remains M8b |
+| M7 | Configured roles and epoch-fenced job effects | Reviewed composition integrated/restored as `6bc91a1`; actual qualified effect backend remains M8b |
 | M12 | Capture intake, assign tasks, preserve handoff and replace psc session orchestration | M12a source on `bc79601`; M12e first priority, then actual assignment/backfill/handoff adoption |
 | M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Addendum 3; extend existing quota contracts and routing, independent review and real host acceptance required |
 
@@ -392,7 +394,7 @@ Do not export session environments, command secrets or raw private histories.
 Backfill is complete only after the tasks exist in the authoritative hub and a
 fresh list/show retrieves them; a local manifest or dry run is preparation.
 
-**M12e — Hub session orchestration replaces psc.** Provide authenticated CLI/API
+**M12e — Priority 1: hub session orchestration replaces psc.** Provide authenticated CLI/API
 operations to list, start (engine/tier/host/cwd/brief), send/prompt, capture/read
 and stop sessions across Hetzner, the laptop and Win35, with the same operations
 available through the MCP interface when it ships. Use existing routing and host
@@ -593,10 +595,10 @@ acceptance is measured.
    continuation from `hub handoff`, not just task CRUD or a local preview.
 3. Extend existing quota collection/API/UI/routing under M13. Agree ownership
    with routing; verify live per-machine coverage and secret-free payloads.
-4. Finish the exact Argon review of composed retention/roles/M12a at `aec9713`.
-   Preserve original failures, the 138-case repair evidence and immutable review
-   reports; integrate only the accepted composition. M9 candidate `e5ed3bf` is
-   frozen for independent rereview when prioritized capacity permits.
+4. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
+   independent report `4c7cf04`, the transparent metadata correction and original
+   failure evidence. M9 candidate `e5ed3bf` requires composition with new main
+   and independent rereview when prioritized capacity permits.
 5. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
    follow-through and M11 physical migration. Published Windows, host binding and
    M5 source do not close their outstanding physical and enrollment gates.

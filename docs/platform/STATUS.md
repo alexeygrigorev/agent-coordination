@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `bc79601`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `6bc91a1`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -22,7 +22,7 @@ evidence only.
 ## Current checkpoint — 17 October 2026
 
 **Accepted Hub main, canonical Agent Branches and private recovery equal
-`bc796013d9f522d8a2e3ea050f7b264e2fabfc41`.** M12a ledger/API/public CLI and
+`6bc91a1278250b374ea1d0b11acd353fae51a8cb`.** M12a ledger/API/public CLI and
 `hub handoff` received independent Argon scoped acceptance: 36 Worker/SQLite HTTP,
 15 stdlib/public CLI and 14 novel cases passed (65 unique), plus typecheck.
 All 216 reviewed source hashes match; private restore, fsck and CLI help passed.
@@ -45,11 +45,31 @@ admission and source inspection observed. Model-owned ACK/first-action artifacts
 and the agreed API/host interface are the next checkpoint; launch receipts alone
 are not acceptance. Each is capped at 1500M, one CPU and 12 MiB private scratch.
 
-Retention/roles repair has 138 distinct author passes; exact composition with
-M12a at `aec97138afd5bccd9cd053794d85ee6dcfef548f` is under Argon review.
-M9 repair has 37 distinct author cases plus rendered UI checks; composed
-`e5ed3bfa0bf2e186eccf7f4868962cf0dd3475a6` awaits independent rereview.
-Neither candidate is on main. Runtime/enrollment and ownership gates remain.
+Retention/roles composition with M12a at
+`aec97138afd5bccd9cd053794d85ee6dcfef548f` received Argon scoped acceptance in
+`4c7cf04bd689b81c867bd2622f2c116bede9d94a`: 138 original/repair cases, five
+new adversarial probes, 36 intake and seven host cases passed (186 distinct),
+with typecheck and local bundle dry-run. Head corrected factual report metadata
+in `6bc91a1`, preserving the original report and all failures. No source changed
+in that correction. Normal GitHub and canonical Agent Branches fast-forwards,
+private restore/fsck/nine baseline blobs/all 228 reviewed source hashes and CLI
+helps passed. The digest is
+`ee2e0f158e46067ed77cbf8ac9addcbed55d4a4988c6a2c8fece1786dbcf70a0`.
+No deployment or physical acceptance is claimed.
+
+First session-control source increments are registered in actual tasks0428/0429:
+API `b66796c` has 13 Worker/SQLite and five Python author passes, but lacks public
+wiring and required fences; host `36534db` has 22 focused author passes, with
+unresolved protocol/proof issues. A broader host run reported 661 passes and 20
+environment errors; it is not a clean regression result. New Muse continuations
+`platform-session-api-r2` (`c5491cd7`) and `platform-session-host-r2` (`c827c25c`)
+carry the explicit corrections and wiring work. These are unaccepted source
+increments, not a working end-to-end loop. Each continuation reserves 20 MiB
+private scratch after a fresh aggregate check; existing artifacts are preserved.
+
+M9 repair has 37 distinct author cases plus rendered UI checks; frozen
+`e5ed3bfa0bf2e186eccf7f4868962cf0dd3475a6` needs composition with current main
+and independent rereview. Runtime/enrollment and ownership gates remain.
 
 - Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
   The registration-field wording correction `85fdcec` received exact independent
