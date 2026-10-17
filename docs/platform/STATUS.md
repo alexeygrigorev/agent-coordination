@@ -1076,3 +1076,81 @@ and actual public Python CLI login with automatic bound/NULL/conflicting-machine
 configuration checks and genuine own-UUID qualification without journal writes.
 Final fresh reconstruction and a new independent review are still required.
 M2b reviewer `44a36b91` has acknowledged its exact final input and dependencies.
+
+
+### Accepted components and final assembly — 17 October 2026
+
+Pairing revision `eee4d2f88305a6e64545c8e7b68f329a162811d1` now has scoped
+independent acceptance in Argon report `fcbb782028187b6c669367596df3f6e79047e2ad`.
+It fixes automatic CLI machine configuration and approval-time actor/machine
+changes. Review covers 90 focused cases, 254 compatibility cases including all
+61 M6 cases, 23 host cases, nine public Worker/browser/CLI/own-UUID qualification
+groups and seven additional adversarial checks. No native journal was written
+by that qualification. The head verified the retained reconstruction outputs.
+
+M2b adoption proposal `d80dfebd806ae320af699ab149b6c183e376ed07` likewise has
+scoped acceptance in Argon report `d10b09b34c81d49d6ca46f8b56da756203f31c99`:
+349 cases, typecheck, 85 real Worker route screenshots, plus independent
+private-path and browser probes. The official 21-file dakit lock is preserved.
+All 16 proposed output hashes match the retained reconstruction and report.
+This proposal's older pairing base requires the final assembly to preserve the
+accepted revision's canonical displayed actor and explicit nullable machine
+when extracting approval HTML into the UI module and scripts.
+
+The previous integration worker ended; its committed artifacts and native
+journals remain preserved. Read-only reconciliation found each recorded native
+envelope exactly once and zero unresolved effects under the bridge's actual
+cursor/delivery/reply predicate. This neither erases the earlier journal-scope
+mismatch nor authorizes reusing that identity.
+
+Actual Agent Branches task `0418`, Codex session `d19b72bc`, now owns the final
+assembly. Early checkpoint `f9f6fb258e5abdf4d97e9292043828b4cc80ac82` is preserved
+in its fork/WIP. It combines accepted API `8dc9235`, F7 `ddaf80d`, P3 `0896ebe`,
+pairing `eee4d2f` and M2b `d80dfeb` with the reviewed transport. The candidate
+has 199 reconstructed files, manifest digest
+`74d1f17dcbf6acb0d2fa9a82827ac04cd9198a6411cc3d705cdd274d7a42c882`,
+and an 88-path portable patch digest
+`2ad3698a0ec376b2e3cb9de8f9e063ab8785eb0c53769f482cdba5230a7b200b`.
+Author evidence passes 635 host cases, 453 unique Worker cases, typecheck,
+85 M2b route screenshots and the public CLI/browser path. The mocked browser
+suite passes 30 cases, including both causal orders of an account switch with
+the same store/context through each switch. The earlier failure was a within-case
+request/commit race; the initial cross-test-leak explanation is retracted.
+Product conversation JavaScript remains unchanged. An optional importer test
+still has one ambient registry-schema error; no production schema widening or
+fake registry is used to hide it. The native self-message/reply check has an
+explicit prospective scope ACK for the new genuine session's exact journals.
+Its result, final artifact pin, distinct combined review and source-owner
+handoff remain pending. Hub main is still `5dcdf71`.
+
+Six accepted component snapshots are now on dedicated refs in the existing
+private Hub recovery repository. A fresh remote checkout verified all six
+pins, 14 selected blobs and `git fsck`; recovery main stayed exactly
+`5dcdf7164b28bd0e3a1d717ac9090c054eca3f24`. These backups preserve component
+source and proposals, without claiming integrated runtime delivery.
+
+### Launcher audit and Windows portability — 17 October 2026
+
+Argon launcher report `f5aed5c87cfccd42caed78fa870c1acdd5651c44` is disputed:
+its purported 25-file hash table names different files and hashes from the
+committed proposal. That immutable report supplies no integration credit.
+Fresh Grok audit `f194f4fdc227592829b1ceb87f95423977b638f4`, directly on
+`6ee79d6ae13265135b89ca87d37d503de0099b76`, independently reconstructs the
+actual 25 paths and accepts the narrow source protocol after 560 suite cases,
+four adversarial probes and typecheck. Full M8a/M8b stays open. Thin Grok
+client exit does not prove backend death; inventory is owner attestation;
+real native start/whoami first-action compatibility still fails closed. The
+isolated leader option is help-supported, without runtime qualification.
+Actual launcher/Hub execution source and ownership remain unchanged.
+
+Actual task `0417` preserves Windows host proposal
+`2de0a6c1846b110227cd1d15e99a7af6999158f5`, based on accepted P3 source.
+It adds a stdlib POSIX/Win32 storage and lock implementation with portable
+imports and a bounded Windows smoke kit. Author evidence: 205 passing tests,
+one actual-Windows skip, 71 subtests and 58 compiled Python files; all 146
+reconstructed output paths verified. New independent Argon session `be5df693`
+is reviewing that exact proposal. It is separate from the first combined tree.
+Linux and controlled Windows contracts do not prove actual DLL/ABI execution,
+physical Win35 delivery or M11. Windows root remains stood down, and native
+Rust source/build/install remains held. Full M1–M11 and M2b acceptance gates
+remain in force.

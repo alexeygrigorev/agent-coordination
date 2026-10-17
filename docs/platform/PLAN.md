@@ -144,6 +144,15 @@ on that host.
   typed into, native reply maps back to the same conversation.
 - `hub conversation send` retry with the same key is a no-op.
 - No global install; project-local venv only.
+- Windows participation requires portable transitive imports, private NTFS
+  journals, verified Win32 handle/ACL/no-follow behavior, bounded locks with
+  process-death release, and atomic recovery that preserves P3 uncertainty and
+  cursor rules. Linux contract tests and a skipped real-Windows check establish
+  source evidence only. After distinct source review, a genuine Windows owner
+  must prove public login, enrolled native identity, bidirectional messages,
+  offline/reconnect dedup, reply and gap reconciliation on the physical host.
+  Keep Windows root stood down and preserve rollback until that handoff; this
+  physical gate also belongs to M11.
 
 **Depends.** M1. Can proceed in `agent-hub-wt-platform-cli` against the M1
 contract. Codex quota-gate wrapper already required by platform.
