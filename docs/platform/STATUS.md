@@ -86,9 +86,18 @@ source integration; deployment and physical fleet adoption remain open.
   to execute for the same date after its active lease expires. This source stays
   unmerged. Codex `platform-role-leases-r2` (`3b36ac3f`) ACKed and traced both
   claim and execute transactions; it owns a bounded global writer-date repair
-  and HTTP/SQLite regression. Different dates must remain usable and unresolved
+  and HTTP/SQLite regression. Its early commit `6a2cbd1` is in actual task0423
+  fork/WIP and typecheck passes. The focused suite reports 30 passes, including
+  seven new fencing cases; final identity checks and distinct review remain. Different dates must remain usable and unresolved
   evidence retained. The real writer backend still holds before process start;
   fake-effect tests do not implement M8b or prove physical M11.
+- M9 has genuine task0424 on `6cf0c18`. Grok `platform-metrics` (`0295eaea`)
+  ACKed its isolated Hub scope and read the metrics source contracts. It is
+  implementing authenticated bounded summary ingestion, a strict host projection
+  adapter and dakit views. Existing Dashboard producers are read-only; private
+  raw metrics and transcripts are excluded. No live Dashboard head was listed,
+  so a producer-contract ownership request is recorded with the orchestrator.
+  Producer agreement, observed ingestion and adoption remain pending.
 - The first M4 bootstrap was stopped immediately after a head shell failed to
   halt on a capacity assertion. No tracked edits were produced; native history
   and first-action evidence are retained. Corrected fail-fast launch gating,

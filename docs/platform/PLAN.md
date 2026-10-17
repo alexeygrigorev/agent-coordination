@@ -43,7 +43,10 @@ follow-ups remain eligible for native delivery. Physical M5 is still open.
 M4 repaired candidate `7b6f7ff` is in task0422 and under Argon review after four
 findings in `ab3b953`. M7 `abd48b8` stays unmerged after Grok `9574242` found a
 same-date cross-project duplicate intent after lease expiry; a Codex repair is
-active. M4/M5/M7/M8a/M8b/M9/M10/M11 remain in scope.
+active. M9 task0424 has a Grok worker implementing a bounded authenticated
+receiver, host sanitizer and dakit views against read-only Dashboard reports;
+producer ownership/adoption remain pending. M4/M5/M7/M8a/M8b/M9/M10/M11 remain
+in scope.
 
 ## Milestone map
 
@@ -341,6 +344,9 @@ smaller independently reviewed parts; their acceptance requirements stay open.
    retention/auth conflicts and independently verify any semantic merge changes.
    Continue M8a qualified execution, M8b recovery profiles, M9 accounting, M10
    follow-through and M11 physical migration with existing ownership gates.
+   M9 task0424 is active on isolated Hub source; obtain the producer contract
+   owner, review the sanitized adapter and receiver, and prove ingestion before
+   claiming producer adoption.
 6. Keep STATUS, the head report and private recovery checkpoints current after
    accepted milestones. Source and release commits carry `[skip ci]` and actual
    agent/model provenance; push normally to main without PRs or force-push.
