@@ -63,7 +63,11 @@ Independent Codex report `4e6bfc2` returned **REVISE**: post-body credential
 revocation and delayed old device approvals still permit unauthorized host
 registration; DTO parity, evidence counts and UI response ordering also need repair.
 Muse `platform-metrics-r5` (`5deb7db5`, actual task0424) owns all five groups,
-with core host-authority fixes committed separately first. Approval-time authority
+with core host-authority fixes committed separately first.
+Frozen core `ab725d1` is registered in task0424 and separately seeded in review
+task0433. Codex HIGH `platform-host-authority-review` (`1add7a45`) reviews that
+exact core while Muse continues the other findings. Its pending scoped verdict
+cannot accept the entire inherited M9 composition. Approval-time authority
 must preserve current bound-family operations while a newer approval is pending;
 legacy unwitnessed pending grants cannot replace an already bound host.
 The original scratch-cap violations and review monitoring gaps remain recorded.

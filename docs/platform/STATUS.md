@@ -175,6 +175,12 @@ registered in actual task0424. Its author reports eight actual-route regressions
 typecheck and selected compatibility checks passing, including pending-approval
 continuity and legacy grant fences. Independent acceptance is still required;
 the worker continues the remaining DTO, evidence and UI repairs.
+Independent Codex HIGH `platform-host-authority-review` (`1add7a45`) has
+acknowledged actual task0433 and verified its own native first-tool identity.
+It reviews the exact frozen core revision and all 249 source hashes. Its scope
+covers device approval, issuance, refresh, registration and current-family
+metrics protection; the remaining three M9 finding groups retain REVISE status.
+Core acceptance alone cannot authorize integration of the entire M9 candidate.
 
 The R4 author disclosed a monitoring gap and actual 46.29 MiB and 27.06 MiB
 scratch peaks against an assigned 18 MiB; the monitor recorded growth without
