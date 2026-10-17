@@ -780,3 +780,53 @@ reports 113 focused, 611 host and two composition tests, typecheck, assets and
 a local dry bundle passing. It leaves the reproduced retention gap unresolved;
 independent review and a rerun after accepted API/registry/bridge repairs remain
 required before main integration.
+
+## Explicit gap recovery and remaining cleanup fairness — 17 October
+
+API repair `9f6d5431e36d8a67104c89dbe5b63cf296eac489` is preserved in actual
+task `0409` fork/WIP. Independent Codex report
+`dde82cdc4af95a7f5fd5006d23403295ba463d67` gives **REVISE**: retained unread
+counts, gap metadata, malformed migration versions and total deletion budgets
+pass, while fixed-priority selection still starves categories under sustained
+backlogs. The final 313 distinct checks comprise 307 passes and six failures
+reproducing one F14 fairness defect at bus, composition and conversation-category
+levels. Configured 50,000-message/1,000-header caps, real HTTP/RPC/alarm budgets
+and transactional rollback passed. Original Grok task `0409` is resumed as
+`platform-api-fairness` (`b2e4d314`) to implement bounded progress that survives
+service/DO restarts. F7 remains required and uncredited.
+
+Explicit bridge recovery candidate `0896ebe157cc732342b17fb40a6cf6e096ef93a2`
+is preserved in actual task `0410` fork/WIP. It requires operator acknowledgement
+and an authenticated proof that the proposed skip range contains no retained
+messages; it atomically records the gap and advances only the local cursor.
+Uncertain effects remain held. Author checks on the final source passed: 635
+host tests, 55 focused tests and three real Worker/SQLite/Python CLI checks.
+Eight genuine own-native checks and five late-join checks remain accurately
+pinned to preceding `13b8153`; the final change only makes parser imports lazy
+for Windows, with core bridge AST equality verified. The native fixture's
+continuation used new conversations in a fresh local store, retaining the prior
+journal/effect evidence; it is not original-store restart proof. Independent
+Grok reviewer `038f97ef` is now reviewing the exact final source and evidence.
+
+Independent Argon transport report `8ecac25` retains scoped acceptance of
+`d9b4cde` composition and local no-gap transport, with follow-up observations
+about native cursor versus server read position. Independent adjudication is
+requested in the bridge review: the reviewed bridge contract explicitly replays
+retained history from sequence zero, and M1 grants restored members retained
+history access. Advancing to a remote read watermark must not silently bypass
+unresolved native delivery intents. The actual retention gap remains a required
+repair; no automatic cursor policy change or full bridge acceptance is inferred.
+
+The two interrupted Grok safeguard reviews were diagnosed from persisted events:
+headless permission prompts were cancelled before the test command ran. The
+original review context is now genuinely resumed as `9285dcaf` with the installed
+CLI's supported headless tool approval flag, private exit receipts and original
+evidence preserved. Successful subsequent tool execution was observed. No
+global configuration changed, and the optional adjacent Argon host-report request
+was withdrawn to avoid duplicate ownership. Safeguard and full execution
+qualification verdicts remain pending.
+
+Hub main remains `5dcdf71`. No rejected API or registry source has landed.
+Independent registry/launcher reviews, acknowledged source handoffs, accepted
+combined-stack native verification, `GATE-CONV-REVIEW`, and the complete remaining
+M2b/M4–M11 roadmap stay open.
