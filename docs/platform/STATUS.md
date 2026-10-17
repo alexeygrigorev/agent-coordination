@@ -59,43 +59,53 @@ source integration; deployment and physical fleet adoption remain open.
   locators, corrects tracked-file counts and distinguishes final resource samples;
   it changes no source, verdict or test claims. Code is now on main, canonical
   Branches and private recovery; physical Windows DLL/NTFS/Win35/M11 is unproven.
-- M5 proposal `1229be7` received **REVISE** in independent review `1fe94af`:
-  sending as the target advances its read watermark and suppresses bridge
-  delivery; actor authority is insufficient; response-loss retries and concurrent
-  due slots are unsafe; new test typing fails. Fresh Codex `platform-pings-r2`
-  (`0a4a2fb9`) owns repair in an isolated worktree with actual tracked source.
-  Required fixes include explicit automation authority, unchanged target unread
-  state, bridge eligibility and durable interval intent/receipt/CAS. No rejected
-  M5 source has landed. The reviewer disclosed an initial scratch overrun with
-  unknown exact peak; later split tests stayed bounded. This remains an incident.
-- M5 repair early commit `c468635` now has 45 new public Worker/real SQLite tests,
-  12 existing checks, four memory-only bridge checks on captured public HTTP history
-  and typecheck passing, according to its author. The actual source commit is
-  preserved in genuine task0419’s fork/WIP. Initial type/fixture failures
-  remain retained. Python bridge eligibility and compatibility checks precede
-  its final exact commit and distinct review. Accepted upstream `16d66d6` has
-  been sent to both implementation workers for a normal merge preserving actual
-  Branches ancestry; that notice alone is not proof they applied it.
-- M4 is now actual task0422 / `platform-links-0422` on synchronized main
-  `7929a1b`. Grok `platform-links` (`f04bc012`) ACKed its isolated source scope
-  and began inspecting canonical task visibility and conversation retention.
-  It owns metadata links and reverse references; routing/fleet policy and model
-  tiers remain outside its edits. No implementation acceptance is claimed yet.
+- M5 original proposal `1229be7` remains rejected (`1fe94af`). Repaired source
+  `117f240` received Grok review `6fb7b21`: the original five defects are repaired,
+  with independent 57 focused tests, eight adversarial cases, four memory-native
+  bridge checks and targeted compatibility/typecheck passing. The review retains
+  a MEDIUM operational lifecycle failure: grants/slots/receipts have no retirement
+  and eventually stop follow-ups at the 4096-receipt cap. Head keeps M5 unmerged
+  until this is repaired. New Codex `platform-pings-r3` (`2554424e`) has source
+  checkpoint `48b3106` in genuine task0419 fork/WIP; 57 existing focused cases and
+  typecheck pass, new lifecycle tests are running. Its latest-slot/frozen-intent
+  authority and opaque generations must preserve replay safety during cleanup.
+- M4 author source `dcb27b7` is frozen. Head composed it with accepted `16d66d6`
+  as `1a15cb1`: all seven M4 paths are byte-identical to the author, all 200 other
+  base source paths unchanged, 207-file manifest `96ea8ee5`. Genuine task0422
+  fork/WIP contains the composed candidate. Argon `platform-links-review`
+  (`e3f6e2ff`) independently reviews exact `1a15cb1`; no source acceptance
+  or routing compatibility ACK is inferred. Author evidence: eight HTTP tests,
+  two platform tests, one retention and one export check, plus typecheck.
+- M7 actual task0423 has source `abd48b8` in its fork/WIP: configured roles,
+  the existing lease/job authority, epoch/generation/current-host checks,
+  transactional execute intents, writer-date exclusion and host consumer guards.
+  All 199 other base source paths remain unchanged; its source manifest has 206
+  files (`4a2e920d`). Grok `platform-role-leases-review` (`b050da9a`) independently
+  reviews it. Author tests include 23 role cases, 56 host cases, targeted legacy
+  writer/root/M6 checks and typecheck; skipped cases and repeated groups are not
+  counted as unique passes. The real writer backend is unsupported and holds
+  before process start; M8b runtime is not implemented by these fake-effect tests.
 - The first M4 bootstrap was stopped immediately after a head shell failed to
   halt on a capacity assertion. No tracked edits were produced; native history
   and first-action evidence are retained. Corrected fail-fast launch gating,
   lossless snapshot compression and fresh quota/resource admission preceded the
   new worker. Two exact disposable source reconstructions were removed only
   after 399 hash checks, retaining all original/reviewer sources and evidence.
-  Four-worker admission totals 511.52 MiB including remaining growth, below the
+  That launch’s four-worker admission was 511.52 MiB including remaining growth, below the
   512 MiB scratch limit. This incident is recorded rather than relabelled success.
 - Optional creation of a new Branches integration task returned HTTP 500; no task
   ID or successful creation was claimed. Existing genuine task0418 was used for
   the actual main integration. New task identity must be reconciled before retry.
 
-`GATE-CONV-REVIEW` is running as an independent Argon check of the published
-conversation foundation and roadmap direction. Its initial pin was `7929a1b`;
-an extension to published `16d66d6` was requested and awaits the reviewer’s ACK. M4, M5, M7, M8a/M8b, M9, M10 and
+Argon completed the post-main review of exact published `16d66d6` and returned
+SCOPED ACCEPT in `c1951e2`, with no blocking source bugs and two Low host workflow
+findings. Its retained probes/manifests are valid, but the report contains an
+invented M5 commit SHA and eleven incorrect changed-path entries plus unsupported
+API names. That report remains unpublished pending Grok factual audit
+`platform-postland-factual-audit` (`e5aa637d`), preserving the Argon source verdict
+and actual test evidence. F-POST-1 concerns stale local machine identity after
+some login/refresh transitions; F-POST-2 documents manual machine migration.
+Physical rollout and the full roadmap remain separate from this source verdict. M4, M5, M7, M8a/M8b, M9, M10 and
 M11 remain active; M6 is already integrated. No deploy, physical host enrollment,
 service migration, native CLI/Rust installation or credential change occurred.
 Sections below retain the original survey and dated development checkpoints;
