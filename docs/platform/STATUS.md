@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `5dcdf71`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `7929a1b`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -19,11 +19,65 @@ Evidence classes used below:
 Unit tests are not physical delivery. Passing vitest/unittest counts are source
 evidence only.
 
+## Current checkpoint — 17 October 2026, 04:25 UTC
+
+**Conversation foundation is on Hub main `7929a1bc07bfea3a2b387989800cf1b0ba140984`.**
+It includes the conversation API, project-qualified F7 registry and credential
+fixes, machine-bound public pairing, dakit conversations/fleet/auth/device UI,
+CLI/native conversation bridge and explicit P3 retention-gap recovery. This is
+source integration; deployment and physical fleet adoption remain open.
+
+- Exact bundle `cfb4dc2`, patch `e8c91a9c`, was independently accepted by Argon
+  in `5a4b938`. All 199 source hashes match digest `17aab235`; fresh integration
+  typecheck passed. Retained independent evidence includes 453 Worker cases,
+  635 host cases, 30 mock-browser cases, 89 real browser screenshots, public
+  pairing and genuine own-session native round trips. Earlier counts are not
+  additional unique coverage. Two metadata fields in the published report were
+  explicitly corrected against Git; the original report remains in history.
+- Actual Agent Branches task0418 fork contains the integrated main commit with
+  a head-custody WIP receipt. Canonical Branches main and private GitHub recovery
+  main both equal `7929a1b`. A disposable remote restore passed fsck, nine blob
+  checks, all 199 source SHA-256 checks and old/new CLI help checks.
+- Shared `~/git/agent-hub` remains at local HEAD `5dcdf71`: all 131 tracked files
+  are verified unchanged. Native context confirmed zero physical scope overlap
+  for the isolated integration worktree. The earlier cross-worktree dispatch
+  hold was overly broad: peer ownership of the shared checkout and live ops
+  remains respected; no peer ACK was inferred. Disjoint worktree integration
+  follows the user's existing authorization.
+- Windows composition `d79fab0` preserves all 193 non-Windows bundle paths and
+  produces 203 source files, digest `5fb8eeac`. Argon `0da55c0` independently ran
+  653 host passes plus one actual-Windows skip, 749 separate subtests, 92 Worker
+  cases, six POSIX probes, public pairing and its own native round trip. Head
+  reconciled the native journal and IDs with zero unresolved effects. Its report
+  contains incorrect module paths, a source pin and constant/pairing descriptions.
+  Actual source candidate `3888a43` is committed but **unpublished** pending a
+  distinct Grok factual/source audit (`platform-win-factual-audit`, `8d537279`).
+  Prior evidence is retained; physical Windows DLL/NTFS/Win35/M11 is unproven.
+- M5 proposal `1229be7` received **REVISE** in independent review `1fe94af`:
+  sending as the target advances its read watermark and suppresses bridge
+  delivery; actor authority is insufficient; response-loss retries and concurrent
+  due slots are unsafe; new test typing fails. Fresh Codex `platform-pings-r2`
+  (`0a4a2fb9`) owns repair in an isolated worktree with actual tracked source.
+  Required fixes include explicit automation authority, unchanged target unread
+  state, bridge eligibility and durable interval intent/receipt/CAS. No rejected
+  M5 source has landed. The reviewer disclosed an initial scratch overrun with
+  unknown exact peak; later split tests stayed bounded. This remains an incident.
+- Optional creation of a new Branches integration task returned HTTP 500; no task
+  ID or successful creation was claimed. Existing genuine task0418 was used for
+  the actual main integration. New task identity must be reconciled before retry.
+
+`GATE-CONV-REVIEW` still requires an independent Argon check of the **published**
+conversation foundation and roadmap direction. M4, M5, M7, M8a/M8b, M9, M10 and
+M11 remain active; M6 is already integrated. No deploy, physical host enrollment,
+service migration, native CLI/Rust installation or credential change occurred.
+Sections below retain the original survey and dated development checkpoints;
+their historical main pins and pending-source statements are superseded here.
+
 ## 1. Product map
 
 | Product | Checkout | GitHub main observed | Role in a conversation platform |
 |---|---|---|---|
-| Agent Hub | `~/git/agent-hub` at `5dcdf71` | `5dcdf71` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
+| Agent Hub | Shared checkout preserved at `5dcdf71` | `7929a1b` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
 | Agent Coordination | `~/git/agent-coordination` at `98857ca` | `98857ca` | Deprecated SSH/role-failover source; this survey/plan |
 | Agent Bus | `~/git/agent-bus` local `bf351f4` | `a9156b9` (deprecation notice) | FileBus predecessor; do not duplicate |
 | Agent Dashboard | `~/git/agent-dashboard` local `6863b99` | `3f126df` (deprecation notice) | Accounting views; hub fleet page replaced operator UI |

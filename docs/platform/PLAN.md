@@ -25,8 +25,22 @@ dispatcher or a second bus transport.
 - Existing host timers stay up until a replacement check is observed working.
 - Platform already prepared hub worktrees `agent-hub-wt-platform-{api,cli,ui}`
   (Agent Branches tasks 0389 / 0390 / 0391; not accepted). Do not duplicate
-  those writers. Shared `src/hub.ts` dispatch needs an ACK from the current
-  hub owner before overlapping edits.
+  those writers. Shared-checkout `src/hub.ts` edits need the current owner’s ACK.
+  Isolated worktrees use native context to verify disjoint physical paths;
+  matching relative filenames across worktrees do not create an ownership hold.
+
+## Current execution checkpoint
+
+Hub main `7929a1b` contains independently reviewed M1/F7/M2/M2b/M3/P3/pairing
+source; canonical Agent Branches and private remote restore match all 199 source
+hashes. Post-main Argon direction review remains required. Windows candidate
+`3888a43` awaits a distinct factual/source audit before publication; physical
+Windows remains a separate host gate. M5 `1229be7` was rejected (`1fe94af`);
+Codex `platform-pings-r2` repairs actual source under explicit automation authority
+and durable check-slot semantics. The recipient’s read cursor must not move when
+a follow-up is sent, and the follow-up must remain eligible for native delivery.
+No impersonated user/agent credentials or transient in-memory dedupe qualify.
+M4/M5/M7/M8a/M8b/M9/M10/M11 remain in scope.
 
 ## Milestone map
 
@@ -243,8 +257,11 @@ exact integrated source before declaring the conversation path accepted.
 
 1. `git fetch` and rebase on current `origin/main`; re-run the milestone
    tests.
-2. No overlap with hub-zai owned files without ACK (`src/hub.ts` dispatch,
-   `src/env.ts`, live deploy).
+2. Preserve hub-zai’s shared-checkout files and live ops (`src/hub.ts`,
+   `src/env.ts`, deploy/enrollment); an actual physical overlap needs ACK.
+   Isolated worktrees with native `a context` showing zero overlap may implement
+   and integrate already authorized source. Do not infer peer agreement or
+   modify the shared checkout to make it follow remote main.
 3. No overlap with routing policy/placement without ACK.
 4. dakit uniformity session: no new raw palette in hub CSS.
 5. Resource: worker ≤1500M, scratch under the worktree `.local/tmp`, no
