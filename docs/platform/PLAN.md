@@ -214,6 +214,18 @@ owns.
 
 ## Dependency checks before each merge
 
+Retention gaps are part of native bridge acceptance. The bridge must preserve its
+fail-closed default when history is incomplete and provide an explicitly
+authorized catch-up path or durable gap notice before advancing its local cursor.
+Test pruned prefixes and interior gaps against the real API metadata, preserve
+retained unread messages, and never silently label skipped history delivered.
+
+The early post-M6 Argon direction acceptance does not close the required working
+conversation review. Keep `GATE-CONV-REVIEW` open until accepted M1/F7/UI/CLI/native
+source is integrated and the real composed Worker, browser, CLI and own native
+inbox round trip is verified. Then run an independent Argon review against that
+exact integrated source before declaring the conversation path accepted.
+
 1. `git fetch` and rebase on current `origin/main`; re-run the milestone
    tests.
 2. No overlap with hub-zai owned files without ACK (`src/hub.ts` dispatch,

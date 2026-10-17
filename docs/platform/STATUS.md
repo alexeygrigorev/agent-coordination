@@ -639,7 +639,9 @@ Next: post-land Argon direction review of this foundation and the remaining
 critical path; finish M1/F7 security and ownership gates; then verify the real
 Worker/browser/CLI/native conversation flow. The full M2b/M4–M11 roadmap and
 later review of the working conversation path remain required. No deployment,
-cloud resources, domain, credentials, services or timers were changed.
+cloud resources, domain, production/provider credentials, services or timers were
+changed. Only an expired scoped Agent Branches development token was renewed
+privately while preserving the peer’s original token file.
 
 ## Registry rejection and final API review — 17 October
 
@@ -725,3 +727,56 @@ open. Genuine first-action evidence was checked for tasks `0407`–`0409`.
 Hub main remains `5dcdf71`; no rejected API/registry source has been pushed or
 deployed. The full accepted roadmap and required working-conversation Argon
 review remain open.
+
+## Early Argon direction findings acted on — 17 October
+
+Argon direction review accepts the M6 foundation and the complete roadmap as an
+early checkpoint. It leaves `GATE-CONV-REVIEW` explicitly open: a later review
+must inspect the integrated, verified conversation path. P1 registry identity
+repair and P2 API retention repair remain required; their independent review
+verdicts cannot be replaced by this direction acceptance. P4 keeps physical
+execution qualification open beyond host safeguards or a single attested route.
+P5's credential summary has been corrected to distinguish a renewed scoped
+development token from production/provider credentials.
+
+P3 adds a concrete bridge requirement: pruned prefix or interior history can stop
+the native bridge's contiguous-sequence check permanently. PLAN now requires a
+fail-closed default plus explicit authorized catch-up or a durable gap notice;
+no skipped history can be silently reported delivered. Task `0408` reproduced an
+interior gap through the real API/CLI and keeps it unresolved while task `0409`
+repairs the server metadata.
+
+The transport worker reports a real local browser/Worker/SQLite/Python CLI and
+own genuine native-inbox round trip, reconnect/reload without duplicates,
+restart reconciliation, loop suppression and immediate removal denial. This is
+author evidence pending frozen-source independent review, not physical
+second-host acceptance. The rendered browser evidence was inspected by the head.
+
+Launcher companion artifact `18dd854322ace65f1773c5d4115866b137e6d907` is
+preserved in actual task `0404` fork/WIP. Independent Argon reviewer `ff24f690`
+is running on the three byte-identical artifacts imported onto main as
+`82ab318` in an isolated worktree. The review must inspect fresh launcher
+`5145d0d`, private test-state isolation, and compatibility with landed M6. The
+251 author fixture checks do not establish live account identity, configured
+profile coverage, cross-host capacity or execution qualification. Source owners
+have not authorized application; no provider job or production rollout occurred.
+
+The final direction report is published alongside this log as
+[POST-MILESTONE-ARGON.md](POST-MILESTONE-ARGON.md), byte-identical to independent
+Argon commit `0d92f30412dadfbb9346ada31e969da55512f02a`. Its accepted inputs
+remain coordination `20dabd3` and Hub `5dcdf71`; later task updates are additional
+evidence, not a changed review scope.
+
+Registry repair `ddaf80d82022736da82ff11d521c6a9f92ff593e` is frozen and
+preserved in task `0405` fork/WIP. Its author reports 57 focused and 254 inherited
+tests, including 61 M6 tests, plus typecheck and exact 20-file patch reconstruction.
+Independent Argon reviewer `fe000dc1` is running against that exact proposal;
+actual core source remains untouched and the required source handoff is open.
+
+Transport candidate `d9b4cde07e3718d77b2db9308cd323a5c8e003ed` is frozen and
+preserved in task `0408` fork/WIP. The final committed-source native run repeated
+the seven-checkpoint, four-message, 26-browser-request exchange. Its author also
+reports 113 focused, 611 host and two composition tests, typecheck, assets and
+a local dry bundle passing. It leaves the reproduced retention gap unresolved;
+independent review and a rerun after accepted API/registry/bridge repairs remain
+required before main integration.
