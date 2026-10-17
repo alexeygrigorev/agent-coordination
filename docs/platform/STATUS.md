@@ -57,17 +57,25 @@ helps passed. The digest is
 `ee2e0f158e46067ed77cbf8ac9addcbed55d4a4988c6a2c8fece1786dbcf70a0`.
 No deployment or physical acceptance is claimed.
 
-First session-control source increments are registered in actual tasks0428/0429:
-API `b66796c` has 13 Worker/SQLite and five Python author passes, but lacks public
-wiring and required fences; host `36534db` has 22 focused author passes, with
-unresolved protocol/proof issues. A broader host run reported 661 passes and 20
-environment errors; it is not a clean regression result. New Muse continuations
-`platform-session-api-r2` (`c5491cd7`) and `platform-session-host-r2` (`c827c25c`)
-carry the explicit corrections and wiring work. These are unaccepted source
-increments, not a working end-to-end loop. The API continuation reserves 28 MiB and the host continuation 20 MiB private
-scratch after fresh aggregate checks; repeated OpenCode native-library files and
-all prior evidence are preserved. Both corrected model-native identity receipts
-now match their actual session/workspace.
+Session-control source is registered in actual tasks0428/0429: final API
+`cd0e9d099efea884ee9e52fcbe7c0901e03d4128` reports 26 Worker and 20 Python CLI
+cases, with actual hub/public CLI wiring, claim attempt fencing and native-envelope
+proof validation. Host `69ae9f1e9a8f4cf6e33fc205080f7ee1350ca15e` reports 28 focused
+cases, including journal locking and retirement of raw Enter/working-as-ACK.
+Their original failures and broader test evidence remain preserved. These are
+unaccepted components: a concrete mismatch between session UUID and native message
+envelope ID in acknowledgment serialization still requires composition repair.
+A premature API freeze report was caught by the clean-tracked WIP guard; its
+immutable intermediate commit was registered explicitly as early WIP, then the
+actual clean final commit was registered after the author stopped.
+
+Integration task0430 has a fresh-main worktree at seed
+`d84ca875898a3aaf89ef8dabdefcf93c7f4640b6`, a normal no-conflict union of accepted
+main and both frozen components. Muse Spark 1.3 worker `platform-session-compose`
+(`ae075e9a`) is connecting the real host receiver, proof schema and public CLI,
+with a composed loop test required before different-model review. Its private
+scratch reservation is 24 MiB, memory 1500M and one CPU. No physical full-loop
+acceptance, deployment or source acceptance is claimed.
 
 M9 repair has 37 distinct author cases plus rendered UI checks. New composition
 `ae21e27bc769e878af109ce50144da0fed5a5611` on accepted current main is registered
@@ -75,7 +83,15 @@ in actual task0424, with 240 source pairs frozen at digest
 `2a2e6489c31062c7bb77b92639cde96f3c5c7863807420f8d5075a93945f8a10`.
 Independent Codex reviewer `platform-metrics-r2-review` (`f5b90545`) has acknowledged
 the exact pin and produced a matching native first-action receipt. Review is
-pending; producer adoption/runtime/enrollment and ownership gates remain.
+pending. The reviewer has reproduced a legitimate refreshed host token being
+rejected by metrics because the machine still points to its predecessor credential,
+and a direct outbound helper sending unknown nested fields before the Worker rejects
+them. Further accepted-proof/zero and UI pagination/disappearance probes are under
+review. The candidate stays off main; final findings and bounded repair are next.
+An early scratch guard stopped one regression batch before the hard cap; preserved
+logs distinguish aborted runs from passes, and serial splits completed all original
+37 M9 cases. A later monitor sampling gap is disclosed rather than presented as a
+continuous full-turn measurement. Producer adoption/runtime/enrollment gates remain.
 
 - Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
   The registration-field wording correction `85fdcec` received exact independent
