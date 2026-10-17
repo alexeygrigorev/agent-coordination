@@ -683,3 +683,45 @@ review; later working-conversation review remains required. M2b and M4–M11,
 physical execution qualification, real adoption and operational handoffs remain
 open. Private GitHub restore and fsck independently verified coordination
 `20dabd3` and Hub `5dcdf71`.
+
+## Retention review and real transport work — 17 October
+
+Independent Codex report `626dac6d540a5342bb87db57a74e5d41fbaa3fa6` gives
+**REVISE** on exact API input `f872fd1047b28f9e2d57820a7c0c7dc626870346`.
+It independently ran typecheck, 31 public tests, 47 observational probes and
+120 M6/lifecycle compatibility tests. Most F1–F16 repairs hold. Two required
+repairs remain beyond F7: F11 unread counts include interior-pruned messages and
+gap metadata is incomplete; F14 mixed bus messages, claims and conversation
+cleanup can delete three rows at limit 1 or 101 at limit 100. A LOW finding also
+requires rejecting malformed or unsupported accounting-migration versions.
+Observational probes confirm failures; their passing assertions are not API
+acceptance. Real local Worker dispatch, RPC, both cron paths, alarm, concurrent
+sends/retries and accepted M6 compatibility passed under private composition.
+
+Grok repair task `0409` (`a4b49718`, `platform-api-r3`) is running against the
+frozen input. It owns conversation retention/accounting and the narrowly
+required `src/bus.ts` shared-budget repair, with regression tests. It must preserve
+all earlier identity/replay/revocation fixes. F7 task `0405` remains separate and
+uses its pinned inputs; the head will combine independently reviewed repairs.
+
+Actual Agent Branches task `0408` preserves combined input
+`cee47dff8b423d82eb15e1f9b39cc39ff9ede59f`: accepted M6 main plus 43 unchanged
+files from final API, reviewed UI and reviewed CLI/native bridge. Codex worker
+`874796d5` owns the minimal Worker composition hook and dedicated transport
+harness/docs. It has selected the conversation subclass under the existing
+public Hub identity. Its target is real local workerd/SQLite, browser, Python CLI
+and its own genuine native inbox exchange; fixture API responses cannot satisfy
+that criterion. Pending F7/API defects cannot be credited as fixed by this work.
+
+The original M8a Grok review session `2ddf3991` disappeared from fresh live/all
+session listings without producing a report. Its worktree and private probes
+were preserved. Recovered reviewer `ff4d61d2` is running against
+`b05384c19afb5ac8d3b1594669e63c6b79bb6bb6`, the same frozen host safeguard
+files on accepted M6 main, preserved in actual task `0407` fork/WIP. It must
+inspect fresh launcher source `5145d0d`, distinguish it from the old installed
+source, and give a scoped verdict. Full physical execution qualification remains
+open. Genuine first-action evidence was checked for tasks `0407`–`0409`.
+
+Hub main remains `5dcdf71`; no rejected API/registry source has been pushed or
+deployed. The full accepted roadmap and required working-conversation Argon
+review remain open.
