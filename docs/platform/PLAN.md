@@ -44,14 +44,15 @@ M4/M5/M7/M8a/M8b/M9/M10/M11 remain in scope.
 
 ## Milestone map
 
-| ID | Outcome | Depends on | Suggested worker (already allocated by platform) |
-|---|---|---|---|
-| M1 | Conversation API | Existing bus + auth | Antigravity `platform-api` |
-| M2 | dakit conversation UI | M1 contract | OpenCode glm-5.3-flash `platform-ui` |
-| M3a / M3b | Agent CLI, then genuine native inbox participation | M1 contract; native `a message` | Codex `platform-cli`, then `platform-bridge` |
-| M2b | Existing fleet and sign-in/device views use dakit | M2; shared UI scope agreement | UI worker after M2 review |
-| M4 | Task/review/outcome links | M1 + routing (do not modify routing policy) | After M1; coordinate with `routing` |
-| M5 | Safe pings + physical acceptance | M1–M4 source + host enrollment | After Argon post-milestone review |
+| ID | Outcome | Current source / next owner |
+|---|---|---|
+| M1 | Authenticated conversation API and F7 registry | Integrated on Hub `7929a1b`; post-main Argon gate running |
+| M2 | dakit conversation UI | Integrated on `7929a1b`; physical adoption remains separate |
+| M3a / M3b | Public CLI and genuine native inbox participation | POSIX source and own-session round trips integrated; Windows candidate `3888a43` awaits corrective independent audit, physical Windows unproven |
+| M2b | Fleet, sign-in and device views use dakit | Integrated on `7929a1b`, official kit lock preserved |
+| M4 | Canonical task/review/outcome links in both directions | Genuine task0422, Grok `platform-links` / `f04bc012`, actual source implementation on fresh `7929a1b`; routing policy unchanged |
+| M5 | Safe scheduled follow-ups and physical acceptance | Rejected `1229be7` / review `1fe94af`; Codex `platform-pings-r2` / `0a4a2fb9` repairs actual source; distinct review and physical acceptance remain |
+| M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -318,17 +319,27 @@ smaller independently reviewed parts; their acceptance requirements stay open.
 
 ## Next actions
 
-1. Argon reviews STATUS + this PLAN. Survey repairs findings in
-   `docs/platform/` only.
-2. Platform keeps API/UI/CLI workers in their existing hub worktrees;
-   survey does not start agents.
-3. After Argon ACK of the plan, M1 lands first with tests and a pinned
-   review, `[skip ci]`, fast-forward hub main. New candidate/release commits
-   carry an `Agent: <actor>/<verified model>` trailer; retain already reviewed
-   source SHAs and record provenance instead of rewriting their history.
-4. M2 and M3a merge behind M1; M3b must prove real native participation.
-   M4 follows routing coordination; M5 requires actual conversation evidence.
-   Continue the remaining M2b/M6–M11 roadmap rather than closing their gaps
-   as merely held or outside the conversation work.
-5. Update this STATUS incrementally as each SHA lands. Do not push
-   coordination docs until Argon review and head approval.
+1. Finish the corrective Windows audit against actual candidate `3888a43`.
+   Preserve original report `0da55c0` in history, correct its factual errors,
+   integrate only after a distinct exact-source verdict, then synchronize
+   canonical Branches and verify a private remote restore against all 203 hashes.
+2. Act on the required post-main Argon review of published `7929a1b` and this
+   full roadmap. Its verdict covers the named source and observed evidence;
+   deployment and physical multi-host acceptance remain separate.
+3. M5 repairs explicit expiring automation grants, target unread preservation,
+   native delivery eligibility and durable interval claims/intents/receipts.
+   Register actual commits in existing task0419 under the new executor identity,
+   obtain a different-model review, fix findings, then integrate and restore.
+4. M4 implements real authenticated link and reverse-reference endpoints in
+   task0422. Validate both conversation membership and target visibility,
+   bounded retention/accounting and unchanged routing semantics. Register fork
+   WIP, obtain distinct source review and coordinate the routing compatibility
+   ACK; silence is not an ACK.
+5. Compose accepted M4/M5 changes with the current main, resolve conflicts and
+   verify their shared conversation/auth/retention behavior. Continue M7 role
+   fencing, M8a qualified execution, M8b recovery profiles, M9 accounting, M10
+   follow-through and M11 physical migration with the existing ownership gates.
+6. Keep STATUS, the head report and private recovery checkpoints current after
+   accepted milestones. Source and release commits carry `[skip ci]` and actual
+   agent/model provenance; push normally to main without PRs or force-push.
+   Preserve journals, peer checkouts, global tools and rollback evidence.

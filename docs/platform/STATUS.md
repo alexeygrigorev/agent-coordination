@@ -19,7 +19,7 @@ Evidence classes used below:
 Unit tests are not physical delivery. Passing vitest/unittest counts are source
 evidence only.
 
-## Current checkpoint — 17 October 2026, 04:25 UTC
+## Current checkpoint — 17 October 2026
 
 **Conversation foundation is on Hub main `7929a1bc07bfea3a2b387989800cf1b0ba140984`.**
 It includes the conversation API, project-qualified F7 registry and credential
@@ -62,6 +62,19 @@ source integration; deployment and physical fleet adoption remain open.
   state, bridge eligibility and durable interval intent/receipt/CAS. No rejected
   M5 source has landed. The reviewer disclosed an initial scratch overrun with
   unknown exact peak; later split tests stayed bounded. This remains an incident.
+- M4 is now actual task0422 / `platform-links-0422` on synchronized main
+  `7929a1b`. Grok `platform-links` (`f04bc012`) ACKed its isolated source scope
+  and began inspecting canonical task visibility and conversation retention.
+  It owns metadata links and reverse references; routing/fleet policy and model
+  tiers remain outside its edits. No implementation acceptance is claimed yet.
+- The first M4 bootstrap was stopped immediately after a head shell failed to
+  halt on a capacity assertion. No tracked edits were produced; native history
+  and first-action evidence are retained. Corrected fail-fast launch gating,
+  lossless snapshot compression and fresh quota/resource admission preceded the
+  new worker. Two exact disposable source reconstructions were removed only
+  after 399 hash checks, retaining all original/reviewer sources and evidence.
+  Four-worker admission totals 511.52 MiB including remaining growth, below the
+  512 MiB scratch limit. This incident is recorded rather than relabelled success.
 - Optional creation of a new Branches integration task returned HTTP 500; no task
   ID or successful creation was claimed. Existing genuine task0418 was used for
   the actual main integration. New task identity must be reconciled before retry.
