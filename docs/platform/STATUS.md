@@ -79,16 +79,23 @@ source integration; deployment and physical fleet adoption remain open.
   Codex repaired these in `7b6f7ff`, preserved in genuine task0422 fork/WIP.
   Author evidence: 19 link HTTP/lifecycle cases, two platform, five retention,
   one export and typecheck; intermediate failures remain retained. Distinct
-  Argon `platform-links-r2-review` (`9673eaac`) ACKed and began inspecting the
-  exact candidate. Source acceptance and routing compatibility ACK are pending.
+  Argon `platform-links-r2-review` (`9673eaac`) accepted the exact candidate in
+  `fc5bd30`: 27 selected tests, three independent probes and typecheck pass,
+  with no findings. A mechanical report audit found one historical table cell
+  assigning a report hash before that report existed; head will annotate this
+  metadata before publication, preserving the original and source verdict.
+  Codex `platform-links-m5-compose` (`fa957e2f`) is resolving two source conflicts
+  with M5 main and adding shared retention/rollback tests. That composition needs
+  a new independent review. Routing compatibility ACK remains pending.
 - M7 source `abd48b8` received **REVISE** in Grok report `9574242` despite its
   23 role cases passing. An unresolved writer intent can permit a second project
   to execute for the same date after its active lease expires. This source stays
   unmerged. Codex `platform-role-leases-r2` (`3b36ac3f`) ACKed and traced both
   claim and execute transactions; it owns a bounded global writer-date repair
-  and HTTP/SQLite regression. Its early commit `6a2cbd1` is in actual task0423
-  fork/WIP and typecheck passes. The focused suite reports 30 passes, including
-  seven new fencing cases; final identity checks and distinct review remain. Different dates must remain usable and unresolved
+  and HTTP/SQLite regression. Final candidate `275c84a` is in actual task0423
+  fork/WIP: 30 role cases, two identity cases and typecheck pass. Grok
+  `platform-role-leases-r2-review` (`b8ffcce6`) ACKed and started independent
+  review of that exact pin. Different dates must remain usable and unresolved
   evidence retained. The real writer backend still holds before process start;
   fake-effect tests do not implement M8b or prove physical M11.
 - M9 has genuine task0424 on `6cf0c18`. Grok `platform-metrics` (`0295eaea`)

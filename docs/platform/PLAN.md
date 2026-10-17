@@ -40,10 +40,12 @@ Its two Low host workflow findings remain bounded follow-ups. M5 exact source
 `212560b` received Grok SCOPED ACCEPT `34ee3d0`: the five original defects and
 R2 retirement gap are repaired. Target read cursors remain unchanged and system
 follow-ups remain eligible for native delivery. Physical M5 is still open.
-M4 repaired candidate `7b6f7ff` is in task0422 and under Argon review after four
-findings in `ab3b953`. M7 `abd48b8` stays unmerged after Grok `9574242` found a
-same-date cross-project duplicate intent after lease expiry; a Codex repair is
-active. M9 task0424 has a Grok worker implementing a bounded authenticated
+M4 repaired candidate `7b6f7ff` in task0422 received Argon acceptance `fc5bd30`
+after four findings in `ab3b953`. Codex is composing its shared retention code
+with M5 main; the resolved source needs a new independent review. M7 `abd48b8`
+was rejected for a same-date cross-project duplicate intent after lease expiry.
+Repaired `275c84a` is in task0423 with 30 role and two identity passes; distinct
+Grok review is active. M9 task0424 has a Grok worker implementing a bounded authenticated
 receiver, host sanitizer and dakit views against read-only Dashboard reports;
 producer ownership/adoption remain pending. M4/M5/M7/M8a/M8b/M9/M10/M11 remain
 in scope.
@@ -56,10 +58,10 @@ in scope.
 | M2 | dakit conversation UI | Integrated on `7929a1b`; physical adoption remains separate |
 | M3a / M3b | Public CLI and genuine native inbox participation | POSIX and portable Windows source integrated on `16d66d6` after corrective audit; own-session POSIX round trips verified, physical Windows unproven |
 | M2b | Fleet, sign-in and device views use dakit | Integrated on `7929a1b`, official kit lock preserved |
-| M4 | Canonical task/review/outcome links in both directions | Task0422 repaired candidate `7b6f7ff`, independent Argon review running; routing compatibility ACK pending |
+| M4 | Canonical task/review/outcome links in both directions | Task0422 candidate `7b6f7ff` accepted by Argon `fc5bd30`; composition with M5 needs review; routing ACK pending |
 | M5 | Safe scheduled follow-ups and physical acceptance | Source `212560b` accepted in `34ee3d0`, integrated/restored as `6cf0c18`; physical acceptance remains |
 | M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
-| M7 | Configured roles and epoch-fenced job effects | Task0423 source `abd48b8` REVISE `9574242`; Codex repairs unresolved global writer-date fence; actual backend remains M8b |
+| M7 | Configured roles and epoch-fenced job effects | Task0423 repaired `275c84a` under Grok review after `9574242` REVISE; actual backend remains M8b |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -336,10 +338,11 @@ smaller independently reviewed parts; their acceptance requirements stay open.
 3. M5 source is accepted, integrated and privately restored as `6cf0c18`.
    Preserve its current-slot fences, unresolved intents and fair bounded cleanup.
    Physical scheduled follow-up/native delivery remains an acceptance obligation.
-4. Finish Argon review of M4 repaired candidate `7b6f7ff` in task0422; repair
-   findings before source integration. Coordinate routing compatibility ACK;
-   silence is not an ACK. Fix M7's global writer-date uncertainty fence through
-   the active Codex worker, preserve task0423 ancestry, then distinct review.
+4. Complete M4/M5 composition and independent review after M4 source acceptance
+   `fc5bd30`; preserve both retention lifecycles and verify shared budgets and
+   rollback. Annotate the report's one historical table error before publication.
+   Coordinate routing compatibility ACK; silence is not an ACK. Finish distinct
+   M7 review of `275c84a`, preserving task0423 ancestry and unresolved effects.
 5. Compose accepted M4/M7 changes with M5 main, resolve shared conversation/
    retention/auth conflicts and independently verify any semantic merge changes.
    Continue M8a qualified execution, M8b recovery profiles, M9 accounting, M10
