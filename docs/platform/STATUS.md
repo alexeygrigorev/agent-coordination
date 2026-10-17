@@ -72,10 +72,18 @@ actual clean final commit was registered after the author stopped.
 Integration task0430 has a fresh-main worktree at seed
 `d84ca875898a3aaf89ef8dabdefcf93c7f4640b6`, a normal no-conflict union of accepted
 main and both frozen components. Muse Spark 1.3 worker `platform-session-compose`
-(`ae075e9a`) is connecting the real host receiver, proof schema and public CLI,
-with a composed loop test required before different-model review. Its private
-scratch reservation is 24 MiB, memory 1500M and one CPU. No physical full-loop
-acceptance, deployment or source acceptance is claimed.
+(`ae075e9a`) completed the connected receiver/CLI source at
+`f9417de39d7818f18cf6f4a3a8770c6a67518db0`. Its 77 author cases include one
+actual Worker/SQLite + public CLI + receiver + native-fixture loop, four composed
+Worker cases, 26 service cases, 12 CLI cases, six explicitly stubbed unit cases
+and 28 executor cases. The final source is registered in task0430 and frozen:
+243 source pairs, digest
+`11f084b9fe73c9d031ea18cc4bc0a13e2da58246da28a4d80b55dee943d51483`.
+Argon reviewer `platform-session-compose-review` (`0aaf19de`) has acknowledged
+the exact pin and produced a verified native first-action receipt. Its independent
+verdict is pending; the actual Grok Bot box -> Hetzner throwaway test remains open.
+An existing anonymous-native-sender capability gap is explicitly in the review
+scope rather than assumed resolved by fixture replies.
 
 M9 repair has 37 distinct author cases plus rendered UI checks. New composition
 `ae21e27bc769e878af109ce50144da0fed5a5611` on accepted current main is registered
@@ -88,11 +96,18 @@ groups), directly parented by the reviewed source; all 240 source hashes remain
 unchanged. The report is registered in actual task0424 and stays outside main.
 New Muse worker `platform-metrics-r3` (`289bf092`) owns the bounded repair in a
 fresh-main isolated worktree seeded from that immutable report; its actual native
-first-action receipt is verified. New exact review is required after repair. The reviewer has reproduced a legitimate refreshed host token being
+first-action receipt is verified. Its frozen repair
+`c85f4585dd7e6e5548f1fa3e74aefad374ac1e7a` reports the original 37 plus 13 new
+regressions, six selected compatibility cases, typecheck and fixed reproductions
+passing. Reviewer-label counts were corrected to unknown without event proof;
+genuine empty zero/deduplication/explicit-event cases remain. Codex reviewer
+`platform-metrics-r3-review` (`2210bd63`) now checks that exact source: 243 pairs,
+digest `a65a54c122a618dd0eb3bb466af86414210487cc93450adcc6dfbad0040fb2f7`.
+This is a different 243-file envelope from the session candidate. Verdict pending. The reviewer has reproduced a legitimate refreshed host token being
 rejected by metrics because the machine still points to its predecessor credential,
 and a direct outbound helper sending unknown nested fields before the Worker rejects
 them. Accepted-proof/zero and UI pagination/disappearance failures are the other two
-confirmed groups. The candidate stays off main while repair proceeds.
+confirmed groups. Both metrics candidates stay off main until exact repair review succeeds.
 An early scratch guard stopped one regression batch before the hard cap; preserved
 logs distinguish aborted runs from passes, and serial splits completed all original
 37 M9 cases. A later monitor sampling gap is disclosed rather than presented as a
@@ -1565,3 +1580,12 @@ Windows/DLL and M11 acceptance remain unproven. M5 has reconstructed its input
 and is implementing conversation backlog/follow-up methods in private source;
 its scheduler, membership and idempotency tests remain pending. The combined
 Argon review is live with serial verification suites. Hub main is unchanged.
+
+
+### Operational preparation for the prioritized session loop
+
+The native hub operator has been asked to identify an existing enrolled Hetzner
+host-agent entrypoint, configured workspace/profile and genuine native service
+sender binding for the later throwaway acceptance test. The request is recorded;
+no reply, activation custody transfer, deployment, enrollment or credential change
+is inferred. Both new source candidates still require independent review.

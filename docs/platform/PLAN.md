@@ -55,7 +55,9 @@ all 228 reviewed source hashes match. The final delta corrects report metadata
 only; the original report and failures remain preserved. M9 repaired source is composed with current main at
 `ae21e27bc769e878af109ce50144da0fed5a5611` received Codex SCOPED REVISE in
 `ce40f49` for refresh binding, outbound validation, acceptance proof and UI selection.
-A new Muse repair worker owns all four groups in an isolated worktree;
+Muse repair `c85f458` now addresses all four groups and is under independent
+Codex rereview; connected session source `f9417de` is separately under Argon
+review after a real Worker/SQLite + public CLI/receiver fixture loop passed;
 producer adoption remains open. M8a/M8b execution qualification/recovery,
 M10 follow-through and M11 physical acceptance remain required.
 
@@ -601,7 +603,7 @@ acceptance is measured.
    independent report `4c7cf04`, the transparent metadata correction and original
    failure evidence. M9 candidate `ae21e27` is composed with accepted main
    and received SCOPED REVISE `ce40f49`. Repair all four groups and obtain a new
-   exact independent review; producer adoption remains separate.
+   exact independent review of repair `c85f458` (running); producer adoption remains separate.
 5. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
    follow-through and M11 physical migration. Published Windows, host binding and
    M5 source do not close their outstanding physical and enrollment gates.
