@@ -1,3 +1,11 @@
+## Live integration update — 17 October, 20:19 Berlin
+
+All four independent worker streams have source on main. Combined release `479f863d7302a6dde341b7a2b9251135237cbe1b` passed [real CI/CD deployment39057082540](https://github.com/alexeygrigorev/agent-hub/actions/runs/39057082540). Cloudflare authenticated active-version check confirms100% version `44b6fadd-65f1-4512-b1c2-09022fc7d31c` with that source. Fresh new-host auth requests still serve the previous Durable Object behavior during rollout; web Google and new-host device acceptance are pending, not claimed fixed. Auth tests31+proxy2 andPython18 passed. AdditionalAlexey admin and Orin preserved.
+
+Human CLI verifies34/34 actual native IDs present in61Hubrows, including both required aliases. Own adopted external fixture passed qualified-name correlated send, capture and confirmed stop; no foreign effects. Lineage/tree/table/dashboard source `e52baa2` is in the release, pending live verification. Measured catalog overflow fixed`520c745` with22tests and active host.
+
+Monitoring resumption uses the original disk task and preserved dirty worktree. New assignment `660c3f8e-faf8-417c-999f-f3b3afc0dffb` is HELD, no worker launched. Four prior completed workers were reconciled from exact native finished tombstones to release their stale reservations. Recovery must reuse the held intent or cancel it safely; current stop refuses unplaced held sessions. Full checkpoint `.local/platform/AUTH-CURRENT.json` records receipts and next steps. Original roadmap remains active.
+
 ## Live integration update — 17 October, 20:08 Berlin
 
 Four separate workers were launched in parallel. Native adoption `8ac0e49`, CI `49ef3c3`, and domain `6f12ac9`/`aebe1a0` are on main. Worker currently serves `49ef3c3` (version `fe24c88f-0463-48e1-bb61-243d6ee60b93`). Human CLI now lists 59 sessions, including `dataops:batching` and `git:crm-redesign` as observed native sessions. Own external receiver acceptance is running; foreign sessions were only listed. Parent/tree/table/dashboard work continues.
