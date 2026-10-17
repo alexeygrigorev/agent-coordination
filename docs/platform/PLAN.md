@@ -627,8 +627,10 @@ and do not read arbitrary unlinked paths or export entire private reports.
 
 **M14c — Main, deployment, CI and human actions.** Show commits landed on main
 separately from deployed commits. A deployed label requires a successful deploy
-run for the relevant repository/environment whose actual deployed revision or
-artifact includes that commit, with run ID, source SHA and observed time. A CI
+run for the relevant repository/environment whose currently active deployed
+revision or artifact includes that commit, with run ID, source SHA and observed
+time. Track the latest confirmed effective deployment, including rollbacks;
+an older successful run is not proof that a commit is still deployed. A CI
 pass, push, skipped workflow, failed deploy, or a later unrelated run cannot prove
 deployment. Preserve pending/failed/not-deployed/unknown distinctions and expose
 CI results independently. Reuse existing Git/provider integrations and credentials
@@ -656,8 +658,10 @@ read-only collection performs no input or native effects and uploads no secrets
 or draft text. Reconcile actual registered sessions and linked reports on enrolled
 hosts, keeping unsupported observations unknown. Prove a main-only commit stays
 not deployed, a failed/skipped run cannot promote it, and a successful deploy
-with verified revision inclusion changes only the relevant environment. Verify
-first/next `hub status` and `--since`/JSON results agree, retries and caller-scoped
+with verified revision inclusion changes only the relevant environment. A rollback
+must remove the deployed label for commits absent from the newly active revision,
+while a newer failed/pending run must not replace the last confirmed deployment.
+Verify first/next `hub status` and `--since`/JSON results agree, retries and caller-scoped
 diffs retain changes, revoked access reveals no data, and pending decisions/login
 states remain accurate. Obtain independent Argon review of the plan extension
 and exact source before normal integration; record real multi-host acceptance
