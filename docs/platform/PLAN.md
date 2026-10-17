@@ -1,3 +1,9 @@
+## Live integration update — 17 October, 20:08 Berlin
+
+Four separate workers were launched in parallel. Native adoption `8ac0e49`, CI `49ef3c3`, and domain `6f12ac9`/`aebe1a0` are on main. Worker currently serves `49ef3c3` (version `fe24c88f-0463-48e1-bb61-243d6ee60b93`). Human CLI now lists 59 sessions, including `dataops:batching` and `git:crm-redesign` as observed native sessions. Own external receiver acceptance is running; foreign sessions were only listed. Parent/tree/table/dashboard work continues.
+
+The custom hostname has live HTTPS through AWS Sandbox CloudFront; new Cognito callback preserves the workers.dev alias. Domain source awaits combined auth deployment. CI dry run [39056241476](https://github.com/alexeygrigorev/agent-hub/actions/runs/39056241476) passed; first actual pipeline deploy follows the auth repair. Alexey’s Google sign-in remains unresolved pending that worker; fresh browser reaches Google, but no identity completion is claimed. Monitoring remains queued after these streams. Exact IDs and recovery state are in `.local/platform/AUTH-CURRENT.json`.
+
 ## Current priorities — 17 October 2026, 19:55 Berlin
 
 Alexey’s19:46 instruction supersedes sequential scheduling: FOUR urgent streams run in parallel, each with its own real Antigravity worker, isolated worktree, first-action proof and exclusive source scope. All use the verified `gemini-3.8-flash-high` route; fresh Muse quota returns401 and therefore holds new Muse launches. Root coordinates integration, secrets and serialized deployments. Finished focused tested work lands immediately on main; no review/WIP gates.
