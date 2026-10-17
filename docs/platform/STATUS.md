@@ -101,17 +101,25 @@ first-action receipt is verified. Its frozen repair
 regressions, six selected compatibility cases, typecheck and fixed reproductions
 passing. Reviewer-label counts were corrected to unknown without event proof;
 genuine empty zero/deduplication/explicit-event cases remain. Codex reviewer
-`platform-metrics-r3-review` (`2210bd63`) now checks that exact source: 243 pairs,
-digest `a65a54c122a618dd0eb3bb466af86414210487cc93450adcc6dfbad0040fb2f7`.
-This is a different 243-file envelope from the session candidate. Verdict pending. The reviewer has reproduced a legitimate refreshed host token being
-rejected by metrics because the machine still points to its predecessor credential,
-and a direct outbound helper sending unknown nested fields before the Worker rejects
-them. Accepted-proof/zero and UI pagination/disappearance failures are the other two
-confirmed groups. Both metrics candidates stay off main until exact repair review succeeds.
-An early scratch guard stopped one regression batch before the hard cap; preserved
-logs distinguish aborted runs from passes, and serial splits completed all original
-37 M9 cases. A later monitor sampling gap is disclosed rather than presented as a
-continuous full-turn measurement. Producer adoption/runtime/enrollment gates remain.
+`platform-metrics-r3-review` (`2210bd63`) completed **REVISE** report
+`9618d972cd0f7e07e9e8eae34e181df73f7d5128`, directly parented by that exact
+source. The report-only delta and all 243 source hashes match digest
+`a65a54c122a618dd0eb3bb466af86414210487cc93450adcc6dfbad0040fb2f7`.
+This is a different envelope from the session candidate. All 50 existing metrics
+cases and the 15 earlier independent probes pass. New actual-route probes find
+two P1 failures: a denied stale credential can purge current metrics, and a
+superseded family can reclaim a newer registration. Three P2 groups remain in
+outbound DTO validation, acceptance evidence/deduplication, and preserving the
+selected host when the list becomes empty. An uncertain sparse-map expectation
+is explicitly excluded from the verdict. Original reports and failures remain.
+
+New OpenCode Go / Muse Spark 1.3 worker `platform-metrics-r4` (`8ffb996f`) has
+acknowledged task0424 in its isolated worktree seeded from report `9618d97`.
+Its native first-action identity is verified and concrete repair work is visible.
+It owns the bounded metrics repair plus narrow registry fencing and, only if
+needed, minimal schema support for genuine pairing authority. No live enrollment
+or credentials are changed. The repair requires a new independent exact review;
+metrics remains outside main. Producer adoption and runtime gates remain open.
 
 - Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
   The registration-field wording correction `85fdcec` received exact independent
