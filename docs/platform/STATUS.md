@@ -959,3 +959,38 @@ production source/state or runtime account qualification is credited.
 
 The full platform goal remains active. Hub main is still `5dcdf71`; component
 reviews, combined validation, source handoffs and later milestones remain open.
+
+
+### Frozen launcher revision and combined reconstruction — 17 October 2026
+
+Launcher revision `6ee79d6ae13265135b89ca87d37d503de0099b76` is frozen and
+preserved in task `0412` fork/WIP. Author verification passed 560 checks and
+typecheck, with all 25 reconstruction hashes verified. The bounded SQLite M6
+rerun covered all 61 cases exactly once at a 20,914,176-byte peak. The earlier
+38,756,352-byte peak remains a disclosed overrun against the initial cap;
+the later head reservation does not retroactively change that result.
+Independent Argon `253dcd33` has acknowledged the exact pin, scope and first
+action and is reviewing all original findings. Source owners have not handed
+off, no runtime job ran, and full M8a/M8b remains open. In particular, Grok
+thin-client exit still cannot release capacity while backend effects are unknown.
+
+The private combined conversation reconstruction now applies F7, P3 and pairing
+cleanly alongside the API candidate, including three-way merges of bus and
+conversation services. The worker found no textual conflicts or omitted added
+lines; this is preservation evidence, not semantic acceptance. It is running
+characterization checks and will replace rejected API `7c00467` with the
+committed atomicity repair before final validation. Pairing review is still
+active. No tracked application source changed in this integration worktree.
+
+M2b now has an initial executable inert patch. Typecheck, official kit lock,
+color/border/scale checks and 107 inherited regression tests pass; the real
+Worker/SQLite browser matrix is running. The new sign-in asset allowlist must
+remain restricted to required static assets, with nearby private paths denied.
+The worker will checkpoint the artifacts into its actual task `0415` fork.
+
+The accepted F7 source handoff has also been escalated to the existing
+orchestrator for explicit ownership adjudication of the reviewed Hub registry,
+credential/device/auth hunks and liveness fixture. Deployment, environment,
+domain and enrollment remain reserved. No handoff is inferred from silence.
+Hub main remains `5dcdf71`; the complete roadmap and combined review gates
+remain required.
