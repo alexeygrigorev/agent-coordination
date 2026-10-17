@@ -193,6 +193,25 @@ integration; their test results do not establish deployment or host adoption.
   required subsequent phases. Routing coordination remains pending; an attempted
   delivery was refused by the native readiness guard and left queued.
 
+Argon’s M12 plan review at report commit `1f000fea` gives conditional scoped
+acceptance of plan commits `598e7b8` and `da9fa7a`, with seven concrete contract
+amendments and separate implementation/runtime gates. The plan now spells out
+assistant access, atomic assignment linkage, CAS-fenced handoff, pending voice
+transcripts, backfill provenance, authority boundaries and safe session control.
+Head review requested corrections to the report’s grant alternatives, verbatim
+storage/rendering distinction, transport acknowledgement semantics, privacy
+claims and one source hash; the reviewer acknowledged those corrections. This
+is plan review, not source or runtime acceptance.
+
+M9’s final independent verdict is REVISE, report
+`645ab784a2c7920089f313b5453f578cfc2f7635`, direct child of `cef74e2`.
+Its eight findings cover current authorization, global storage bounds, retained
+receipt replay, adapter windows/coverage/zero-review semantics and UI host/token/
+access states. A new Grok repair worker now owns the exact report and source in
+an isolated fresh-main worktree, retaining task 0424 and all failed evidence.
+The original 13 passing cases remain baseline evidence. A new exact independent
+review is required after repair; no M9 source is on main yet.
+
 New workers each have a 1500 MiB/256-task limit, one-core execution and private
 scratch bounds. Conservative aggregate admission after the M12a launch was
 526,921,728 bytes against the 536,870,912-byte scratch limit. Fresh provider

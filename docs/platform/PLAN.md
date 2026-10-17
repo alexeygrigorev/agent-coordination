@@ -425,6 +425,81 @@ Obtain Argon review on the exact implementation and act on its findings before
 normal main integration. Token/device auth, workspace ownership, private recovery
 and the physical/runtime gates remain in force.
 
+**Contract details for implementation and review.** The M12 plan review identified
+these boundaries that each phase must prove. Concrete table and endpoint names
+may follow the accepted implementation; these behaviors are required.
+
+1. **Assistant access.** Use an unambiguous intake API prefix such as
+   `/api/intake/tasks`, separate from routed execution jobs. Explicit operator-issued
+   read/write grants or narrowly approved task scopes must let an authorized
+   assistant access tasks created by another actor without global admin rights.
+   Ordinary bus, host or job credentials gain no implicit intake access. Recheck
+   current credentials, grants, registry incarnation and machine binding before
+   writes, cached receipt replay and every briefing page. Test safe continuity
+   across authenticated refresh-family rotation and refusal after revocation,
+   a new credential family or registry deletion/recreation. Trusted global rules
+   require current operator authority; cookie mutations require CSRF.
+2. **Assignment linkage.** Enqueue an assignment and persist its canonical routing
+   job reference atomically server-side. A crash between separate client requests
+   must not orphan a launch. Resolve actual launch/session receipts through the
+   existing routing/fleet authority, including engine, tier, host and native
+   identity, after asynchronous host claim/result reporting. Expose queued,
+   offered, starting, verified running, uncertain and terminal stages faithfully.
+   A queued offer is not a started session. Reconcile uncertain starts before
+   another attempt; guard active assignments while allowing explicitly authorized
+   parallel workers. Read-mode and claim-backed edit assignment must both work
+   for the intended assistant authority without bypassing M6.
+3. **Handoff fencing.** Require server-enforced compare-and-swap revisions for
+   task context, next-step custody and operator-rule updates; stale updates return
+   a conflict without partial mutation. Keep rule versions, author/source/time and
+   immutable history. Separate trusted rules, verified task control state and
+   untrusted request/note text in the briefing. Preserve stored verbatim intake;
+   escape terminal/control characters when rendering it. Mark ready, active,
+   approval-blocked and uncertain work explicitly. A fresh-agent acceptance test
+   must advance one ready task through CAS, preserve an approval-blocked task and
+   avoid duplicating an active assignment. Paginated handoff must be complete at
+   one revision or fail clearly; bounded retries cannot emit a partial briefing
+   as complete.
+4. **Voice and multiple requests.** Capture a voice note immediately using its
+   source/media reference even when transcription is pending or unavailable.
+   Preserve nullable text and explicit transcription status/provenance; append a
+   later transcript without rewriting the original capture. Chat, forwarded asks
+   and subsequent requests also retain immutable per-item provenance and retry
+   keys. Unknown source time stays unknown; capture time and file modification
+   time must not masquerade as the original request time. Raw audio storage or
+   paid transcription inside the Worker is not required for intake capture.
+5. **Backfill evidence.** Project only necessary session inventory fields; exclude
+   environments, command argv, socket/history paths and private configuration.
+   Use owner-relative report references plus content digest, size and observed
+   modification time, with explicit exclusions and bounded content inspection.
+   A redaction regex alone is insufficient: test strict projection and private
+   data rejection. Distinguish server-verified Hub launches, authenticated host
+   inventory observations and unverified report/manual references; callers cannot
+   mark arbitrary links as verified. Deterministic source keys prevent repeated
+   scans creating duplicates. Reconcile created, linked, duplicate and excluded
+   items against a fresh inventory and authoritative Hub reads.
+6. **Authority boundaries.** Hub intake owns private requests, task progress and
+   handoff context; routing/fleet owns execution placement and process facts;
+   repository tracking and commit review remain with their existing authorities.
+   Private intake does not require a public GitHub issue. M10 consumes the Hub
+   ledger, and legacy contest task files do not become another intake authority.
+   Runtime holds and missing owner compatibility remain real dependencies for
+   the affected acceptance gates; they do not waive those gates. MCP is a separate
+   delivery milestone after the corresponding HTTP contracts exist.
+7. **Session control.** Reuse authenticated outbound host polling/WebSocket
+   transport, with durable commands, caller custody and request correlation.
+   Resolve requested cwd only within operator-configured host workspace roots;
+   reject path traversal and escaping symlinks. Enforce M6/M8 admission and safe
+   interactive brief submission. Distinguish durable inbox persistence, prompt
+   transport, correlated acknowledgement/action and uncertain outcomes. Inbox
+   persistence cannot claim that an agent processed a request; unrelated activity
+   cannot count as its acknowledgement. Refuse busy or non-empty composers.
+   Bound and sanitize capture before upload and before response, with private
+   no-store responses; never upload raw history archives. Stop only the authorized
+   exact session and confirm native exit before releasing capacity. These controls
+   must support the real Grok Bot box -> Hetzner loop specified above, with laptop
+   and Win35 qualifications recorded separately.
+
 **Dependencies and sequence.** Task CRUD, CLI and fixture-based backfill work can
 proceed independently. Real assignment depends on routing-owner compatibility and
 M6/M8a/M8b as applicable; adoption/backfill depends on the accepted API being
