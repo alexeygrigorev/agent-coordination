@@ -45,7 +45,8 @@ and remains planned; no one-call implementation or runtime acceptance is claimed
 
 The original M12e API/host workers completed their isolated component work;
 the connected source and independent review are recorded below. The current
-Muse worker owns the six-group repair in a fresh report-seeded worktree.
+Muse repair is complete; a new Argon reviewer owns its exact source review.
+A separate Muse worker repairs the host-auth dependency and metrics findings.
 
 Retention/roles composition with M12a at
 `aec97138afd5bccd9cd053794d85ee6dcfef548f` received Argon scoped acceptance in
@@ -93,13 +94,22 @@ private command offers and binding, lost ACK-response recovery, canonical Fleet
 binding reconciliation, and pagination/reply provenance. Intermediate fixture
 failures remain retained separately. A separate repair and new exact review are
 required; the actual Grok Bot box -> Hetzner throwaway test remains open.
-New OpenCode Go / Muse Spark 1.3 worker `platform-session-repair` (`1f455987`)
-has acknowledged task0430, verified its genuine native identity, and begun work
-from audited report `bd3d641`. It owns all six finding groups. The design review
-requires delayed replies and lost ACKs to reconcile after execution-lease expiry
-without another native effect, plus canonical Fleet/native/workspace binding;
-documenting a workspace mismatch is not closure. A new exact independent review
-and the physical acceptance loop remain required.
+OpenCode Go / Muse Spark 1.3 worker `platform-session-repair` (`1f455987`)
+finished repair `2ca4700a80af316538319da462a4c17dac17867a`, directly parented
+by corrected report `bd3d641`. Actual task0430 records the source; all 246
+source pairs are verified at digest
+`6ec9613d0a6cc22a67bd1bc73d23e719bc004f5bd1881c6af284fbcb8a7cd15c`.
+The author reports 169 distinct passing cases, including delayed-ACK reconciliation
+after execution-lease expiry and canonical Fleet/native/workspace binding. Three
+early-guard aborts and original failures remain preserved; bounded disjoint
+retries completed coverage. The first-model-tool identity requirement was missed;
+the later genuine native identity receipt does not erase that deviation.
+Argon `platform-session-r2-review` (`e0fb234a`) has acknowledged the exact pin,
+with its own first-tool identity verified. It independently reviews the source,
+installed-native behavior and inherited host-auth dependencies. The verdict is
+pending. At most two bounded genuine shell-native probes are authorized;
+these cannot establish real-AI or cross-host acceptance. Source, full tier/cwd
+qualification and the Grok Bot box -> Hetzner physical loop remain open.
 
 M9 repair has 37 distinct author cases plus rendered UI checks. New composition
 `ae21e27bc769e878af109ce50144da0fed5a5611` on accepted current main is registered
@@ -134,17 +144,33 @@ Muse worker `platform-metrics-r4` (`8ffb996f`) completed frozen repair
 the source; all 246 frozen hashes are verified, preserving the original envelope
 and three new regression files. Digest:
 `4877d9537661b9b45039ebe4cd6a19c8483ed6b8602c18a3f78f4f6e3362e737`.
-The author reports 64 metrics cases, typecheck and repaired reproductions passing;
-that is not independent acceptance. New Codex HIGH reviewer
-`platform-metrics-r4-review` (`b84e62ea`) has acknowledged the exact source and
-verified its own first-tool native identity. Its verdict is pending.
+Independent Codex HIGH reviewer `platform-metrics-r4-review` (`b84e62ea`)
+finished **REVISE** report `4e6bfc2e5b1331bd0df497420a1d6b111611bae5`,
+directly parented by the reviewed source. All 246 source hashes and the report-only
+delta are audited. All 64 existing metrics cases pass independently. Novel
+actual-route probes reproduce two P1 host-authority holes: revoking a credential
+while the registration body streams still permits mutation, and consuming an
+older approved grant after newer enrollment can replace the current owner.
+Three P2 groups remain: Python/Worker DTO parity, invented aggregate review
+counts and a delayed host response rendering under a different selected host.
+Original tests, failures and all earlier reports remain preserved.
 
-The author also disclosed a monitoring gap and two actual scratch-cap violations:
-46.29 MiB and 27.06 MiB sampled peaks against an assigned 18 MiB. Its monitor
-recorded growth but failed to abort. The original receipts remain; final retained
-size does not erase those failures, and historical aggregate peak is unknown.
-The independent reviewer must establish a real early guard and use bounded
-serial test groups before testing. Source, producer adoption and runtime acceptance stay open.
+Muse Spark 1.3 `platform-metrics-r5` (`5deb7db5`) has acknowledged actual task0424
+from that immutable report; its own first-tool identity is verified. It owns all
+five findings, prioritizing separately committed host-authority fixes. The design
+uses server-owned approval order and fresh post-await checks, preserving current
+bound-family operations while a later approval is pending. Legacy pending grants
+without a verifiable approval witness cannot displace an already bound host.
+No real enrollment or migration is authorized by this source repair.
+
+The R4 author disclosed a monitoring gap and actual 46.29 MiB and 27.06 MiB
+scratch peaks against an assigned 18 MiB; the monitor recorded growth without
+aborting. These incidents remain. The independent review's 53 product commands
+fell within its first sampled window; sampler exit143 has unknown cause.
+Startup and metadata/disposal monitoring gaps are disclosed separately. Neither
+final retained size nor later safe cache retirement proves historical continuous
+compliance. New workers require preventive child-group guards and bounded serial
+test groups. Source, producer adoption and runtime acceptance remain open.
 
 - Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
   The registration-field wording correction `85fdcec` received exact independent

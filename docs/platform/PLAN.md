@@ -58,15 +58,24 @@ only; the original report and failures remain preserved. M9 repaired source is c
 Codex rereview of Muse repair `c85f458` returned **REVISE** in immutable report
 `9618d97`: stale requests can delete current metrics, a superseded credential
 family can reclaim registration, and validation/evidence/UI gaps remain. Muse
-Spark worker `platform-metrics-r4` (`8ffb996f`) froze repair `0c77917`;
-Codex HIGH reviewer `b84e62ea` now checks all 246 frozen hashes and the actual
-pairing-order, cleanup, validation, evidence and UI behavior. The author's
-scratch-cap violations remain recorded separately from source acceptance.
-Argon's final connected-session verdict is SCOPED REVISE in original `4d1462c`
-and report-only correction `bd3d641`. Muse `platform-session-repair` (`1f455987`)
-owns all six findings, including recovery after execution-lease expiry and
-canonical Fleet/native/workspace binding. A new exact review follows its freeze.
-The real Worker/CLI fixture loop did not prove actual delayed agent replies.
+Spark worker `platform-metrics-r4` (`8ffb996f`) froze repair `0c77917`.
+Independent Codex report `4e6bfc2` returned **REVISE**: post-body credential
+revocation and delayed old device approvals still permit unauthorized host
+registration; DTO parity, evidence counts and UI response ordering also need repair.
+Muse `platform-metrics-r5` (`5deb7db5`, actual task0424) owns all five groups,
+with core host-authority fixes committed separately first. Approval-time authority
+must preserve current bound-family operations while a newer approval is pending;
+legacy unwitnessed pending grants cannot replace an already bound host.
+The original scratch-cap violations and review monitoring gaps remain recorded.
+
+Session repair `2ca4700` is complete and registered in actual task0430, with
+246 source hashes verified. The author reports 169 distinct cases passing after
+three preserved early-guard aborts and bounded retries. Argon
+`platform-session-r2-review` (`e0fb234a`) owns the new exact independent review,
+including installed-native protocol fidelity and inherited host-auth dependencies.
+Its verdict is pending; source is not accepted. The preceding SCOPED REVISE
+reports `4d1462c` and correction `bd3d641` remain immutable. Neither the fixture
+loop nor bounded shell-native probes establish the real AI cross-host acceptance.
 Producer adoption, M8a/M8b qualification/recovery, M10 follow-through and M11
 physical acceptance remain required.
 
@@ -686,8 +695,10 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
 
 ## Next actions
 
-1. Close all six session-control findings from report `bd3d641` through active
-   Muse repair `1f455987`, then obtain a new exact independent review. Deliver
+1. Complete Argon `e0fb234a` review of session repair `2ca4700`, repair any
+   findings, and independently accept the host-auth dependency repaired by Muse
+   `5deb7db5`. Compose accepted source with a new union manifest and coupled
+   review before integration. Deliver
    M12e’s real first working loop with existing routing, native custody and M6/M8
    qualification. Preserve delayed-reply recovery, full engine/tier/host/cwd/brief
    scope and safe composer checks. Prefer Muse implementations and Codex reviews,
@@ -703,9 +714,10 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
 5. Preserve the accepted retention/roles/M12a composition `6bc91a1`, its
    independent report `4c7cf04`, the transparent metadata correction and original
    failure evidence. M9 candidate `ae21e27` is composed with accepted main
-   and received SCOPED REVISE `ce40f49`. Repair all four groups and obtain a new
-   exact independent review of frozen R4 `0c77917` (Codex `b84e62ea` active)
-   after `c85f458` received REVISE `9618d97`; producer adoption remains separate.
+   and received SCOPED REVISE `ce40f49`. R4 `0c77917` received REVISE
+   `4e6bfc2`; Muse `5deb7db5` now repairs its five groups with host-authority
+   fixes first. Obtain new exact independent acceptance; producer adoption
+   remains separate. Preserve all earlier findings and resource incidents.
 6. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
    follow-through and M11 physical migration. Published Windows, host binding and
    M5 source do not close their outstanding physical and enrollment gates.
