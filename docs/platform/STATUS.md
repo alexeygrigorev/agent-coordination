@@ -1059,3 +1059,20 @@ existing journal sets, so it can reconcile them against its own native
 envelopes. The earlier path mismatch remains disclosed. Further native effects
 stay paused pending that inventory and updated source inputs. All original
 journal/effect evidence remains preserved; no uncertainty is discarded.
+
+
+Independent API review is now **ACCEPT**, scoped to exact `8dc9235` and excluding
+the separately reviewed F7 dependency. Report
+`8ca59dc1b67d584aff724a50deef450f66a08af1` has the exact source as its parent;
+all 394 distinct tests and typecheck pass. Expanded full-state rollback checks
+cover Hub cursor faults, later message/member/header deletion faults, real
+HTTP500 without partial commit, reconstruction and bounded retry. F7 remains
+separately accepted, and pairing/combined validation/source handoff gates remain.
+The integration worker has received the accepted API pin.
+
+Pairing repair checkpoint `6dc1919395ca079de237b1ab3864db989972ce52` is now
+preserved in actual task `0416` fork/WIP. Author evidence passes 33 new cases
+and actual public Python CLI login with automatic bound/NULL/conflicting-machine
+configuration checks and genuine own-UUID qualification without journal writes.
+Final fresh reconstruction and a new independent review are still required.
+M2b reviewer `44a36b91` has acknowledged its exact final input and dependencies.
