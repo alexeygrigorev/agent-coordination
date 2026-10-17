@@ -43,12 +43,9 @@ context-low/unsubmitted-input observations, report headlines, main versus deploy
 commits, CI, pending Alexey actions and a short diff. It reuses existing records
 and remains planned; no one-call implementation or runtime acceptance is claimed.
 
-M12e workers launched from accepted main in separate worktrees using the requested
-OpenCode Go / Muse Spark 1.3 model: `platform-session-api` (`ce5ab3c4`, task0428)
-and `platform-session-host` (`0241129b`, task0429). Both have fresh quota/resource
-admission and source inspection observed. Model-owned ACK/first-action artifacts
-and the agreed API/host interface are the next checkpoint; launch receipts alone
-are not acceptance. Each is capped at 1500M, one CPU and 12 MiB private scratch.
+The original M12e API/host workers completed their isolated component work;
+the connected source and independent review are recorded below. The current
+Muse worker owns the six-group repair in a fresh report-seeded worktree.
 
 Retention/roles composition with M12a at
 `aec97138afd5bccd9cd053794d85ee6dcfef548f` received Argon scoped acceptance in
@@ -67,9 +64,9 @@ Session-control source is registered in actual tasks0428/0429: final API
 cases, with actual hub/public CLI wiring, claim attempt fencing and native-envelope
 proof validation. Host `69ae9f1e9a8f4cf6e33fc205080f7ee1350ca15e` reports 28 focused
 cases, including journal locking and retirement of raw Enter/working-as-ACK.
-Their original failures and broader test evidence remain preserved. These are
-unaccepted components: a concrete mismatch between session UUID and native message
-envelope ID in acknowledgment serialization still requires composition repair.
+Their original failures and broader test evidence remain preserved. Their
+initial session-UUID/message-envelope mismatch was repaired in the connected
+source below; the components remain outside main pending full repair review.
 A premature API freeze report was caught by the clean-tracked WIP guard; its
 immutable intermediate commit was registered explicitly as early WIP, then the
 actual clean final commit was registered after the author stopped.
@@ -86,7 +83,9 @@ and 28 executor cases. The final source is registered in task0430 and frozen:
 `11f084b9fe73c9d031ea18cc4bc0a13e2da58246da28a4d80b55dee943d51483`.
 Argon reviewer `platform-session-compose-review` (`0aaf19de`) has acknowledged
 the exact pin and produced a verified native first-action receipt. Its independent
-checkpoint is **SCOPED REVISE**; its immutable final report is being written.
+verdict is **SCOPED REVISE**, preserved in `4d1462c` with report-only metadata
+and cadence correction `bd3d641`. Both commits are retained; all 243 source
+hashes and 13 Git ancestry rows match the audited report.
 The 77 baseline cases, 64 selected compatibility cases and typecheck pass, while
 12 novel probes successfully reproduce defects. Confirmed findings cover delayed
 recipient-ACK lockout, anonymous native senders, stale/foreign host access to
@@ -94,6 +93,13 @@ private command offers and binding, lost ACK-response recovery, canonical Fleet
 binding reconciliation, and pagination/reply provenance. Intermediate fixture
 failures remain retained separately. A separate repair and new exact review are
 required; the actual Grok Bot box -> Hetzner throwaway test remains open.
+New OpenCode Go / Muse Spark 1.3 worker `platform-session-repair` (`1f455987`)
+has acknowledged task0430, verified its genuine native identity, and begun work
+from audited report `bd3d641`. It owns all six finding groups. The design review
+requires delayed replies and lost ACKs to reconcile after execution-lease expiry
+without another native effect, plus canonical Fleet/native/workspace binding;
+documenting a workspace mismatch is not closure. A new exact independent review
+and the physical acceptance loop remain required.
 
 M9 repair has 37 distinct author cases plus rendered UI checks. New composition
 `ae21e27bc769e878af109ce50144da0fed5a5611` on accepted current main is registered
@@ -123,13 +129,22 @@ outbound DTO validation, acceptance evidence/deduplication, and preserving the
 selected host when the list becomes empty. An uncertain sparse-map expectation
 is explicitly excluded from the verdict. Original reports and failures remain.
 
-New OpenCode Go / Muse Spark 1.3 worker `platform-metrics-r4` (`8ffb996f`) has
-acknowledged task0424 in its isolated worktree seeded from report `9618d97`.
-Its native first-action identity is verified and concrete repair work is visible.
-It owns the bounded metrics repair plus narrow registry fencing and, only if
-needed, minimal schema support for genuine pairing authority. No live enrollment
-or credentials are changed. The repair requires a new independent exact review;
-metrics remains outside main. Producer adoption and runtime gates remain open.
+Muse worker `platform-metrics-r4` (`8ffb996f`) completed frozen repair
+`0c7791761b8e762810430aad253613602637e707` and stopped. Actual task0424 records
+the source; all 246 frozen hashes are verified, preserving the original envelope
+and three new regression files. Digest:
+`4877d9537661b9b45039ebe4cd6a19c8483ed6b8602c18a3f78f4f6e3362e737`.
+The author reports 64 metrics cases, typecheck and repaired reproductions passing;
+that is not independent acceptance. New Codex HIGH reviewer
+`platform-metrics-r4-review` (`b84e62ea`) has acknowledged the exact source and
+verified its own first-tool native identity. Its verdict is pending.
+
+The author also disclosed a monitoring gap and two actual scratch-cap violations:
+46.29 MiB and 27.06 MiB sampled peaks against an assigned 18 MiB. Its monitor
+recorded growth but failed to abort. The original receipts remain; final retained
+size does not erase those failures, and historical aggregate peak is unknown.
+The independent reviewer must establish a real early guard and use bounded
+serial test groups before testing. Source, producer adoption and runtime acceptance stay open.
 
 - Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
   The registration-field wording correction `85fdcec` received exact independent

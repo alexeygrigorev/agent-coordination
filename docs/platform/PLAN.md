@@ -58,15 +58,17 @@ only; the original report and failures remain preserved. M9 repaired source is c
 Codex rereview of Muse repair `c85f458` returned **REVISE** in immutable report
 `9618d97`: stale requests can delete current metrics, a superseded credential
 family can reclaim registration, and validation/evidence/UI gaps remain. Muse
-Spark worker `platform-metrics-r4` (`8ffb996f`) has acknowledged the isolated
-repair task, including narrow registry fencing; a new exact independent review
-is required. Argon's checkpoint on connected session source `f9417de` is
-SCOPED REVISE for asynchronous ACK recovery, sender qualification, live host
-authorization, Fleet binding and pagination/provenance; its immutable report
-is pending. Repair and exact rereview follow. A real Worker/SQLite + public
-CLI/receiver fixture loop passed, but did not cover these delayed-reply failures;
-producer adoption remains open. M8a/M8b execution qualification/recovery,
-M10 follow-through and M11 physical acceptance remain required.
+Spark worker `platform-metrics-r4` (`8ffb996f`) froze repair `0c77917`;
+Codex HIGH reviewer `b84e62ea` now checks all 246 frozen hashes and the actual
+pairing-order, cleanup, validation, evidence and UI behavior. The author's
+scratch-cap violations remain recorded separately from source acceptance.
+Argon's final connected-session verdict is SCOPED REVISE in original `4d1462c`
+and report-only correction `bd3d641`. Muse `platform-session-repair` (`1f455987`)
+owns all six findings, including recovery after execution-lease expiry and
+canonical Fleet/native/workspace binding. A new exact review follows its freeze.
+The real Worker/CLI fixture loop did not prove actual delayed agent replies.
+Producer adoption, M8a/M8b qualification/recovery, M10 follow-through and M11
+physical acceptance remain required.
 
 Addendum 3 adds M13 below: collect quota on every enrolled machine and provide
 hub quota API, CLI and UI consumed by existing routing. M9 accounting and M13
@@ -680,11 +682,12 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
 
 ## Next actions
 
-1. Deliver M12e’s first working hub session-control loop. Split API/public CLI
-   and host adapter into separate workers with an agreed interface, fresh quota,
-   resource admission and actual Agent Branches tasks. Prefer OpenCode Go / Muse
-   Spark 1.3 for implementation; keep Codex for coordination/review. Reuse routing,
-   native custody and M6/M8 qualification; do not bypass composer or readiness gates.
+1. Close all six session-control findings from report `bd3d641` through active
+   Muse repair `1f455987`, then obtain a new exact independent review. Deliver
+   M12e’s real first working loop with existing routing, native custody and M6/M8
+   qualification. Preserve delayed-reply recovery, full engine/tier/host/cwd/brief
+   scope and safe composer checks. Prefer Muse implementations and Codex reviews,
+   with fresh quota/resource admission and actual Agent Branches work.
 2. Deliver M12b assignment and M12c actual backfill/assistant adoption using the
    accepted M12a ledger. Prove automatic real-session links and fresh-agent
    continuation from `hub handoff`, not just task CRUD or a local preview.
@@ -697,8 +700,8 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
    independent report `4c7cf04`, the transparent metadata correction and original
    failure evidence. M9 candidate `ae21e27` is composed with accepted main
    and received SCOPED REVISE `ce40f49`. Repair all four groups and obtain a new
-   exact independent review of the acknowledged R4 repair after `c85f458` received
-   REVISE in `9618d97`; producer adoption remains separate.
+   exact independent review of frozen R4 `0c77917` (Codex `b84e62ea` active)
+   after `c85f458` received REVISE `9618d97`; producer adoption remains separate.
 6. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
    follow-through and M11 physical migration. Published Windows, host binding and
    M5 source do not close their outstanding physical and enrollment gates.
