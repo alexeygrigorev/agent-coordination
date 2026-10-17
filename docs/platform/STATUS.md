@@ -21,6 +21,18 @@ evidence only.
 
 ## Current checkpoint — 17 October 2026
 
+**Plan-review publication (17 October, 12:06 UTC).** Hub GitHub, canonical Agent
+Branches and private recovery now equal `91b8b6c189c4f54b9d9e2c44d7dfcb09e5208396`.
+The only delta from `6bc91a1` adds the corrected independent M13/M14 plan report.
+All 228 accepted source hashes remain unchanged; private restore/fsck/CLI checks
+passed and the shared clean checkout at `5dcdf716` was preserved. Seven binding
+M13/M14 gates are explicit in PLAN. This is plan acceptance only. M15's separate
+Argon review is active in actual0438. UI candidate `aa048b7` now has a verified
+252-pair manifest and actual0435 fork/WIP; independent guarded validation remains
+open. Primary M12 repair is making guarded test progress, with no source freeze
+or real cross-host acceptance yet. Earlier paragraphs below retain history.
+
+
 **Latest execution update (17 October, 11:55 UTC).** Full scope is M1–M15 plus
 M2b. Addendum 5 is M15: session provenance/ownership, needs-action grouping,
 durable limit decisions and guarded dry-run/apply cleanup feeding status/handoff.

@@ -32,7 +32,9 @@ dispatcher or a second bus transport.
 ## Current execution checkpoint
 
 Hub main, canonical Agent Branches and private recovery are at
-`6bc91a1278250b374ea1d0b11acd353fae51a8cb`. Reviewed M12a intake ledger,
+`91b8b6c189c4f54b9d9e2c44d7dfcb09e5208396`. The delta from `6bc91a1` is
+the independently reviewed M13/M14 plan report only; all 228 accepted source
+hashes remain unchanged. Reviewed M12a intake ledger,
 API, public CLI and `hub handoff` are integrated: 65 independent cases passed,
 with typecheck and all 216 reviewed source hashes verified. This accepts source;
 actual assignment, backfill, assistant adoption and session control remain open.
@@ -113,10 +115,11 @@ manual session/report/Git/CI/deployment check. It includes pending human actions
 and a short change summary, using existing canonical records and host snapshots.
 M12e remains first priority; the new read projection can develop independently
 as its input contracts become available.
-Argon plan report `b033eea` reviews exact coordinator pin `6750e34` and proposes
-seven implementation gates, but head acceptance awaits correction of metadata
-and quota/ordering interpretations. New Argon `5de3093f` owns that report-only
-correction in actual task0432. Preserve M12e first, then actual assignment and
+Argon plan report `b033eea` reviews exact coordinator pin `6750e34`. Correction
+`7408769` and mechanical label follow-up `91b8b6c` are now published in actual
+task0432. The head verified all 54 full Git references and seven binding gates;
+this accepts the earlier plan subject to those gates, with no source/runtime
+acceptance. M15 has its separate independent review in actual0438. Preserve M12e first, then actual assignment and
 handoff; independent quota/status work may proceed with spare capacity. Full M9
 accounting acceptance is not a blanket prerequisite for those independent slices.
 
@@ -650,6 +653,27 @@ without treating M9 source acceptance as M13 completion. Roll out collectors
 through the actual host owner; preserve existing tools as fallback until runtime
 acceptance is measured.
 
+**Binding review gates (M13).** The accepted plan-only report is
+[QUOTA-STATUS-PLAN.md](https://github.com/alexeygrigorev/agent-hub/blob/91b8b6c189c4f54b9d9e2c44d7dfcb09e5208396/docs/reviews/QUOTA-STATUS-PLAN.md).
+Implementation and runtime acceptance must demonstrate:
+
+- **M13-IG1:** preserve bounded provider-native units, window availability/errors,
+  collector version and verified profile/account routes through both existing
+  host snapshots and fleet subscriptions. Reject unknown/secret fields; never
+  infer money or token counts from percentages or create a second quota store.
+- **M13-IG2:** authenticated fleet/per-host quota API, public CLI and dakit UI
+  share scoped facts. Deduplicate only verified `(provider, account_label)`
+  pools through existing fleet accounts/routes, retaining host provenance;
+  repeated observations do not add capacity. Unqualified labels cannot merge.
+- **M13-IG3:** one canonical evaluator checks fresh evidence, provider entitlement,
+  cooldown and reserves at dispatch, model selection and claim. Benign absence
+  of an optional unsupported window is ignored; a genuine unavailable/error
+  window fails closed. Apply Codex 15% and Grok 5% reserves to every available
+  applicable window. A passed reset requires a fresh post-reset observation.
+  No manual flag bypasses these checks. Model preferences apply only among
+  verified eligible routes: Muse Spark 1.3 or explicitly allowed Z.ai
+  `glm-5.3-flash`; no inferred substitutions from obsolete model labels.
+
 ## M14 — Status in one call
 
 **Source.** Alexey's Addendum 4 to `hub-intake-brief.md`, received 17 October
@@ -730,6 +754,28 @@ M9 report conventions, M10 canonical Git references and the existing routing and
 CI/deployment integrations. Read-projection work can proceed in parallel once
 contracts and capacity allow; unknown inputs need not block source development.
 Keep the real M12e loop and intake/handoff adoption ahead of this addition.
+
+**Binding review gates (M14).** Preserve the same plan-only report's gates:
+
+- **M14-IG1:** authorized `hub status`/API over canonical task/session data,
+  live authority rechecked at the read boundary. Bound each section with source,
+  observed time, freshness, coverage and missing-host metadata. Partial host
+  coverage stays useful and never turns an unreachable host into idle.
+- **M14-IG2:** host observation is strictly read-only, with no input, Enter,
+  restart or raw composer/history upload. Collect only linked, allowlisted
+  report paths and bounded metadata; resolve paths safely, label author claims
+  separately from recorded independent review and integrated outcomes.
+- **M14-IG3:** track the confirmed active deployment separately from the latest
+  attempt. Deployed means verified Git inclusion in the active revision for
+  the environment; rollbacks remove later commits, failed/pending attempts
+  preserve the existing active revision. CI state is an independent fact.
+- **M14-IG4:** aggregate pending human actions, but expose login user codes only
+  through authenticated human-only or verified human-initiating-owner access;
+  an agent/orchestrator bearer token or admin role string alone is insufficient.
+  Never return credential hashes/tokens. Diff watermarks use authenticated caller
+  identity plus normalized scope, bounded retention and explicit first/expired
+  baselines; preview can avoid advancing the cursor. Revocation/filter changes
+  cannot expose a previous caller's data or fabricate a zero-change baseline.
 
 ## M15 — Session lifecycle registry and cleanup
 

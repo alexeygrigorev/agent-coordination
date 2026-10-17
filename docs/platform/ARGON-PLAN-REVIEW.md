@@ -7,21 +7,22 @@ independent Argon plan challenge and exact-source review; earlier M13/M14 or M12
 verdicts do not accept M15. Hub-zai's remaining work is assigned as actual0437,
 with primary M12 work retained first and no repeated invalidated ship script.
 
-## M13/M14 extension — correction received, audit pending, 17 October 2026
+## M13/M14 extension — scoped plan accepted, 17 October 2026
 
-Argon report `b033eeade5b6718e15c47df08ff8989f523cdfe9` reviews coordinator
-`6750e34` in actual task0432. It reports scoped plan acceptance subject to seven
-implementation gates. Head verified 28 source-receipt hashes/bytes/blobs, but
-found invalid commit references, incorrect metadata and interpretations needing
-correction: priority ordering, optional versus unavailable quota windows,
-canonical account deduplication and manual quota overrides. Head acceptance is
-pending; source and runtime acceptance are not implied.
+Independent Argon R2 report `740876920570b1b3ec12edab58810476de4ba79c`
+corrects original `b033eea` on coordinator pin `6750e34`. Head verified the
+89,176-byte report hash, sole parent, report-only delta, all 54 full Git
+references, and the seven implementation gates. Mechanical follow-up `91b8b6c`
+corrects a contradictory milestone-history sentence and obsolete Flash model
+labels; original reports and resource evidence remain preserved.
 
-Argon `platform-quota-status-plan-review-r2` (`5de3093f`) completed report-only
-correction `740876920570b1b3ec12edab58810476de4ba79c` on sole parent `b033eea`.
-Head audit is pending; the new completion is not itself source acceptance. The original report and its discrete guardian
-receipt remain preserved. M12e remains first, then actual assignment/backfill and
-fresh-agent handoff. Independent M13/M14 work may use spare capacity.
+Report-only Hub main/canonical/private `91b8b6c` is verified, including unchanged
+228 accepted source hashes. Gates M13-IG1..3 and M14-IG1..4 are now explicit in
+PLAN. This accepts that plan pin subject to those gates, with no quota/status
+source or runtime acceptance. M15 is outside this earlier review and is being
+reviewed separately at coordinator `2119268` / module source `4e0f864` in
+actual0438. M12e stays first, then actual assignment/backfill/fresh-agent handoff;
+independent M13/M14 work may use spare capacity.
 
 ---
 
