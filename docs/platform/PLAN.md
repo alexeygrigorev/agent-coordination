@@ -1,12 +1,12 @@
-## Current priority — 17 October 2026, 19:08 Berlin
+## Current priority — 17 October 2026, 19:18 Berlin
 
-Alexey’s18:56 instruction takes first priority: Developer switches from psc to Hub with the existing shared Google sign-in and human device login, an independently installable Linux CLI, normal workspace-path/prompt commands and exact ping-able instructions at the top of `~/tmp/agent-reports/hub-platform.md`. Three useful Muse tasks are assigned through Hub: server human auth8c9292ed, CLI/installfaffe23f, and session-path UX (canonical taske28bf2e6, launch pending). Source ownership is disjoint. Existing machine/agent configuration stays working.
+Alexey’s auth switch remains FIRST: Developer uses Hub with shared Google sign-in and human device login, an independently installable Linux CLI, normal workspace-path/prompt commands, and verified instructions at the top of `~/tmp/agent-reports/hub-platform.md`. Server source `0c24969` is deployed (version `15cdf9f2-79ec-41aa-94f8-e778d4368066`); live Google authorization entry uses the shared domain and PKCE. Live device approval, human bearer access to sessions/fleet/intake, and refresh rotation passed at 17:16:41Z using the existing bootstrap admin approval, not Orin’s Google session. Main `322e1a4` additionally denies deleted Google users and fixes human device-code display; its deploy awaits the CLI/session increment. CLI/install worker faffe23f and session-path worker 3d64c5ae are active; server worker 8c9292ed finished its source increment.
 
-The next milestone is Addendum6/6b, queued in Hub task75e79822: filesystem usage and thresholded top consumers,85%warning/95%critical alerts/tasks, trends when measured, plus an inventory and migration of useful Cloudflare competition monitors/health checks/watchdogs/dashboards/cron/systemd signals. Inventory versioned source even as another cleanup removes builds and environments. Hetzner first; Win35 intentionally offline through2026-10-31 is expected. Start monitoring implementation after auth.
+NEXT is Alexey’s Addendum 6/6b, re-read from the intake brief: Hub task `75e79822-6996-484f-8aee-194d0be39d10` queues filesystem mount/size/used/free/percent, thresholded top consumers, 85% warning/95% critical alerts and tasks, measured trends, and visibility in collector/status/dashboard/needs-attention. Inventory all useful competition monitors, health checks, alerts, watchdogs, dashboards, cron and systemd checks from `~/git/cloudflare-agent-git`, then port them into Hub for Hetzner. Source history remains available during parallel cleanup. Platform owns dispatch after auth; implementation has not started. Win35 being offline for two weeks is expected.
 
-Latest full public control loop passed18:42. Useful workers now have automatic first-action validation and canonical Hub binding. An ephemeral user-service launcher wrapper removes them from controller ancestry; both actual auth workers survived controller restart with identical native UUIDs/PIDs. M9 producer source30a2f90 is integrated, actual fresh exporter+POST passed, and the existing host loop is activated with its private configuration. Authenticated live metrics UI passed. Intake capacity02ad2a8 fixes real4MiB507 blocking new tasks;39tests+tsc pass and actual auth assignments now succeed. DeployedWorker02ad2a8/d99aaa13; rootadditiveOrinallowlist3a21407 awaits serverunioncode beforedeploy. Known Orin DataOps account is Workspace; a different personal Gmail requires the exact address.
+The full public start/send/capture/confirmed-stop loop passed at 18:42 Berlin. Actual auth workers survived a controller restart with unchanged native UUIDs/PIDs. M9 persistent producer is integrated and activated; fresh export+POST and authenticated live metrics UI passed. Intake capacity `02ad2a8` fixes the observed ledger-full failure; 39 focused tests and typecheck passed. Existing machine/agent configuration remains intact.
 
-M15 command repair43fbe50 has three known integration followups, retained in `.local/platform/command-integration-brief.txt`; they are queued behind current priorities, not claimed accepted. Cleanup roots remain empty and old failed fixture remains preserved. No new Grok, no review gates, small tested main commits. Recovery with exact task/session/native IDs: `.local/platform/AUTH-CURRENT.json` (also URGENT-CURRENT). Full M8b/M10/M11/MCP/adoption remains active.
+M15 command repair `43fbe50` retains three integration followups in `.local/platform/command-integration-brief.txt`, behind auth and monitoring. Cleanup roots remain empty and the old failed fixture is preserved. No new Grok sessions; focused tested commits go to main immediately, without further review gates. Exact task/session/native IDs and recovery are in `.local/platform/AUTH-CURRENT.json`. Full M8b/M10/M11/MCP/adoption remains active.
 
 # Conversation platform plan
 
@@ -889,29 +889,8 @@ real enrolled-host acceptance separately; source fixtures do not establish it.
 
 ## Next actions
 
-1. Finish actual0440 independent review of M12 source `1f4e300`, including current
-   host authority, five R2 groups, native protocol and full start parameters.
-   Repair findings before acceptance/main integration, then verify the genuine
-   Grok Bot box -> Hub -> Hetzner allowed-engine AI loop end to end.
-2. Deliver actual M12 assignment, backfill and fresh-agent continuation using
-   the accepted intake ledger and `hub handoff`.
-3. Complete actual0442 independent review of M13 `2041df5` / author `811c086`,
-   then establish live native-unit quota coverage. Reuse canonical launch policy to prohibit new Grok workers while
-   preserving running sessions and telemetry. The exact disabled-provider config
-   and reserve/claim enforcement edits are approved for this source candidate.
-4. Complete actual0443 M14a API/CLI projection and independent review, then
-   M14b/c/d status collectors/evidence/diffs under M14-IG1..4; distinguish
-   main commits, deployed inclusion, CI and pending human actions.
-5. Preserve accepted M15 module composition `2eb0c3b` and implement actual
-   registration/M15c/d API/CLI, durable decisions and guarded effects separately.
-   Tighten the unused host offset parser and remove/avoid dormant host custody
-   DDL before any observation/transfer wiring; the TS server stays authoritative.
-6. Actual0437 ops guide/regressions are accepted on main `77ab932`. Finish exact
-   active deployment/rollback and real unit/config diagnosis. Activate only after source,
-   custody, budget and qualification gates; migrate checks/timers one at a time.
-7. Keep M9 UI `aa048b7` and full DTO `f20b35a` independent; preserve interrupted
-   reviews and known negatives. Continue M8a/M8b, producer adoption, M10 and M11
-   physical work without claiming these complete from module/unit evidence.
-8. Keep STATUS, the head report and private recovery current; preserve journals,
-   source and failed/aborted receipts. Explicit-path commits use `[skip ci]` and
-   actual provenance, normal main pushes and verified private restore.
+1. Finish the independent CLI installer and normal absolute-workspace/prompt session commands; integrate tested increments on main, deploy, and run installed CLI authentication and start/send/capture/stop/list acceptance. Publish exact usable Developer instructions at the top of the head report, distinguishing bootstrap approval tests from Orin’s actual Google login.
+2. Dispatch queued Hub task `75e79822-6996-484f-8aee-194d0be39d10` immediately after auth: disk monitoring and complete competition-monitoring inventory/port, Hetzner first. Keep source history and existing healthy services intact.
+3. Repair the remaining M15 command outcome/cleanup integration cases, preserving failed evidence and inactive cleanup roots until effects are verified.
+4. Continue remaining quota coverage, status collectors, handoff/adoption, M8b/M10/M11 and MCP work against real runtime evidence. Earlier review/activation gates in historical sections are superseded by Alexey’s urgent ship instruction; focused checks and truthful acceptance still apply.
+5. Keep this plan, STATUS, the head report and private recovery checkpoint current; sync tested main commits to canonical/private restore and retire only confirmed finished, merged, owned worktrees.
