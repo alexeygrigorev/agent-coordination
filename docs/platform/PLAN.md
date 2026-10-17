@@ -60,8 +60,11 @@ Codex rereview of Muse repair `c85f458` returned **REVISE** in immutable report
 family can reclaim registration, and validation/evidence/UI gaps remain. Muse
 Spark worker `platform-metrics-r4` (`8ffb996f`) has acknowledged the isolated
 repair task, including narrow registry fencing; a new exact independent review
-is required. Connected session source `f9417de` is separately under Argon
-review after a real Worker/SQLite + public CLI/receiver fixture loop passed;
+is required. Argon's checkpoint on connected session source `f9417de` is
+SCOPED REVISE for asynchronous ACK recovery, sender qualification, live host
+authorization, Fleet binding and pagination/provenance; its immutable report
+is pending. Repair and exact rereview follow. A real Worker/SQLite + public
+CLI/receiver fixture loop passed, but did not cover these delayed-reply failures;
 producer adoption remains open. M8a/M8b execution qualification/recovery,
 M10 follow-through and M11 physical acceptance remain required.
 

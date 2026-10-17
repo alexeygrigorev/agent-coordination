@@ -81,9 +81,14 @@ and 28 executor cases. The final source is registered in task0430 and frozen:
 `11f084b9fe73c9d031ea18cc4bc0a13e2da58246da28a4d80b55dee943d51483`.
 Argon reviewer `platform-session-compose-review` (`0aaf19de`) has acknowledged
 the exact pin and produced a verified native first-action receipt. Its independent
-verdict is pending; the actual Grok Bot box -> Hetzner throwaway test remains open.
-An existing anonymous-native-sender capability gap is explicitly in the review
-scope rather than assumed resolved by fixture replies.
+checkpoint is **SCOPED REVISE**; its immutable final report is being written.
+The 77 baseline cases, 64 selected compatibility cases and typecheck pass, while
+12 novel probes successfully reproduce defects. Confirmed findings cover delayed
+recipient-ACK lockout, anonymous native senders, stale/foreign host access to
+private command offers and binding, lost ACK-response recovery, canonical Fleet
+binding reconciliation, and pagination/reply provenance. Intermediate fixture
+failures remain retained separately. A separate repair and new exact review are
+required; the actual Grok Bot box -> Hetzner throwaway test remains open.
 
 M9 repair has 37 distinct author cases plus rendered UI checks. New composition
 `ae21e27bc769e878af109ce50144da0fed5a5611` on accepted current main is registered
@@ -1596,4 +1601,16 @@ The native hub operator has been asked to identify an existing enrolled Hetzner
 host-agent entrypoint, configured workspace/profile and genuine native service
 sender binding for the later throwaway acceptance test. The request is recorded;
 no reply, activation custody transfer, deployment, enrollment or credential change
-is inferred. Both new source candidates still require independent review.
+is inferred. A read-only runtime check found the operator's native session showing
+a quota-exhausted error, and the existing fleet-host service exiting with status 1
+while its timer remains active. The journal emits only a generic fleet failure;
+the underlying cause is unknown. The protected shared checkout remains clean at
+`5dcdf71`, behind accepted main `6bc91a1`. Metadata and binary-version receipts
+are preserved privately; no service, config, credentials or checkout was changed.
+A custody request is recorded with the existing desktop orchestrator, without an
+ACK or authority transfer. Both new source candidates still require exact review.
+
+A fresh admission check refused even a 1 MiB document-only M13 quota-plan review
+while the two source lanes retain their reservations. No new worker, task or
+worktree was created. Recompute capacity after confirmed completion; prioritize
+the session repair, then run the independent quota-plan extension review.
