@@ -830,3 +830,26 @@ Hub main remains `5dcdf71`. No rejected API or registry source has landed.
 Independent registry/launcher reviews, acknowledged source handoffs, accepted
 combined-stack native verification, `GATE-CONV-REVIEW`, and the complete remaining
 M2b/M4–M11 roadmap stay open.
+
+Registry rereview is now **ACCEPT**: report
+`426fdf7c9fe2929d81725d66e1d838c9d247ee2d` approves exact proposal `ddaf80d`,
+with 319 independently executed tests, typecheck and exact reconstruction.
+F7-R1–R5 and routing-client separation pass. A concrete accepted-patch request
+was sent to the reserved Hub owner for the required source/test hunks; no source
+was applied and no handoff is inferred. Separate API and integration gates remain.
+
+Recovered Grok report `ba1681c3ce9d05ba794366c17c4d99314788534a` gives a split
+verdict on host safeguard `b05384c`: **ACCEPT** for fail-closed pre-claim HOLD;
+**REVISE** for the old launcher audit/owner contract documentation. Maintained
+`5145d0d` guards and required modules must be described correctly before that
+contract can be accepted. Full M8a remains open.
+
+Public pairing is also an explicit source dependency: current agent device
+approval cannot issue the machine-bound credential required by the native
+bridge. Existing local transport evidence discloses its SQL-seeded credential;
+it does not establish a usable production enrollment path. New actual task
+`0411` (`platform-agent-pairing`, `a25c20d1`) prepares a minimal tested proposal
+in private copies of the composed source plus accepted F7. Its new agent token
+must come through public authenticated device APIs, with trusted existing
+machine assignment and ordinary-agent permissions. It owns only two proposal
+artifacts; leased core source and production enrollment remain untouched.
