@@ -62,24 +62,29 @@ Spark worker `platform-metrics-r4` (`8ffb996f`) froze repair `0c77917`.
 Independent Codex report `4e6bfc2` returned **REVISE**: post-body credential
 revocation and delayed old device approvals still permit unauthorized host
 registration; DTO parity, evidence counts and UI response ordering also need repair.
-Muse `platform-metrics-r5` (`5deb7db5`, actual task0424) owns all five groups,
-with core host-authority fixes committed separately first.
-Frozen core `ab725d1` is registered in task0424 and separately seeded in review
-task0433. Codex HIGH `platform-host-authority-review` (`1add7a45`) reviews that
-exact core while Muse continues the other findings. Its pending scoped verdict
-cannot accept the entire inherited M9 composition. Approval-time authority
-must preserve current bound-family operations while a newer approval is pending;
-legacy unwitnessed pending grants cannot replace an already bound host.
-The original scratch-cap violations and review monitoring gaps remain recorded.
+Muse `platform-metrics-r5` (`5deb7db5`, actual task0424) completed full repair
+`f20b35a60af2de17c91303dd317da70b44f56174`. All 251 source hashes and 20
+unchanged earlier reports are verified. It includes the two additional
+unbound-machine issuance cases found during the interrupted core review of
+`ab725d1`. That earlier Codex session ended without a final report; its cause
+is unknown and its partial results remain preserved. New Codex HIGH
+`platform-metrics-r5-review` (`bf8cb749`, actual task0433) owns the exact full
+R5 review. Author positives and the isolated draft do not constitute acceptance.
 
-Session repair `2ca4700` is complete and registered in actual task0430, with
-246 source hashes verified. The author reports 169 distinct cases passing after
-three preserved early-guard aborts and bounded retries. Argon
-`platform-session-r2-review` (`e0fb234a`) owns the new exact independent review,
-including installed-native protocol fidelity and inherited host-auth dependencies.
-Its verdict is pending; source is not accepted. The preceding SCOPED REVISE
-reports `4d1462c` and correction `bd3d641` remain immutable. Neither the fixture
-loop nor bounded shell-native probes establish the real AI cross-host acceptance.
+Session repair `2ca4700` is registered in task0430 with 246 verified hashes.
+Argon `platform-session-r2-review` (`e0fb234a`) independently passed all 169
+existing cases, but its new HTTP/host/native probes require **SCOPED REVISE**.
+The final report is being written. Repair acceptance must cover post-body live
+authority, late ACK recovery, journal scanning and terminal errors, actual native
+reply-mailbox/timestamp shapes, engine identity and confirmed stop containment.
+Preserve the full engine/tier/host/cwd/brief requirement in the next source repair.
+The first real AI cross-host loop remains unproven.
+
+Head-owned actual task0434 has draft `b9698bf3`, combining `2ca4700` with
+`f20b35a`. The two initial additive Hub-import/CLI-registration conflicts are
+resolved; the updated merge has no further conflicts. A new 269-file union
+manifest is verified. This is a draft for subsequent corrected source and coupled
+review, not accepted source or a main/runtime change.
 Producer adoption, M8a/M8b qualification/recovery, M10 follow-through and M11
 physical acceptance remain required.
 
@@ -93,6 +98,12 @@ manual session/report/Git/CI/deployment check. It includes pending human actions
 and a short change summary, using existing canonical records and host snapshots.
 M12e remains first priority; the new read projection can develop independently
 as its input contracts become available.
+Argon plan report `b033eea` reviews exact coordinator pin `6750e34` and proposes
+seven implementation gates, but head acceptance awaits correction of metadata
+and quota/ordering interpretations. New Argon `5de3093f` owns that report-only
+correction in actual task0432. Preserve M12e first, then actual assignment and
+handoff; independent quota/status work may proceed with spare capacity. Full M9
+accounting acceptance is not a blanket prerequisite for those independent slices.
 
 ## Milestone map
 
@@ -699,14 +710,13 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
 
 ## Next actions
 
-1. Complete Argon `e0fb234a` review of session repair `2ca4700`, repair any
-   findings, and independently accept the host-auth dependency repaired by Muse
-   `5deb7db5`. Compose accepted source with a new union manifest and coupled
-   review before integration. Deliver
-   M12e’s real first working loop with existing routing, native custody and M6/M8
-   qualification. Preserve delayed-reply recovery, full engine/tier/host/cwd/brief
-   scope and safe composer checks. Prefer Muse implementations and Codex reviews,
-   with fresh quota/resource admission and actual Agent Branches work.
+1. Audit the final Argon R2 report and assign the next Muse session repair on a
+   corrected combined baseline, addressing all new HTTP/host/native findings and
+   full engine/tier/host/cwd/brief support. Complete full R5 Codex `bf8cb749`
+   review of `f20b35a`. Update actual0434's draft and union manifest, then obtain
+   distinct coupled review before integration. Deliver M12e's real Grok Bot box
+   -> Hetzner AI start/send-confirm/capture/confirmed-stop loop with existing
+   routing, genuine custody, qualification and safe composer checks.
 2. Deliver M12b assignment and M12c actual backfill/assistant adoption using the
    accepted M12a ledger. Prove automatic real-session links and fresh-agent
    continuation from `hub handoff`, not just task CRUD or a local preview.
@@ -719,9 +729,9 @@ Keep the real M12e loop and intake/handoff adoption ahead of this addition.
    independent report `4c7cf04`, the transparent metadata correction and original
    failure evidence. M9 candidate `ae21e27` is composed with accepted main
    and received SCOPED REVISE `ce40f49`. R4 `0c77917` received REVISE
-   `4e6bfc2`; Muse `5deb7db5` now repairs its five groups with host-authority
-   fixes first. Obtain new exact independent acceptance; producer adoption
-   remains separate. Preserve all earlier findings and resource incidents.
+   `4e6bfc2`; full Muse repair `f20b35a` now awaits Codex `bf8cb749` exact
+   acceptance. Producer adoption remains separate. Preserve the interrupted
+   core review, all earlier findings and resource incidents.
 6. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
    follow-through and M11 physical migration. Published Windows, host binding and
    M5 source do not close their outstanding physical and enrollment gates.

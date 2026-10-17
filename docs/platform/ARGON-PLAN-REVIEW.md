@@ -1,3 +1,20 @@
+## M13/M14 extension — correction in progress, 17 October 2026
+
+Argon report `b033eeade5b6718e15c47df08ff8989f523cdfe9` reviews coordinator
+`6750e34` in actual task0432. It reports scoped plan acceptance subject to seven
+implementation gates. Head verified 28 source-receipt hashes/bytes/blobs, but
+found invalid commit references, incorrect metadata and interpretations needing
+correction: priority ordering, optional versus unavailable quota windows,
+canonical account deduplication and manual quota overrides. Head acceptance is
+pending; source and runtime acceptance are not implied.
+
+New Argon `platform-quota-status-plan-review-r2` (`5de3093f`) owns the report-only
+correction on sole parent `b033eea`. The original report and its discrete guardian
+receipt remain preserved. M12e remains first, then actual assignment/backfill and
+fresh-agent handoff. Independent M13/M14 work may use spare capacity.
+
+---
+
 # Independent Argon Plan & Survey Review — Agent Hub Conversation Platform
 
 ## Later M12 plan review index — 17 October 2026

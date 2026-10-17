@@ -43,13 +43,15 @@ context-low/unsubmitted-input observations, report headlines, main versus deploy
 commits, CI, pending Alexey actions and a short diff. It reuses existing records
 and remains planned; no one-call implementation or runtime acceptance is claimed.
 
-M13/M14 independent plan-extension review now has actual Agent Branches task0432
-and Argon `platform-quota-status-plan-review` (`1f2004e9`), reviewing coordinator
-plan pin `6750e34`. Its native identity and task ACK are verified; verdict pending.
-The failed creation was reconciled against complete local state and repository
-listing: a generated 65-character fork name exceeded the sidecar's 63-character
-limit. A shorter agent prefix created task0432 successfully; no service changes
-or cleanup were needed. The original failed request and reconciliation remain.
+M13/M14 plan report `b033eea` was produced in actual task0432 on coordinator
+pin `6750e34`. Its 28 source-receipt hashes/bytes/blobs match, but head audit found
+three invalid Git references, incorrect metadata and priority/quota interpretations.
+The original report remains immutable; new Argon correction worker
+`platform-quota-status-plan-review-r2` (`5de3093f`) has verified identity and task
+ACK. Plan acceptance remains pending correction. No implementation/runtime
+acceptance follows from the original conditional verdict.
+The earlier task-create failure was reconciled: the generated 65-character fork
+name exceeded the sidecar's 63-character limit. A shorter prefix created task0432.
 
 The original M12e API/host workers completed their isolated component work;
 the connected source and independent review are recorded below. The current
@@ -118,6 +120,15 @@ installed-native behavior and inherited host-auth dependencies. The verdict is
 pending. At most two bounded genuine shell-native probes are authorized;
 these cannot establish real-AI or cross-host acceptance. Source, full tier/cwd
 qualification and the Grok Bot box -> Hetzner physical loop remain open.
+Argon's latest checkpoint independently passed all 169 unique source cases and
+typecheck, with no early-guard abort. Novel probes still reproduce inherited host
+authority holes and new session defects: authorization changes during body reads,
+late ACKs while an expired claim has not yet been swept, irrecoverable local
+uncertain states, pending journals starved behind completed files and repeated
+terminal ACK retries. Two genuine bounded shell probes also expose cross-workspace
+reply-mailbox and timestamp mismatches, engine-binding and stop-containment gaps.
+The final SCOPED REVISE report is being written; shell probes are not real AI
+cross-host acceptance. The next repair must retain full tier/cwd scope.
 
 M9 repair has 37 distinct author cases plus rendered UI checks. New composition
 `ae21e27bc769e878af109ce50144da0fed5a5611` on accepted current main is registered
@@ -163,24 +174,33 @@ Three P2 groups remain: Python/Worker DTO parity, invented aggregate review
 counts and a delayed host response rendering under a different selected host.
 Original tests, failures and all earlier reports remain preserved.
 
-Muse Spark 1.3 `platform-metrics-r5` (`5deb7db5`) has acknowledged actual task0424
-from that immutable report; its own first-tool identity is verified. It owns all
-five findings, prioritizing separately committed host-authority fixes. The design
-uses server-owned approval order and fresh post-await checks, preserving current
-bound-family operations while a later approval is pending. Legacy pending grants
-without a verifiable approval witness cannot displace an already bound host.
-No real enrollment or migration is authorized by this source repair.
-The frozen core increment `ab725d1597c4520244d82bafe351fa42c4f1a6c4` is
-registered in actual task0424. Its author reports eight actual-route regressions,
-typecheck and selected compatibility checks passing, including pending-approval
-continuity and legacy grant fences. Independent acceptance is still required;
-the worker continues the remaining DTO, evidence and UI repairs.
-Independent Codex HIGH `platform-host-authority-review` (`1add7a45`) has
-acknowledged actual task0433 and verified its own native first-tool identity.
-It reviews the exact frozen core revision and all 249 source hashes. Its scope
-covers device approval, issuance, refresh, registration and current-family
-metrics protection; the remaining three M9 finding groups retain REVISE status.
-Core acceptance alone cannot authorize integration of the entire M9 candidate.
+Muse Spark 1.3 `platform-metrics-r5` (`5deb7db5`) completed full repair
+`f20b35a60af2de17c91303dd317da70b44f56174`, registered in actual task0424.
+All 251 source hashes and 20 unchanged earlier reports are verified at digest
+`67d07d9d545ef12eebc02c28d71a9c9238e455326b39c865e368a58c44cd310d`.
+The author reports 58 Worker cases (29 existing, 11 new, 18 selected compatibility),
+42 Python cases, three browser races, four renders, dakit checks and typecheck
+passing. Original failures, a preventive guard abort and a three-case split
+incident remain preserved; retries do not erase them.
+
+The earlier Codex core review of `ab725d1` passed its eight author cases but
+found two new unbound-machine issuance failures. Its native session/PIDs/cgroup
+and history path disappeared before a final report; interruption cause is unknown.
+Retained probes/results remain partial evidence. Muse repaired those cases in
+`e795f00`, included in final `f20b35a`.
+Fresh Codex HIGH `platform-metrics-r5-review` (`bf8cb749`) has acknowledged
+actual task0433, verified its own native first-tool identity and owns full exact
+R5 review. Its independent verdict is pending. No real enrollment or migration
+was performed.
+
+Head-owned actual task0434 has unaccepted draft `b9698bf3`, combining the two
+source candidates. Its fresh 269-file union manifest is verified; only additive
+Hub imports and CLI registrations needed manual conflict resolution. Separate
+source and coupled reviews remain required. During its first push, the private
+Agent Branches sidecar exited on an unhandled stdin EPIPE. The fork remained at
+its original head. One restart of that existing private service, an authenticated
+head reconciliation and one normal retry restored actual fork/WIP registration.
+Source/config/store stayed unchanged; production runtime custody remains open.
 
 The R4 author disclosed a monitoring gap and actual 46.29 MiB and 27.06 MiB
 scratch peaks against an assigned 18 MiB; the monitor recorded growth without
