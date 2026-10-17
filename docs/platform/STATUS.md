@@ -10,6 +10,9 @@ GitHub maina2e896959ff1; deployed source0bf1882 / Workerb5c0ae25-505f-4d40-aeeb-
 
 Active owners: cleanup Muse57e3c571 finishes remote CLI outcome/status hook; Muse1715d016 finishes actual launcher-tag binding/settings/account contract in the previous short task workspace. Status worker4626 finished, released and its worktree is retired. Unsafe client-local --tree was disabled312ffdc. Remote host cleanup is PARTIAL until real own-only acceptance; a dedicated clean merged fixture branch/worktree under trusted runtime roots is prepared, with NO session launched yet. Ordinary arbitrary Muse briefing remains unproven live; current working receipt receiver is an acceptance fixture. Next: finish these small source seams, deploy/reload existing host, activate collector/probes, run owned cleanup and real brief/report tests, then retire remaining workers. FullM1–M15 plusM2b/MCP/adoption remains active. Commands and honest gaps: ~/tmp/agent-reports/hub-platform.md. Recovery: .local/platform/URGENT-CURRENT.json.
 
+
+Cleanup activation note (17:24): trusted roots remain disabled until the worker adds server-owned per-command cleanup intent. The current B3 candidate must not remove a worktree on an ordinary stop. No native or Git deletion was attempted. The collector allowlist is prepared for the owned fixture only; its initial read-only round returned zero observations,32 filtered sessions and no errors.
+
 # Conversation platform status
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
