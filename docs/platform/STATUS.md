@@ -640,3 +640,46 @@ critical path; finish M1/F7 security and ownership gates; then verify the real
 Worker/browser/CLI/native conversation flow. The full M2b/M4–M11 roadmap and
 later review of the working conversation path remain required. No deployment,
 cloud resources, domain, credentials, services or timers were changed.
+
+## Registry rejection and final API review — 17 October
+
+Independent Argon review `eae7fdc0519f60681ff5e885061682471bb53193`
+rejected F7 proposal `7d8cd282d292a45b0ec297ec1a8e86ff327fc332`.
+Its 227 inherited/focused checks passed, while nine independent probes
+reproduced five defects: projectless registration can be locked out by a later
+qualified registration; reserved names can acquire human/system/host identity;
+invalid credentials can become valid after registration changes and survive
+deletion; immutable registry bindings conflict with the landed M6 raw credential
+comparison; and root reply aliases plus conversation denial status are inconsistent.
+The first two are HIGH blockers. No registry patch has been applied to source.
+
+Codex repair task `0405` (`platform-registry-r2`, genuine session `302edfb8`)
+is running in private source copies. It owns only the two proposal artifacts.
+Its inputs are accepted Hub main `5dcdf7164b28bd0e3a1d717ac9090c054eca3f24`
+and the six final API files at `da38cb2a00c092423d0b67419b0ea45d6a09dfa9`.
+The repair must address all five findings, preserve final retention fixes and
+M6 admission, and pass independent review before acknowledged source handoff.
+
+The Argon API owner released final `da38cb2` with 31 public tests, 20 adapted
+observational probes and typecheck reported passing. Those six files were
+imported byte-identically onto accepted M6 main as
+`f872fd1047b28f9e2d57820a7c0c7dc626870346`, preserved in actual Agent Branches
+task `0406` with fork push and WIP registration. Independent Codex review
+`983c8d74` is running against that exact combined base. Required F7 remains open;
+a scoped API acceptance alone cannot complete M1.
+
+Grok independently accepted UI `7179868ae9f1723d9070a37f107a3b4f635c5cb6`
+in report `35fa7cd8599cd782a9a8d5ccf5d3f9196a77028b`: all five prior blockers
+resolved. Review covered static/dakit checks, typecheck, six asset tests and
+browser probes (24 passed with one harness timeout after a successful creation;
+seven follow-up probes passed). It inspected 12 rendered images. This is scoped
+fixture UI acceptance; real combined Worker/browser/CLI/native transport remains
+required before the conversation platform can be called working. UI is held for
+safe backend integration.
+
+Post-land Argon direction review `787001e2` is running against Hub `5dcdf71`,
+coordination `20dabd3` and the full accepted roadmap. It is an early M6 foundation
+review; later working-conversation review remains required. M2b and M4–M11,
+physical execution qualification, real adoption and operational handoffs remain
+open. Private GitHub restore and fsck independently verified coordination
+`20dabd3` and Hub `5dcdf71`.
