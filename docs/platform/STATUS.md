@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `7929a1b`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `16d66d6`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -21,23 +21,25 @@ evidence only.
 
 ## Current checkpoint — 17 October 2026
 
-**Conversation foundation is on Hub main `7929a1bc07bfea3a2b387989800cf1b0ba140984`.**
+**Conversation foundation and portable host storage are on Hub main `16d66d69708268ab84089447534f0439e0bfd893`.**
 It includes the conversation API, project-qualified F7 registry and credential
 fixes, machine-bound public pairing, dakit conversations/fleet/auth/device UI,
 CLI/native conversation bridge and explicit P3 retention-gap recovery. This is
 source integration; deployment and physical fleet adoption remain open.
 
 - Exact bundle `cfb4dc2`, patch `e8c91a9c`, was independently accepted by Argon
-  in `5a4b938`. All 199 source hashes match digest `17aab235`; fresh integration
+  in `5a4b938`. At foundation commit `7929a1b`, all 199 source hashes match digest
+  `17aab235`; fresh integration
   typecheck passed. Retained independent evidence includes 453 Worker cases,
   635 host cases, 30 mock-browser cases, 89 real browser screenshots, public
   pairing and genuine own-session native round trips. Earlier counts are not
   additional unique coverage. Two metadata fields in the published report were
   explicitly corrected against Git; the original report remains in history.
 - Actual Agent Branches task0418 fork contains the integrated main commit with
-  a head-custody WIP receipt. Canonical Branches main and private GitHub recovery
-  main both equal `7929a1b`. A disposable remote restore passed fsck, nine blob
-  checks, all 199 source SHA-256 checks and old/new CLI help checks.
+  a head-custody WIP receipt. The Windows follow-up is also preserved in genuine
+  task0420. Canonical Branches main and private GitHub recovery main now both
+  equal `16d66d6`. A disposable remote restore passed fsck, nine blob checks,
+  all 203 source SHA-256 checks and old/new CLI help checks.
 - Shared `~/git/agent-hub` remains at local HEAD `5dcdf71`: all 131 tracked files
   are verified unchanged. Native context confirmed zero physical scope overlap
   for the isolated integration worktree. The earlier cross-worktree dispatch
@@ -49,10 +51,14 @@ source integration; deployment and physical fleet adoption remain open.
   653 host passes plus one actual-Windows skip, 749 separate subtests, 92 Worker
   cases, six POSIX probes, public pairing and its own native round trip. Head
   reconciled the native journal and IDs with zero unresolved effects. Its report
-  contains incorrect module paths, a source pin and constant/pairing descriptions.
-  Actual source candidate `3888a43` is committed but **unpublished** pending a
-  distinct Grok factual/source audit (`platform-win-factual-audit`, `8d537279`).
-  Prior evidence is retained; physical Windows DLL/NTFS/Win35/M11 is unproven.
+  had inaccurate module paths, APIs, hash tables and source/pairing descriptions.
+  Distinct Grok corrective audit `e5133fc` gives **SCOPED ACCEPT** to actual source
+  `3888a43`: all 203 hashes verified, 49 focused host passes plus one Windows skip,
+  58 files compiled, with prior execution evidence separately attributed. Original
+  reports remain immutable. Publication annotation `16d66d6` normalizes evidence
+  locators, corrects tracked-file counts and distinguishes final resource samples;
+  it changes no source, verdict or test claims. Code is now on main, canonical
+  Branches and private recovery; physical Windows DLL/NTFS/Win35/M11 is unproven.
 - M5 proposal `1229be7` received **REVISE** in independent review `1fe94af`:
   sending as the target advances its read watermark and suppresses bridge
   delivery; actor authority is insufficient; response-loss retries and concurrent
@@ -62,6 +68,14 @@ source integration; deployment and physical fleet adoption remain open.
   state, bridge eligibility and durable interval intent/receipt/CAS. No rejected
   M5 source has landed. The reviewer disclosed an initial scratch overrun with
   unknown exact peak; later split tests stayed bounded. This remains an incident.
+- M5 repair early commit `c468635` now has 45 new public Worker/real SQLite tests,
+  12 existing checks, four memory-only bridge checks on captured public HTTP history
+  and typecheck passing, according to its author. The actual source commit is
+  preserved in genuine task0419’s fork/WIP. Initial type/fixture failures
+  remain retained. Python bridge eligibility and compatibility checks precede
+  its final exact commit and distinct review. Accepted upstream `16d66d6` has
+  been sent to both implementation workers for a normal merge preserving actual
+  Branches ancestry; that notice alone is not proof they applied it.
 - M4 is now actual task0422 / `platform-links-0422` on synchronized main
   `7929a1b`. Grok `platform-links` (`f04bc012`) ACKed its isolated source scope
   and began inspecting canonical task visibility and conversation retention.
@@ -79,8 +93,9 @@ source integration; deployment and physical fleet adoption remain open.
   ID or successful creation was claimed. Existing genuine task0418 was used for
   the actual main integration. New task identity must be reconciled before retry.
 
-`GATE-CONV-REVIEW` still requires an independent Argon check of the **published**
-conversation foundation and roadmap direction. M4, M5, M7, M8a/M8b, M9, M10 and
+`GATE-CONV-REVIEW` is running as an independent Argon check of the published
+conversation foundation and roadmap direction. Its initial pin was `7929a1b`;
+an extension to published `16d66d6` was requested and awaits the reviewer’s ACK. M4, M5, M7, M8a/M8b, M9, M10 and
 M11 remain active; M6 is already integrated. No deploy, physical host enrollment,
 service migration, native CLI/Rust installation or credential change occurred.
 Sections below retain the original survey and dated development checkpoints;
@@ -90,7 +105,7 @@ their historical main pins and pending-source statements are superseded here.
 
 | Product | Checkout | GitHub main observed | Role in a conversation platform |
 |---|---|---|---|
-| Agent Hub | Shared checkout preserved at `5dcdf71` | `7929a1b` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
+| Agent Hub | Shared checkout preserved at `5dcdf71` | `16d66d6` | Control plane: auth, bus, registry, checks, fleet, routing, dashboard |
 | Agent Coordination | `~/git/agent-coordination` at `98857ca` | `98857ca` | Deprecated SSH/role-failover source; this survey/plan |
 | Agent Bus | `~/git/agent-bus` local `bf351f4` | `a9156b9` (deprecation notice) | FileBus predecessor; do not duplicate |
 | Agent Dashboard | `~/git/agent-dashboard` local `6863b99` | `3f126df` (deprecation notice) | Accounting views; hub fleet page replaced operator UI |

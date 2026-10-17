@@ -31,11 +31,12 @@ dispatcher or a second bus transport.
 
 ## Current execution checkpoint
 
-Hub main `7929a1b` contains independently reviewed M1/F7/M2/M2b/M3/P3/pairing
-source; canonical Agent Branches and private remote restore match all 199 source
-hashes. Post-main Argon direction review remains required. Windows candidate
-`3888a43` awaits a distinct factual/source audit before publication; physical
-Windows remains a separate host gate. M5 `1229be7` was rejected (`1fe94af`);
+Hub main `16d66d6` contains independently reviewed M1/F7/M2/M2b/M3/P3/pairing
+and portable host storage. Canonical Agent Branches and private remote restore
+match all 203 source hashes. Post-main Argon direction review is running; its
+extension from `7929a1b` to current `16d66d6` awaits ACK. Windows source `3888a43`
+has distinct corrective audit acceptance `e5133fc`; physical Windows remains a
+separate host gate. M5 `1229be7` was rejected (`1fe94af`);
 Codex `platform-pings-r2` repairs actual source under explicit automation authority
 and durable check-slot semantics. The recipient’s read cursor must not move when
 a follow-up is sent, and the follow-up must remain eligible for native delivery.
@@ -48,7 +49,7 @@ M4/M5/M7/M8a/M8b/M9/M10/M11 remain in scope.
 |---|---|---|
 | M1 | Authenticated conversation API and F7 registry | Integrated on Hub `7929a1b`; post-main Argon gate running |
 | M2 | dakit conversation UI | Integrated on `7929a1b`; physical adoption remains separate |
-| M3a / M3b | Public CLI and genuine native inbox participation | POSIX source and own-session round trips integrated; Windows candidate `3888a43` awaits corrective independent audit, physical Windows unproven |
+| M3a / M3b | Public CLI and genuine native inbox participation | POSIX and portable Windows source integrated on `16d66d6` after corrective audit; own-session POSIX round trips verified, physical Windows unproven |
 | M2b | Fleet, sign-in and device views use dakit | Integrated on `7929a1b`, official kit lock preserved |
 | M4 | Canonical task/review/outcome links in both directions | Genuine task0422, Grok `platform-links` / `f04bc012`, actual source implementation on fresh `7929a1b`; routing policy unchanged |
 | M5 | Safe scheduled follow-ups and physical acceptance | Rejected `1229be7` / review `1fe94af`; Codex `platform-pings-r2` / `0a4a2fb9` repairs actual source; distinct review and physical acceptance remain |
@@ -319,11 +320,11 @@ smaller independently reviewed parts; their acceptance requirements stay open.
 
 ## Next actions
 
-1. Finish the corrective Windows audit against actual candidate `3888a43`.
-   Preserve original report `0da55c0` in history, correct its factual errors,
-   integrate only after a distinct exact-source verdict, then synchronize
-   canonical Branches and verify a private remote restore against all 203 hashes.
-2. Act on the required post-main Argon review of published `7929a1b` and this
+1. Portable Windows source is published as `16d66d6` after corrective audit
+   `e5133fc`; canonical/private restore against all 203 hashes passed. Preserve
+   original reports and native journals. Physical Windows owner tests, enrollment
+   and adoption remain M3b/M11 gates; source acceptance does not close them.
+2. Act on the required post-main Argon review of the exact published source (extension to `16d66d6` requested) and this
    full roadmap. Its verdict covers the named source and observed evidence;
    deployment and physical multi-host acceptance remain separate.
 3. M5 repairs explicit expiring automation grants, target unread preservation,
