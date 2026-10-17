@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `91b8b6c`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `2eb0c3b`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -20,6 +20,69 @@ Unit tests are not physical delivery. Passing vitest/unittest counts are source
 evidence only.
 
 ## Current checkpoint — 17 October 2026
+
+**Latest accepted source — 13:46 UTC.** Hub main, canonical Agent Branches and
+private recovery now equal `2eb0c3b09628871c281307775dbb729b2193cc3e`. Independent
+Argon report `7871854` accepts exact lifecycle repair `1b7e109` for module seams
+only. The head verified the report hash/sole parent, all eight full Git references,
+12 reviewer guard receipts (11 clean, one preserved failed probe, zero aborts),
+and all 237 pre/post source pairs. Integration preserves all 231 prior accepted
+files and all nine reviewed lifecycle files: 240 hashes verified in private
+restore/fsck/CLI checks. Publication only fixes report links/task-ID spelling;
+original report and failed/aborted author runs remain preserved. M15 actual
+registration, API/CLI, durable decisions and host/Git cleanup remain open.
+
+M14a now has source owner Muse `platform-status` (`b5add0a1`), actual0443,
+verified native identity and explicit ACK, on fresh main `2eb0c3b`. It implements
+the authorized one-call status API/public CLI projection with real canonical
+metadata and explicit gaps. M14b native/report collection, M14c verified Git/
+active deployment/CI, M14d durable diffs and physical acceptance remain open.
+Unused ended-source caches were retired after exact declarations and privileged
+process/inode/socket proofs, making room for the worker within the 512 MiB
+aggregate scratch budget. All source, reports, histories and receipts remain.
+
+Primary M12 Argon actual0440 continues compatibility and novel/native tests;
+M13 Argon actual0442 reviews seed `2041df5` / author `811c086`, including actual
+native quota coverage and the Grok hold. No deployment, credential/config,
+enrollment, service or timer change was made by this session. The physical shared
+checkout remains clean at old `5dcdf71`; its default host config is unusable.
+An investigation mistakenly applied that old checkout’s auth-test behavior to
+current main. A quarantined current-source probe disproved the allegation and
+the reviewer received an explicit retraction; no unnecessary source fix was made.
+The historical writer of the fixture-like config remains unproven.
+
+
+**Latest publication — 13:28 UTC.** Hub main, canonical Agent Branches and
+private recovery are `77ab932c421c39397b20636a77fb3d3d72c280e8`. This adds
+only the independently reviewed ops guide, two regression cases/config and review
+report; production application code is unchanged. The two focused cases passed
+under a real 1500M/256-task scope and scratch guard without aborts or survivors.
+All 231 accepted source hashes, private restore/fsck and CLI checks passed;
+the protected clean physical checkout stays at `5dcdf71`. No deploy occurred.
+
+M13 Muse source `811c086` now includes the approved no-new-Grok policy and
+focused real HTTP/SQLite boundary test. Actual0439 fork/WIP is verified. Its
+worker ended normally after consuming the pending policy approval; no duplicate
+was started. Independent Argon `5db97f80` (actual0442) has verified native
+identity and explicit ACK. Its immutable review seed `2041df5` combines current
+main with all 19 author files byte-identical: 238 source pairs, 219 unchanged
+accepted files, 12 changed and seven new. Native-unit coverage, least privilege,
+claim-time freshness and live rollout still need independent acceptance.
+
+M12 Argon actual0440 continues compatibility and adversarial/native review of
+`1f4e300`; its earlier Python batch passed 187 cases. M15 Argon actual0441 is
+finishing the module-only `1b7e109` report after 11 clean runs and one preserved
+failed reviewer probe, with no guard abort. A draft verdict is not acceptance;
+wait for the committed exact-source report. M15 integration/effects remain open.
+
+Corrected independent CF reads succeeded with the existing token: deployment
+and version metadata are available, with a listed rollback candidate. Exact
+active chronology/GitSHA remain unproven. The user fleet unit resolves a default
+host config with a placeholder base URL and missing access/machine binding;
+its historical writer and full failure cause remain unknown. No config or
+credentials were changed. Source acceptance and exact custody/budget/qualification
+still gate runtime activation. Earlier checkpoints retain history.
+
 
 **Authoritative update — 13:12 UTC.** Full goal remains M1–M15 plus M2b.
 Hub main/canonical/private remain `91b8b6c`; this turn publishes coordination

@@ -1,23 +1,29 @@
-## M15 extension — plan scoped acceptance, repair source under review
+## M15 extension — module repair accepted and published, integration open
 
-Independent Argon report `444f5ba5f3b85afc4ccb13d103a4ce50af8fc0e3`
-accepts coordinator plan pin `2119268` subject to M15-IG1..7, now explicit in
-PLAN. It rejects original module source `4e0f864` on six findings: supersession
-proof, newer/invalid activity, ownership/target/epoch guards, reset timezone,
-unknown provenance classification and truncation/privacy/duplicated authority.
+Independent report `444f5ba` accepts plan pin `2119268` under M15-IG1..7 and
+rejects original source `4e0f864` on six findings. Argon R2 report
+`78718542adf4d02044a6dc430b0cf8d0753e0fb3` accepts repair
+`1b7e1094cf248b072853fe1ad956f8dfa1c95256` for pure module seams only. The
+head verified report hash/parent, all eight full Git refs, 237 unchanged source
+pairs and 12 reviewer receipts: 11 clean runs, one preserved failed probe,
+zero guard aborts. The two earlier author guard-aborted exit-zero runs remain
+unaccepted; the reviewer ran fresh current-source validation.
 
-Muse repair `1b7e1094cf248b072853fe1ad956f8dfa1c95256` is registered in
-actual0436. The head verified all 228 accepted source files unchanged plus nine
-new lifecycle files (237 pairs). Independent Argon `73f1ad33`, actual0441,
-reviews that exact pin and all six findings. Two author guard runs aborted early
-while returning zero; those runs remain unaccepted and need fresh verification.
-M15c/d API/CLI, durable ownership/decisions and guarded host cleanup remain open.
-This review does not accept M12, quota/status source or physical activation.
+Published composition `2eb0c3b` preserves all 231 prior accepted files and nine
+reviewed lifecycle files (240 pairs), with canonical/private restore verification.
+The head corrected only report links/task-ID; original report/history survives.
+Explicit-offset reset interpretation is accepted; naive/ambiguous/expired resets
+remain unknown. The unused Python parser’s invalid-minute normalization and
+dormant host schema/transfer exports are recorded constraints for M15c/d, which
+must preserve the TS server as the sole custody/state authority. Actual
+registration, API/CLI, durable decisions and host cleanup remain open.
 
-Hub-zai recovery is actual0437, source `10796ab` pending independent review.
-M12 exact source `1f4e300` is separately under Argon actual0440; the real Hub
-session-control loop remains first priority. New Grok workers are prohibited by
-Alexey’s latest steering; current reviewers use Antigravity.
+M12 source `1f4e300` is separately under Argon actual0440; its real Hub control
+loop remains first priority. M13 source `811c086` / seed `2041df5` is under
+Argon actual0442. Actual0443 Muse `platform-status` owns M14a projection source;
+M14b/c/d stay open. Hub-zai ops guide/regressions received independent Codex
+scoped acceptance and were published as `77ab932`. New Grok workers remain
+prohibited; current source workers/reviewers use Muse and Antigravity.
 
 ## M13/M14 extension — scoped plan accepted, 17 October 2026
 
