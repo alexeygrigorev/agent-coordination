@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `6cf0c18`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `037bf03`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -21,6 +21,53 @@ evidence only.
 
 ## Current checkpoint — 17 October 2026
 
+**Accepted Hub main, canonical Agent Branches and private recovery now equal
+`037bf039ec5ae01799a1cc863d31178a76107cdf`.** The accepted host-binding repair
+and corrected independent M12 plan review are included; conversation retention,
+metrics and intake candidates below remain separate work.
+
+- Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
+  The registration-field wording correction `85fdcec` received exact independent
+  acceptance in appendix `80921a6`; the original report remains in history.
+  Independent validation passed 30 focused host cases, one mock HTTP CLI flow
+  and seven new probes. No tests were repeated for the documentation-only delta.
+  This repairs source login/refresh binding transitions and the migration runbook;
+  it performs no actual login, registry deletion, migration or credential rotation.
+- Head verified all 209 source files byte-identical to accepted `85fdcec`,
+  digest `b79a1675ff340548728e1c5fff05bad45ed4c05dd8647237a1de077b1ea12650`.
+  Actual task 0425 contains `037bf03`. Canonical synchronization used the existing
+  scoped token and normal fast-forward. Private remote restore passed fsck, nine
+  baseline blob checks, all 209 source hashes and submit/conversations CLI help.
+- Corrected Argon plan review `a13d227` accepts exact M12 plan `27e4b32` and its
+  earlier pins as plan-only. All 17 checked Git/blob/SHA claims now match; the
+  original report and its failed hash audit remain preserved. Explicit grants,
+  verbatim storage, transport versus processing, and strict privacy boundaries
+  were corrected before publication. This does not accept M12 source/runtime.
+- Argon confirmed two retention defects in composed candidate `f6ec420`:
+  blocked archived-parent discovery can wedge bounded cleanup, and a mismatched
+  receipt can consume the SQL slot limit ahead of retireable work. The original
+  diagnostic failure is distinguished from the clean defect assertions.
+  Codex repair source `3518a850c0fd377b6bc7894912a4fcb83b3cdbe9`, on new main
+  plus the frozen candidate, has 17 new regressions, nine original composed cases
+  and typecheck passing. Its immutable report-only merge `254091a` is registered
+  in task 0426. The initial two expected-behavior probes changed from failures
+  to passes; original tests and failure evidence are retained. Remaining affected
+  cohorts, final source freeze and
+  distinct exact review remain required. No M4/M7 composition is on main yet.
+- M12a author final `adae0fb346028c449db7ce6b5858720523ffd6a9` reports 36 real
+  Worker/SQLite HTTP cases, 15 stdlib/public-module CLI cases, typecheck and diff
+  checks passing. Head composed it with current accepted main at
+  `c290454e88c49c6fe863d20dd2717d58522851d0`; all nine M12-owned files remain
+  byte-identical. Actual task 0427 holds that candidate, and independent Argon
+  source review has started. This includes task ledger/API/CLI and handoff only;
+  real routing assignment, backfill, assistant adoption, MCP and cross-host
+  session control remain required later phases.
+- M9 remains out of main after independent report `645ab784` requested eight
+  repairs. The new Grok repair generation retains task 0424 and all evidence.
+  Producer agreement, runtime ingestion and physical adoption remain open.
+
+### Prior foundation and M5 integration checkpoint
+
 **Conversation foundation, portable host storage and reviewed M5 follow-ups are on Hub main `6cf0c185495a33cf04ec2b986c3c901ed3de2cda`.**
 It includes the conversation API, project-qualified F7 registry and credential
 fixes, machine-bound public pairing, dakit conversations/fleet/auth/device UI,
@@ -37,8 +84,8 @@ source integration; deployment and physical fleet adoption remain open.
   explicitly corrected against Git; the original report remains in history.
 - Actual Agent Branches task0418 fork contains the integrated main commit with
   a head-custody WIP receipt. The Windows follow-up is also preserved in genuine
-  task0420. Canonical Branches main and private GitHub recovery main now both
-  equal `6cf0c18`. A disposable remote restore passed fsck, nine blob checks,
+  task0420. At that checkpoint, canonical Branches main and private GitHub recovery main
+  both equalled `6cf0c18`. A disposable remote restore passed fsck, nine blob checks,
   all 207 source SHA-256 checks and old/new CLI help checks.
 - Shared `~/git/agent-hub` remains at local HEAD `5dcdf71`: all 131 tracked files
   are verified unchanged. Native context confirmed zero physical scope overlap

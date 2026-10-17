@@ -1,5 +1,35 @@
 # Independent Argon Plan & Survey Review — Agent Hub Conversation Platform
 
+## Later M12 plan review index — 17 October 2026
+
+The original four-snapshot review below remains unchanged. M12 extends that
+roadmap with intake, assignment, real backfill, durable orchestrator handoff and
+hub session control; it does not replace M1–M11 or M2b.
+
+Independent reviewer `platform-intake-plan-review/gemini-4-argon-high` accepted
+plan pins `598e7b8`, `da9fa7a` and amended `27e4b32`, subject to implementation
+gates for least-privilege assistant access, atomic routing/session linkage,
+CAS-fenced handoff, immutable voice/multiple-request provenance, strict backfill
+projection/reconciliation, authority boundaries and confirmed session control.
+The corrected report is [INTAKE-TASKS-PLAN.md](https://github.com/alexeygrigorev/agent-hub/blob/a13d227c6486221b5fb5f8b31948648cdea1f20d/docs/reviews/INTAKE-TASKS-PLAN.md),
+published on Hub main `037bf03`. Initial report `1f000fea` remains in history.
+
+Head review challenged mandatory scope broadening, original-text stripping,
+transport/processing conflation, unverified psc causality, regex-only privacy
+claims and one wrong source hash. The reviewer corrected those points in
+`a13d227`; head independently verified all 17 declared Git/hash claims.
+Explicit operator-issued grants remain a valid alternative to new device scopes.
+Stored requests remain verbatim, with safe rendering. Durable inbox persistence
+does not prove agent processing. Strict source/field projection and private-data
+exclusion remain required beyond a redaction regex.
+
+This is plan acceptance only. The M12a source candidate `c290454` has a separate
+Argon review; actual assignment, authoritative backfill, fresh-agent continuation,
+MCP and the real Grok Bot box -> Hetzner control loop remain open.
+
+---
+
+
 - **Reviewers**:
   - Initial 3-Snapshot Review (`1df0ac39340656dd118a090d9b3115068e38a30e`): `platform-plan-review` (Gemini 4 Argon High / deep-tier independent reviewer)
   - Targeted Final Follow-Up Review: `platform-plan-review-final` (Gemini 4 Argon High / deep-tier independent reviewer)
