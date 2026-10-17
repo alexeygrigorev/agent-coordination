@@ -853,3 +853,55 @@ in private copies of the composed source plus accepted F7. Its new agent token
 must come through public authenticated device APIs, with trusted existing
 machine assignment and ordinary-agent permissions. It owns only two proposal
 artifacts; leased core source and production enrollment remain untouched.
+
+
+### Final repair candidates and independent reviews — 17 October 2026
+
+F7's original rejection `eae7fdc` is preserved. Revised proposal `ddaf80d`
+has independent scoped acceptance `426fdf7` (319 tests and typecheck), resolving
+F7-R1–R5 and routing-client separation. Actual source remains unapplied; the
+accepted patch has been sent to the reserved Hub owner for a scoped handoff.
+A late acknowledgement to the original reviewer could not be delivered because
+its native session was no longer recorded. No agreement is inferred.
+
+API fairness candidate `7c004676dc9c0c6496656cb6a4bc62dbadff09ae` is preserved
+in task `0409` fork/WIP. It adds persistent selection across bus, composition
+and conversation cleanup categories; author verification reports 209 tests and
+typecheck. Independent Codex `04cbc385` is reviewing the exact final tree,
+including all six prior sustained-backlog failures and reconstruction between
+cleanup calls. Candidate test results do not replace that verdict.
+
+Bridge gap candidate `0896ebe` now has scoped independent Grok acceptance
+`f19353e8c9a900f2697f6edeb7da08691cf901e8`. The reviewer independently ran
+635 host, 55 focused, 30 HTTP/CLI, ten adversarial and six additional HTTP/CLI
+checks. Own-native evidence remains pinned to predecessor `13b8153`; AST
+comparison confirms that the final lazy-import change preserves bridge logic.
+The reviewer also adjudicated the earlier transport cursor observation: the
+explicit retained-history replay contract does not require automatically
+advancing to the server read watermark. Such advancement could bypass uncertain
+local deliveries. Actual retention gaps still require the explicit authenticated
+proof and acknowledgement flow; no silent skip is accepted.
+
+Public pairing proposal `1149f65394611d05c1f55fcec4e803f105930c8d` is preserved
+in task `0411` fork/WIP. Author verification reports 333 tests, typecheck and
+four browser/public-API/bridge qualification checks. The new agent token was
+issued through public device APIs; human and machine fixtures remain local.
+The proposal preserves ordinary-agent privileges and fixes two job-detail
+checks that otherwise trusted a machine identifier without checking principal
+kind. Independent Argon `252a3a83` is reviewing the inert patch against the
+exact composed transport plus accepted F7 base. Actual source and production
+enrollment are untouched.
+
+Launcher companion `18dd854` received **REVISE** in independent report
+`bed83934a52b65c8e91bd12be9f51e61b341469d`: M6 composition, uncertain-start
+recovery and admission lifetime need repairs. New task `0412`, Codex `18f3d512`,
+is repairing only the three proposal artifacts on private Hub `b05384c` and
+maintained launcher `5145d0d`. Initial checkpoint `94c925b` passes all 61 M6
+cases plus 158 launcher and 50 Worker cases, but hardening remains in progress
+and it is explicitly not ready for acceptance. Grok CLI exit is not proof of
+backend cleanup. The separate host safeguard review `ba1681c` accepts pre-claim
+HOLD behavior and requests corrected documentation; full M8a remains open.
+
+Hub main remains `5dcdf71`. Source ownership, exact combined-stack verification,
+`GATE-CONV-REVIEW`, physical cross-host adoption, and the full M2b/M4–M11 roadmap
+remain required. No deployment or global installation occurred.
