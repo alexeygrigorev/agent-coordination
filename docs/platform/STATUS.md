@@ -2,7 +2,7 @@
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
 `~/git/agent-coordination-wt-platform-survey` from `origin/main` `98857ca`.
-Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `037bf03`).
+Implementation target is Agent Hub (`~/git/agent-hub`, GitHub main `bc79601`).
 This repository is deprecated for standalone orchestration (`762c349`) and owns
 the cross-project survey and plan. Product code belongs in Agent Hub
 ([issue 13](https://github.com/alexeygrigorev/agent-hub/issues/13)).
@@ -21,10 +21,28 @@ evidence only.
 
 ## Current checkpoint — 17 October 2026
 
-**Accepted Hub main, canonical Agent Branches and private recovery now equal
-`037bf039ec5ae01799a1cc863d31178a76107cdf`.** The accepted host-binding repair
-and corrected independent M12 plan review are included; conversation retention,
-metrics and intake candidates below remain separate work.
+**Accepted Hub main, canonical Agent Branches and private recovery equal
+`bc796013d9f522d8a2e3ea050f7b264e2fabfc41`.** M12a ledger/API/public CLI and
+`hub handoff` received independent Argon scoped acceptance: 36 Worker/SQLite HTTP,
+15 stdlib/public CLI and 14 novel cases passed (65 unique), plus typecheck.
+All 216 reviewed source hashes match; private restore, fsck and CLI help passed.
+Actual assignment, backfill, assistant adoption, MCP and cross-host session
+control remain open. Earlier checkpoint entries below retain historical evidence.
+
+**Current priority and steering.** Deliver the working M12e start/send/confirmed
+delivery/capture/stop loop first, then intake assignment/backfill and actual
+handoff adoption. Prefer OpenCode Go / Muse Spark 1.3 implementation workers;
+Z.ai Flash is also available per Alexey’s reset notice. Keep Codex for coordination
+and review, with fresh quota/launcher/resource admission before every launch.
+Addendum 3 is now M13 in PLAN: all enrolled machines collect provider usage
+locally, publish no raw tokens, expose hub quota CLI/API/dakit UI, and existing
+routing avoids exhausted engines. This is planned work, not shipped coverage.
+
+Retention/roles repair has 138 distinct author passes; exact composition with
+M12a at `aec97138afd5bccd9cd053794d85ee6dcfef548f` is under Argon review.
+M9 repair has 37 distinct author cases plus rendered UI checks; composed
+`e5ed3bfa0bf2e186eccf7f4868962cf0dd3475a6` awaits independent rereview.
+Neither candidate is on main. Runtime/enrollment and ownership gates remain.
 
 - Host-binding source `8ff51a1` received Grok scoped acceptance in `b6f0f06`.
   The registration-field wording correction `85fdcec` received exact independent
@@ -54,14 +72,11 @@ metrics and intake candidates below remain separate work.
   to passes; original tests and failure evidence are retained. Remaining affected
   cohorts, final source freeze and
   distinct exact review remain required. No M4/M7 composition is on main yet.
-- M12a author final `adae0fb346028c449db7ce6b5858720523ffd6a9` reports 36 real
-  Worker/SQLite HTTP cases, 15 stdlib/public-module CLI cases, typecheck and diff
-  checks passing. Head composed it with current accepted main at
-  `c290454e88c49c6fe863d20dd2717d58522851d0`; all nine M12-owned files remain
-  byte-identical. Actual task 0427 holds that candidate, and independent Argon
-  source review has started. This includes task ledger/API/CLI and handoff only;
-  real routing assignment, backfill, assistant adoption, MCP and cross-host
-  session control remain required later phases.
+- M12a reviewed source `c290454e88c49c6fe863d20dd2717d58522851d0` and
+  report/main `bc796013d9f522d8a2e3ea050f7b264e2fabfc41` are registered in
+  task 0427. The report’s nine checked hash claims match; the full source digest
+  is `a9df93a3940de5e4f3c8205f07218a11aa7d33464f20f84b7cc570f5fae4a05f`.
+  Source acceptance does not imply real session control or fresh-host takeover.
 - M9 remains out of main after independent report `645ab784` requested eight
   repairs. The new Grok repair generation retains task 0424 and all evidence.
   Producer agreement, runtime ingestion and physical adoption remain open.

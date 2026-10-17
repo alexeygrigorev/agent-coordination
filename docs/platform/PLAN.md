@@ -31,28 +31,34 @@ dispatcher or a second bus transport.
 
 ## Current execution checkpoint
 
-Hub main `6cf0c18` contains reviewed M1/F7/M2/M2b/M3/P3/pairing, portable
-host storage and M5 bounded follow-up retirement. Canonical Agent Branches and
-private remote restore match all 207 reviewed source hashes; both CLI help
-checks and integration typecheck pass. Post-main Argon source review of
-`16d66d6` is published in `10c65ff` after factual correction `a5685ed`.
-Its two Low host workflow findings are assigned to task0425 for bounded local
-binding repair and a truthful migration runbook; enrollment stays unchanged. M5 exact source
-`212560b` received Grok SCOPED ACCEPT `34ee3d0`: the five original defects and
-R2 retirement gap are repaired. Target read cursors remain unchanged and system
-follow-ups remain eligible for native delivery. Physical M5 is still open.
-M4 repaired candidate `7b6f7ff` in task0422 received Argon acceptance `fc5bd30`
-after four findings in `ab3b953`. Codex is composing its shared retention code
-with M5 main; the resolved source needs a new independent review. M7 `abd48b8`
-was rejected for a same-date cross-project duplicate intent after lease expiry.
-Repaired `275c84a` is in task0423 with 30 role and two identity passes; distinct
-Grok review is active. M9 task0424 has a Grok worker implementing a bounded authenticated
-receiver, host sanitizer and dakit views against read-only Dashboard reports;
-early receiver `738f45e` is in the actual fork/WIP, with adapter, UI and tests
-still in progress. Producer ownership/adoption remain pending.
-M4/M5/M7/M8a/M8b/M9/M10/M11 remain
-in scope. New intake milestone M12 below is also required; it does not replace
-the existing milestones.
+Hub main, canonical Agent Branches and private recovery are at
+`bc796013d9f522d8a2e3ea050f7b264e2fabfc41`. Reviewed M12a intake ledger,
+API, public CLI and `hub handoff` are integrated: 65 independent cases passed,
+with typecheck and all 216 reviewed source hashes verified. This accepts source;
+actual assignment, backfill, assistant adoption and session control remain open.
+The preceding host-binding repair and corrected M12 plan review are included.
+
+Alexey’s latest priority is the first working M12e hub session-control loop:
+start, send with confirmed delivery, capture and stop, replacing psc. M12b/c
+assignment, actual intake backfill and handoff adoption follow. Keep the full
+roadmap active and use independent workers with disjoint ownership. Prefer
+OpenCode Go / Muse Spark 1.3 for new implementation workers, with Z.ai
+`glm-5.3-flash` also eligible after its reset; keep Codex for coordination and
+review. Fresh measured quota and maintained launcher support must pass before
+launch; the reported reset in roughly 4d 22h is operator context, not a live
+quota reading. No new Claude workers or full GLM-5.3.
+
+M4/M5/M7 repair has 138 distinct author test passes. Its composition with accepted
+M12a is frozen at `aec97138afd5bccd9cd053794d85ee6dcfef548f`, under independent
+Argon review, not on main. M9 repaired source is frozen with current main at
+`e5ed3bfa0bf2e186eccf7f4868962cf0dd3475a6`, awaiting independent rereview;
+producer adoption remains open. M8a/M8b execution qualification/recovery,
+M10 follow-through and M11 physical acceptance remain required.
+
+Addendum 3 adds M13 below: collect quota on every enrolled machine and provide
+hub quota API, CLI and UI consumed by existing routing. M9 accounting and M13
+quota are linked but have separate acceptance: usage accounting is not evidence
+of available provider quota.
 
 ## Milestone map
 
@@ -66,7 +72,8 @@ the existing milestones.
 | M5 | Safe scheduled follow-ups and physical acceptance | Source `212560b` accepted in `34ee3d0`, integrated/restored as `6cf0c18`; physical acceptance remains |
 | M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
 | M7 | Configured roles and epoch-fenced job effects | Task0423 repaired `275c84a` under Grok review after `9574242` REVISE; actual backend remains M8b |
-| M12 | Capture intake, assign tasks and preserve orchestrator handoff context through CLI/API; backfill existing work | New requirement; phased source work and Argon review required, actual routing/session linkage and backfill remain acceptance gates |
+| M12 | Capture intake, assign tasks, preserve handoff and replace psc session orchestration | M12a source on `bc79601`; M12e first priority, then actual assignment/backfill/handoff adoption |
+| M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Addendum 3; extend existing quota contracts and routing, independent review and real host acceptance required |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -508,6 +515,63 @@ another intake ledger. Keep each phase independently owned and reviewed, while
 retaining assignment, actual backfill, assistant adoption, demonstrated
 orchestrator handoff and cross-host session orchestration in M12’s full scope.
 
+## M13 — Quota dashboard and routing admission
+
+**Source.** Alexey’s Addendum 3 to `hub-intake-brief.md`, received 17 October
+2026. The hub must collect usage/quota for every engine on every enrolled
+computer through that computer’s hub agent. Assistants should use `hub quota`
+instead of running `quse` separately on each machine.
+
+**M13a — Host collection and authenticated snapshots.** Extend the existing
+`src/quota.ts`, host quota snapshot adapter and maintained local collectors.
+Read local provider tokens/state only on their own machine, with the existing
+host authorization and custody. Publish only allowlisted usage numbers and
+necessary sanitized measurement metadata; never raw tokens, cookies, auth
+headers, credential files, full local state, or provider response bodies.
+Cover Codex weekly percentage and credits; Z.ai five-hour/weekly windows and
+resets; Claude; Grok; Antigravity/Gemini; and OpenCode Go spend, including the
+selected Muse Spark profile where available. Preserve provider-native units,
+window and reset timestamps, host, engine/profile identity, observation time,
+collector version and coverage/error state. Missing or unsupported readings stay
+unknown. Shared-account observations must not be summed into invented capacity;
+use existing privacy-safe account attribution and admission contracts.
+
+**M13b — Hub API, CLI and dakit UI.** Provide authenticated quota views with
+per-host/engine filters through API, public `hub quota` and dakit UI. Show fresh,
+stale, exhausted, unavailable and unknown states, original units and reset times.
+Authorization must protect private usage and machine inventory. Do not derive
+money or token counts from quota percentages. Reuse existing storage, bounded
+retention and pagination rather than creating a second telemetry service.
+
+**M13c — Existing routing consumes quota.** Agree the integration with the
+routing owner and reuse its ranking/admission and maintained launcher. Exclude
+exhausted engines and applicable exhausted account/window combinations; preserve
+the Codex remaining-quota gate and provider cooldowns. Stale, missing or unknown
+readings cannot authorize a launch. Re-check freshness at actual launch admission,
+reconcile concurrent/shared-account consumption and retain honest rejection or
+fallback reasons. A reset timestamp alone is not proof that capacity recovered.
+The new worker preference favors OpenCode Go / Muse Spark 1.3, with available
+Z.ai Flash; it never overrides exhaustion or qualification gates.
+
+**Acceptance.** Test collector fixtures for every named provider, multiple hosts,
+missing/expired local state, malformed numbers, reset boundaries and secrets
+embedded in error responses. Inspect outbound payloads and hub storage/logs to
+prove credential material stays local. Prove authenticated API/CLI/UI agree on
+host, units, freshness and unknown states. On enrolled machines, obtain real
+sanitized snapshots and reconcile coverage against the engine inventory; mark
+unqualified or unavailable hosts explicitly. Demonstrate existing routing rejects
+an exhausted engine, refuses stale/unknown admission, selects an eligible route
+and rechecks capacity at launch. Verify shared-account observations do not create
+double capacity. Obtain exact Argon/source review before normal integration;
+source fixtures alone do not establish all-machine adoption.
+
+**Dependencies and order.** Implement independently where ownership and capacity
+allow, after staffing the prioritized M12e session-control work. Coordinate quota
+contracts with routing and M8a qualification; reuse M9 UI/accounting conventions
+without treating M9 source acceptance as M13 completion. Roll out collectors
+through the actual host owner; preserve existing tools as fallback until runtime
+acceptance is measured.
+
 ## What this plan will not do
 
 - Duplicate FileBus, SSH relay, ChannelDO, or Agent Relay.
@@ -519,33 +583,24 @@ orchestrator handoff and cross-host session orchestration in M12’s full scope.
 
 ## Next actions
 
-1. Portable Windows source is published as `16d66d6` after corrective audit
-   `e5133fc`; canonical/private restore against all 203 hashes passed. Preserve
-   original reports and native journals. Physical Windows owner tests, enrollment
-   and adoption remain M3b/M11 gates; source acceptance does not close them.
-2. Preserve the published post-main Argon review and factual correction in
-   `10c65ff`; address the two verified Low host workflow findings in a bounded
-   follow-up. Its source verdict does not close deployment or multi-host gates.
-3. M5 source is accepted, integrated and privately restored as `6cf0c18`.
-   Preserve its current-slot fences, unresolved intents and fair bounded cleanup.
-   Physical scheduled follow-up/native delivery remains an acceptance obligation.
-4. Complete M4/M5 composition and independent review after M4 source acceptance
-   `fc5bd30`; preserve both retention lifecycles and verify shared budgets and
-   rollback. Annotate the report's one historical table error before publication.
-   Coordinate routing compatibility ACK; silence is not an ACK. Finish distinct
-   M7 review of `275c84a`, preserving task0423 ancestry and unresolved effects.
-5. Compose accepted M4/M7 changes with M5 main, resolve shared conversation/
-   retention/auth conflicts and independently verify any semantic merge changes.
-   Continue M8a qualified execution, M8b recovery profiles, M9 accounting, M10
-   follow-through and M11 physical migration with existing ownership gates.
-   M9 task0424 is active on isolated Hub source; obtain the producer contract
-   owner, review the sanitized adapter and receiver, and prove ingestion before
-   claiming producer adoption.
-6. Implement M12 intake/task API and CLI in scoped phases, coordinate the
-   existing routing assignment contract, obtain Argon review and prove real
-   session/report backfill. Keep actual assignment and assistant follow-up as
-   acceptance gates; do not stop at a CRUD-only ledger.
-7. Keep STATUS, the head report and private recovery checkpoints current after
-   accepted milestones. Source and release commits carry `[skip ci]` and actual
-   agent/model provenance; push normally to main without PRs or force-push.
-   Preserve journals, peer checkouts, global tools and rollback evidence.
+1. Deliver M12e’s first working hub session-control loop. Split API/public CLI
+   and host adapter into separate workers with an agreed interface, fresh quota,
+   resource admission and actual Agent Branches tasks. Prefer OpenCode Go / Muse
+   Spark 1.3 for implementation; keep Codex for coordination/review. Reuse routing,
+   native custody and M6/M8 qualification; do not bypass composer or readiness gates.
+2. Deliver M12b assignment and M12c actual backfill/assistant adoption using the
+   accepted M12a ledger. Prove automatic real-session links and fresh-agent
+   continuation from `hub handoff`, not just task CRUD or a local preview.
+3. Extend existing quota collection/API/UI/routing under M13. Agree ownership
+   with routing; verify live per-machine coverage and secret-free payloads.
+4. Finish the exact Argon review of composed retention/roles/M12a at `aec9713`.
+   Preserve original failures, the 138-case repair evidence and immutable review
+   reports; integrate only the accepted composition. M9 candidate `e5ed3bf` is
+   frozen for independent rereview when prioritized capacity permits.
+5. Continue M8a qualified execution, M8b recovery, M9 producer adoption, M10
+   follow-through and M11 physical migration. Published Windows, host binding and
+   M5 source do not close their outstanding physical and enrollment gates.
+6. Keep STATUS, the head report and private recovery checkpoints current after
+   accepted milestones and user steering. Preserve journals, peer checkouts,
+   installed tools and worktrees. Commit explicit paths with `[skip ci]` and
+   actual provenance; push normally to main without PRs or force-push.
