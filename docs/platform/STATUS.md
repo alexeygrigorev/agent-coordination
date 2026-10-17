@@ -5,7 +5,7 @@ Alexey waived review/custody/activation/budget gates for shipping. Finished work
 
 Real Muse session d18e1de8-43b3-4a7e-a992-ed1b22d0f5a0 passed the repeatable public CLI/HTTPS start → automatic binding → correlated receipt → capture (3686 characters) → confirmed stop loop before 16:25 Berlin. Main 7df2dd9; deployed Worker version 9dd0127f-f405-4fbc-8c2e-153347dc56cf includes server changes through cdf5e5a; subsequent commits add host/client tooling. Exact commands and truthful remaining gaps are at the top of ~/tmp/agent-reports/hub-platform.md.
 
-Physical Grok Bot box execution remains OPEN pending an existing route to that box; asked asynchronously and continued work. Unattended host-service recovery, other-machine adoption and remaining M12 crash/tier findings are next. Receipt proof is not task-completion proof. Canonical latest urgent state: .local/platform/URGENT-CURRENT.json.
+Alexey urgent point6 at16:23 now sets Hetzner-only runtime/testing. Win35 is intentionally offline for two weeks and is not a failure or blocker. The Hetzner milestone passed; physical Grok Bot box client execution was not performed. Fresh Muse worker platform-intake-live owns the next live intake assignment/handoff integration, pushing small tested commits immediately to main. Unattended host-service recovery, other-machine adoption and remaining M12 crash/tier findings are next. Receipt proof is not task-completion proof. Canonical latest urgent state: .local/platform/URGENT-CURRENT.json.
 # Conversation platform status
 
 As of 2026-10-17. Survey owner: `platform-survey` (Grok) in isolated worktree
