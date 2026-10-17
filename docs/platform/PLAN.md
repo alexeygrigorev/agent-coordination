@@ -49,7 +49,7 @@ dispatcher or a second bus transport.
   Isolated worktrees use native context to verify disjoint physical paths;
   matching relative filenames across worktrees do not create an ownership hold.
 
-## Current execution checkpoint
+## Historical execution checkpoint — superseded by current shipping checkpoint
 
 Hub main, canonical Agent Branches and private recovery are at
 `91b8b6c189c4f54b9d9e2c44d7dfcb09e5208396`. The delta from `6bc91a1` is
@@ -149,10 +149,15 @@ custody, active revision/rollback and budget evidence precede activation.
 | M5 | Safe scheduled follow-ups and physical acceptance | Source `212560b` accepted in `34ee3d0`, integrated/restored as `6cf0c18`; physical acceptance remains |
 | M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
 | M7 | Configured roles and epoch-fenced job effects | Reviewed composition integrated/restored as `6bc91a1`; actual qualified effect backend remains M8b |
-| M12 | Capture intake, assign tasks, preserve handoff and replace psc session orchestration | M12a source on `bc79601`; M12e first priority, then actual assignment/backfill/handoff adoption |
-| M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Actual0439 source `811c086`; independent Argon actual0442 seed `2041df5`; real host acceptance remains open |
-| M14 | One-call task/session/report/commit/deployment/CI/human-action status and change summary | Actual0443 Muse `platform-status` (`b5add0a1`) implements M14a API/CLI projection; M14b/c/d and physical adoption remain open |
-| M15 | Session lifecycle registry, needs-action list, durable limit decisions and safe cleanup | Module repair `1b7e109` independently accepted in `7871854` and published as `2eb0c3b`; registry/integration/effects remain open |
+| M8a | Qualified model/account/profile execution | Ordinary Muse route is being qualified through maintained launcher; unknown attribution must remain explicit. Shared-host/profile qualification beyond this route remains open. |
+| M8b | Writer, principal wake and head recovery profiles | Existing role/job and launcher source is reusable; useful controlled cycles and recovery acceptance remain open. Current session-host supervision is not proof of all automation profiles. |
+| M9 | Bounded authenticated accounting ingestion and dakit UI | Existing repaired DTO/UI candidates f20b35a + aa048b7 are being integrated by Muse a35d88fc from fresh main; latest M12 host authority must be preserved. No new review gate. |
+| M10 | Visible owner acceptance, first action, review/outcome and human follow-through | Canonical task/conversation links and checks exist; full adapter adoption and overdue/restart acceptance remain open. |
+| M11 | Real platform adoption, migration and independent restore | Hetzner session/intake/status adoption passes; Win35 is intentionally offline and is not a current acceptance gate. Broader exchange/reconnect/follow-up and per-service migration evidence remain open. |
+| M12 | Capture intake, assign tasks, preserve handoff and replace psc session orchestration | Live Hetzner control loop, persistent host/restart, task assignment/handoff and backfill pass. Ordinary Muse briefing source79ce129 awaits exact launcher-tag/settings/receipt repair by1715 before live use. MCP adoption remains open. |
+| M13 | Per-machine quota collection, `hub quota`, API/UI and quota-aware routing | Source integrated; persistent Hetzner host reports7 provider routes and CLI6 configured pools. Other-host coverage follows availability; Win35 expected offline. End-to-end routing exhaustion/unknown-profile coverage remains part of full qualification. |
+| M14 | One-call task/session/report/commit/deployment/CI/human-action status and change summary | Live onePOST complete97-record baseline, unchanged diff0 and legitimate changed-task diff1 pass on0bf1882. Native/report/probe collector941b3a4 is shipped; persistent hook, actual native state alias and real observation/probe adoption remain open. |
+| M15 | Session lifecycle registry, needs-action list, durable limit decisions and safe cleanup | Registry/API/CLI/decisions/dryrun shipped. Remote tree candidatece6d158 requires explicit server-owned cleanup authorization; roots disabled. Worker53f48c8a repairs that guard and shared binding/status seams before own-only real cleanup acceptance. |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -374,9 +379,10 @@ exact integrated source before declaring the conversation path accepted.
 
 M1–M5 are the first conversation release, not the whole backlog. The reusable
 unfinished plans below remain in this platform roadmap. A dependency hold is
-not a delivered integration. Each milestone needs a scoped implementer, a
-different-model pinned review, tests, and a normal main push. File ownership
-must be agreed through the bus before implementation; this roadmap grants none.
+not a delivered integration. Alexey’s urgent override removes further review
+and activation paperwork gates: use scoped implementers, relevant tests and
+small normal main pushes. Existing Argon reports remain evidence, not a new
+shipping hold. Agree source ownership through the bus before editing.
 
 | ID | Shippable result and acceptance | Dependencies |
 |---|---|---|

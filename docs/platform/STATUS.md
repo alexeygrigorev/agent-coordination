@@ -34,7 +34,7 @@ Evidence classes used below:
 Unit tests are not physical delivery. Passing vitest/unittest counts are source
 evidence only.
 
-## Current checkpoint — 17 October 2026
+## Historical checkpoint — 17 October 2026 (superseded above)
 
 **Latest accepted source — 13:46 UTC.** Hub main, canonical Agent Branches and
 private recovery now equal `2eb0c3b09628871c281307775dbb729b2193cc3e`. Independent
