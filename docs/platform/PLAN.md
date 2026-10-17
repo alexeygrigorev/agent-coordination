@@ -153,6 +153,12 @@ on that host.
   offline/reconnect dedup, reply and gap reconciliation on the physical host.
   Keep Windows root stood down and preserve rollback until that handoff; this
   physical gate also belongs to M11.
+- Check journal-parent privacy before host adoption. The composed POSIX backend
+  holds on a group/world-accessible journal parent; the isolated composition
+  fixture required changing its own `.local` from `0775` to `0700`. Any existing
+  workspace needs its owner's acknowledged metadata change; do not relax the
+  backend, recursively chmod contents, move/reset journals, or silently alter
+  a shared production workspace to make acceptance pass.
 
 **Depends.** M1. Can proceed in `agent-hub-wt-platform-cli` against the M1
 contract. Codex quota-gate wrapper already required by platform.

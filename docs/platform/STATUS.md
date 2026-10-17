@@ -1221,3 +1221,32 @@ The M4 routing ownership request remains queued: native delivery rejected a
 stale idle report contradicted by later terminal activity. No readiness event
 or ownership ACK was fabricated. Hub main is unchanged; existing source leases
 and all later milestone gates remain in force.
+
+
+### Windows composition checkpoint and preflight repair — 17 October 2026
+
+Actual Agent Branches task `0420` (`platform-win-merge-0420`), Codex session
+`4a0b74cb`, preserves early two-artifact checkpoint
+`981430f4793160e4580789889e13d5c29e0a824f` in its fork/WIP. All six existing
+Windows patch inputs match the frozen conversation tree and its four new paths
+are absent there. Composition uses the reviewed Windows delta without adaptation:
+203 frozen output files, with all 193 paths outside that delta unchanged.
+The conversation base remains provisional pending its distinct Argon review.
+
+The initial host union ran 654 cases: 649 passed, four mock-HTTP fixture errors
+and one actual-Windows skip. Diagnosis found the runner's `HUB_CONFIG_FILE`
+overriding fixtures' isolated XDG configuration, and fixture directories created
+without the new backend's private-parent precondition. Removing that runner
+override and setting child umask `077` makes the affected eight tests pass;
+product source, tests, assertions and security predicates are unchanged. The
+full union is rerunning and original failures remain retained. After a narrow
+scope ACK, only the assigned workspace's `.local` parent metadata changed from
+`0775` to `0700`; no journal existed and no native effect had occurred. This is
+an adoption precondition, not permission to modify other workspaces.
+
+The composed source still needs final tests, public CLI and bounded own-native
+proof, distinct review, source ownership handoff and integration. Physical
+Windows/DLL and M11 acceptance remain unproven. M5 has reconstructed its input
+and is implementing conversation backlog/follow-up methods in private source;
+its scheduler, membership and idempotency tests remain pending. The combined
+Argon review is live with serial verification suites. Hub main is unchanged.
