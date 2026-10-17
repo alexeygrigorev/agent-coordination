@@ -136,6 +136,22 @@ credential change occurred.
 Sections below retain the original survey and dated development checkpoints;
 their historical main pins and pending-source statements are superseded here.
 
+## New requirement — intake to tasks
+
+Alexey’s 17 October intake brief adds M12 to the full roadmap: capture every
+request with original text/source/time, status, notes, session/hub/host links,
+report paths, commits and follow-ups/blockers needing Alexey. The existing `hub`
+CLI must support task management and assignment through current routing, linking
+the actual created session automatically. Assistants need authorized open-task
+listing and follow-up. Current sessions and report files must be backfilled;
+The addendum also requires per-task durable handoff context (verbatim requests,
+decisions, rules, state, next action and approvals) and a global `hub handoff`
+briefing so another authorized agent can continue with no previous chat context.
+Assistants must maintain it as they work through CLI/API and later MCP.
+API support comes first, MCP exposure later. These are new requirements, not
+completed features. Routing-contract coordination is recorded; no ACK or runtime
+assignment is inferred. See [M12 in PLAN.md](PLAN.md#m12--intake-becomes-tracked-assignable-work).
+
 ## 1. Product map
 
 | Product | Checkout | GitHub main observed | Role in a conversation platform |

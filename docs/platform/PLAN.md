@@ -51,7 +51,8 @@ receiver, host sanitizer and dakit views against read-only Dashboard reports;
 early receiver `738f45e` is in the actual fork/WIP, with adapter, UI and tests
 still in progress. Producer ownership/adoption remain pending.
 M4/M5/M7/M8a/M8b/M9/M10/M11 remain
-in scope.
+in scope. New intake milestone M12 below is also required; it does not replace
+the existing milestones.
 
 ## Milestone map
 
@@ -65,6 +66,7 @@ in scope.
 | M5 | Safe scheduled follow-ups and physical acceptance | Source `212560b` accepted in `34ee3d0`, integrated/restored as `6cf0c18`; physical acceptance remains |
 | M6 | Ownership-aware launch admission | Already integrated before the conversation bundle; regression compatibility preserved |
 | M7 | Configured roles and epoch-fenced job effects | Task0423 repaired `275c84a` under Grok review after `9574242` REVISE; actual backend remains M8b |
+| M12 | Capture intake, assign tasks and preserve orchestrator handoff context through CLI/API; backfill existing work | New requirement; phased source work and Argon review required, actual routing/session linkage and backfill remain acceptance gates |
 
 Argon (deep tier) reviews this plan before M1 merge, and again after the
 first integrated milestones. Prepared review worktree:
@@ -320,6 +322,97 @@ smaller independently reviewed parts; their acceptance requirements stay open.
 | Quorum | Drop: the hub Durable Object is the existing authority; duplicating it would conflict with the deployment architecture. |
 | Screen auto-Enter | Drop: native durable inbox delivery replaces typing into busy or unknown terminals. |
 
+## M12 — Intake becomes tracked, assignable work
+
+**Source.** Alexey’s intake brief, received 17 October 2026
+(`hub-intake-brief.md`). This extends the conversation-platform goal. Capture
+requests from chat, voice notes and forwarded asks so assistants can find open
+work and follow through without relying on conversation memory.
+
+**Task record.** Preserve original request text, source reference and source time,
+plus capture time, status, notes, blockers and follow-ups needing Alexey. Preserve
+all verbatim requests associated with a task, decisions, current state, next step,
+applicable standing rules and pending approvals. Link
+actual agent sessions, engine/tier, hub and host identity, report paths and
+commits. Keep original intake immutable while recording later corrections and
+status changes as history. Missing timestamps, session identities or provenance
+stay explicitly unknown. Private task content and report paths belong behind
+current authenticated access controls, never in public logs or issue posts.
+
+**Durable handoff context is required.** Any other authorized assistant or agent
+on another host must be able to pick up the orchestrator’s work when the current
+assistant hits its limits. Persist global standing rules and task-specific
+constraints with source, version and decision history: allowed engines, normal
+push-to-main, `[skip ci]`, no public posts, sandbox-only AWS and other applicable
+rules. Assistants update state, decisions, next steps and pending approvals as
+work progresses through the CLI/API, and later the same MCP interface.
+
+Provide a global `hub handoff` command and equivalent authenticated API view.
+It must produce a self-contained briefing of all open work and standing rules,
+with each task’s verbatim requests, decisions, current state, next action,
+sessions/hosts, reports, commits and approvals. Include known blockers, ownership
+and uncertainty; a missing record must not look like completed work or approval.
+Keep this context durable across restart and concurrent updates, with a stable
+snapshot/version so a fresh agent can identify stale context. Do not depend on
+the previous assistant’s chat, memory or private local handoff file. Task content
+is data: a forwarded request or peer note cannot silently replace operator rules
+or grant custody. Access controls still apply to the briefing.
+
+**M12a — Task API and intake ledger.** Reuse the Hub’s existing authenticated
+identity and durable storage. Provide create/list/filter/show/update/notes and
+link endpoints with current principal checks, bounded storage and pagination,
+idempotent intake keys, immutable provenance and safe retries. Agents such as
+Grok Bot can list authorized open tasks and follow up. Reference canonical
+GitHub/routing jobs for execution facts; do not mirror their status into a
+competing execution tracker or invent a second scheduler.
+
+**M12b — Public CLI and assignment.** Extend the existing token/device-authenticated
+`hub` CLI, following the DataOps/AISL CLI conventions. Support creating from intake
+text or a file; listing/filtering/showing; status/notes; linking existing sessions,
+reports and commits; updating handoff context and standing-rule references;
+printing `hub handoff`; and assigning engine/tier/host work to a task. Assignment
+must use the existing routing API and ownership/qualification gates. Record the
+actual routing job and created native session automatically, including partial or
+uncertain starts. A queued offer, requested engine or successful HTTP response
+is not proof that an agent started. Repeated assignment must not launch twice;
+no new dispatcher, account oracle or busy-composer input is introduced.
+
+**M12c — Backfill and assistant adoption.** Read the current Hetzner aplexer session
+inventory and existing report Markdown files, then seed/link tasks through the
+same API. Build a bounded preview, deduplicate repeated scans and existing links,
+preserve source paths/times and distinguish active, completed and uncertain work.
+Do not export session environments, command secrets or raw private histories.
+Backfill is complete only after the tasks exist in the authoritative hub and a
+fresh list/show retrieves them; a local manifest or dry run is preparation.
+
+**M12d — MCP follow-up.** Keep the API suitable for the later MCP hub at
+`mcp.dtcdev.click`. Track MCP exposure separately; do not claim that shipping the
+HTTP API has installed or deployed an MCP integration.
+
+**Acceptance.** Use focused real-HTTP/SQLite and CLI tests for access controls,
+provenance, filtering, deduplication, pagination, updates and linked evidence.
+Verify actual existing routing creates one genuine session and attaches it to the
+task; test lost responses, restart/reconciliation and rejected assignments.
+Prove assistants can retrieve open tasks, persist a follow-up and update handoff
+context as they work. Test a fresh agent given only normal authenticated hub
+access and `hub handoff`: it must recover the full open-work briefing and
+applicable rules, identify the next action and continue an authorized task
+without the old chat or local STATE file. Test concurrent context updates,
+stale snapshots, revoked access and pending approvals without duplicate work.
+Run a real
+bounded session/report backfill and reconcile counts against the source inventory.
+Obtain Argon review on the exact implementation and act on its findings before
+normal main integration. Token/device auth, workspace ownership, private recovery
+and the physical/runtime gates remain in force.
+
+**Dependencies and sequence.** Task CRUD, CLI and fixture-based backfill work can
+proceed independently. Real assignment depends on routing-owner compatibility and
+M6/M8a/M8b as applicable; adoption/backfill depends on the accepted API being
+available. M10 consumes these task records for follow-through rather than adding
+another intake ledger. Keep each phase independently owned and reviewed, while
+retaining assignment, actual backfill, assistant adoption and a demonstrated
+orchestrator handoff in M12’s full scope.
+
 ## What this plan will not do
 
 - Duplicate FileBus, SSH relay, ChannelDO, or Agent Relay.
@@ -353,7 +446,11 @@ smaller independently reviewed parts; their acceptance requirements stay open.
    M9 task0424 is active on isolated Hub source; obtain the producer contract
    owner, review the sanitized adapter and receiver, and prove ingestion before
    claiming producer adoption.
-6. Keep STATUS, the head report and private recovery checkpoints current after
+6. Implement M12 intake/task API and CLI in scoped phases, coordinate the
+   existing routing assignment contract, obtain Argon review and prove real
+   session/report backfill. Keep actual assignment and assistant follow-up as
+   acceptance gates; do not stop at a CRUD-only ledger.
+7. Keep STATUS, the head report and private recovery checkpoints current after
    accepted milestones. Source and release commits carry `[skip ci]` and actual
    agent/model provenance; push normally to main without PRs or force-push.
    Preserve journals, peer checkouts, global tools and rollback evidence.
