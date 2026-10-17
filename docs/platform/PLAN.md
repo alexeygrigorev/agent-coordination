@@ -890,13 +890,14 @@ real enrolled-host acceptance separately; source fixtures do not establish it.
 - Move contest Agent Branches into the hub.
 - Archive predecessor repos (GitHub notices already exist; local checkouts
   lag).
-- Deploy, change DNS, rotate tokens, or stop systemd timers.
+- Retire legacy services before observed replacement behavior and an acknowledged handoff.
+- Extend cloud changes beyond Alexey’s authorized Hub deployment, authentication, CI/CD and AWS Sandbox domain work.
 - Claim physical multi-host delivery from unit tests.
 
 ## Next actions
 
-1. Integrate the four independent urgent streams continuously: web sign-in, unified native/headless sessions and lineage, custom domain, lean CI/CD. Verify real first actions/source checks and serialize production deployment while source work proceeds in parallel.
-2. Prove the repaired fresh-root human auth flow, human CLI visibility of both named sessions and complete native coverage, own-only control/lineage acceptance, working new-host device login, and one actual Actions deployment with rollback commands. Update the report immediately as each result is verified.
-3. Resume the preserved disk implementation and port useful competition monitoring from the landed inventory. Keep healthy services/source intact and Win35 expected offline.
-4. Complete remaining M15 outcome/cleanup integration and full M8b/M10/M11/MCP/adoption roadmap using real runtime evidence. Keep cleanup roots empty until owned effects are verified.
-5. Keep PLAN/STATUS/report and private recovery current; sync tested main to canonical/private restore, preserve failed receipts, and retire only finished merged owned worktrees.
+1. Complete real-model original-envelope delivery: activate the actual Antigravity engine route in the existing shared quota account after deployment rollover, then use human CLI start/send/correlated recipient reply/capture/confirmed stop. Preserve failed attempts, original message keys and readiness guards. Migrate tier engine metadata consistently after actual-engine qualification.
+2. Finish M15 host retired-history handling and live owned cleanup. The server increment is on main; the owning worker continues host changes. Scope acceptance to child `adc90857-5d84-4113-8706-375c9ce8482c`/worktree2148. Preserve missing-history refusals and older sessions; cleanup roots are already explicitly limited to the owned-session-worktrees directory, so plan/apply must retain every identity, custody, Git and retention guard.
+3. Resume M8b from the retired worker’s preserved partial role-runtime worktree using the same intake task, fresh quota and bounded capacity. Implement all three supported role profiles, then prove two useful real cycles and interruption/fencing behavior. A native exit or unit pass does not establish the role outcome.
+4. Complete M10 follow-through, M11 human/agent adoption and reconnect, plus the remaining monitoring inventory gaps. Keep healthy legacy services until their replacement is observed. Win35 remains expected offline; physical second-host acceptance stays partial until it is available. Alexey’s actual Google completion awaits the existing pending question.
+5. Keep PLAN/STATUS/live briefing and canonical intake task contexts current; synchronize tested main to canonical/private recovery, preserve failed receipts, and retire finished merged owned worktrees normally. Four urgent streams are already landed/deployed; keep their runtime evidence and regressions current. Separate MCP work remains a later follow-up rather than a substitute for these acceptance checks.
